@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/views/LoginPage.vue'
+import RegisterPage from '@/views/RegisterPage.vue'
 
 // 페이지 경로 설정 파일
 const routes = [
@@ -8,6 +9,12 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage
+  },
+  // 회원 가입 페이지 경로 설정
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage
   }
 ]
 

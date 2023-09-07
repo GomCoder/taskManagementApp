@@ -1,7 +1,12 @@
 <!-- 회원가입 페이지 컴포넌트 -->
 <script>
 export default {
-  name: 'RegisterPage'
+  name: 'RegisterPage',
+  methods: {
+    submitForm() {
+      this.$emit('submit', this.form)
+    }
+  }
 }
 </script>
 
@@ -18,7 +23,7 @@ export default {
           <div class="tagline">오픈 소스 일정 관리 툴</div>
         </div>
         <!-- 폼 그룹 -->
-        <form>
+        <form @submit.prevent="submitForm">
           <!-- 사용자 이름 입력 -->
           <div class="form-group">
             <label id="username"></label>
@@ -32,7 +37,7 @@ export default {
             <label id="password"></label>
           </div>
           <!-- 가입하기 버튼 -->
-          <button type-="submit" class="btn btn-outline-primary btn-block">가입하기</button>
+          <button type-="submit" class="btn btn-outline-primary btn-block" onclick="submitForm">가입하기</button>
         </form>
       </div>
     </div>
