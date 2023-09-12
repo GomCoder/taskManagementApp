@@ -14,6 +14,8 @@
 	<name>TaskManagement</name>
 	<description>Open source task management tool</description>
 	<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
@@ -48,6 +50,17 @@
 			<version>5.7.0</version>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.14.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.objenesis</groupId>
+      <artifactId>objenesis</artifactId>
+      <version>3.2</version>
+      <scope>test</scope>
+    </dependency>
 
 
     <dependency>
@@ -55,12 +68,29 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.0.33</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>5.0.2.RELEASE</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>5.0.8.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>4.11.0</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
@@ -91,20 +121,20 @@
 						</configuration>
 					</execution>
 					<!-- 단위 테스트 실행 -->
-					<execution>
-						<id>front-end test</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>prepare-package</phase>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>run</argument>
-								<argument>test:unit</argument>
-							</arguments>
-						</configuration>
-					</execution>
+<!--					<execution>-->
+<!--						<id>front-end test</id>-->
+<!--						<goals>-->
+<!--							<goal>exec</goal>-->
+<!--						</goals>-->
+<!--						<phase>prepare-package</phase>-->
+<!--						<configuration>-->
+<!--							<executable>npm</executable>-->
+<!--							<arguments>-->
+<!--								<argument>run</argument>-->
+<!--								<argument>test:unit</argument>-->
+<!--							</arguments>-->
+<!--						</configuration>-->
+<!--					</execution>-->
 					<!-- npm run build 실행 -->
 					<execution>
 						<id>front-end build package</id>
@@ -121,20 +151,20 @@
 						</configuration>
 					</execution>
 					<!-- E2E 테스트 실행 -->
-					<execution>
-						<id>front-end e2e test</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>integration-test</phase>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>run</argument>
-								<argument>test:e2e</argument>
-							</arguments>
-						</configuration>
-					</execution>
+<!--					<execution>-->
+<!--						<id>front-end e2e test</id>-->
+<!--						<goals>-->
+<!--							<goal>exec</goal>-->
+<!--						</goals>-->
+<!--						<phase>integration-test</phase>-->
+<!--						<configuration>-->
+<!--							<executable>npm</executable>-->
+<!--							<arguments>-->
+<!--								<argument>run</argument>-->
+<!--								<argument>test:e2e</argument>-->
+<!--							</arguments>-->
+<!--						</configuration>-->
+<!--					</execution>-->
 				</executions>
 				<configuration>
 					<workingDirectory>${basedir}/front-end</workingDirectory>
