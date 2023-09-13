@@ -21,7 +21,9 @@ public interface UserRepository {
 
   /**
    * 새 사용자 또는 기존 사용자 저장
+   *
    * @param user
+   * @return
    */
   void save(User user);
 }

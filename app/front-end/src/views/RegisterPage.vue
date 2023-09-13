@@ -40,7 +40,7 @@
           <div class="form-group">
             <!-- 사용자 비밀번호 입력 -->
             <label for="password">Password</label>
-            <input type="password" class="form-control" id-="password" v-model="form.pasword">
+            <input type="password" class="form-control" id-="password" v-model="form.password">
             <!-- 사용자 비밀번호 입력 오류 메시지 -->
             <div class="field-error" v-if="$v.form.password.$dirty">
                 <div class="error" v-if="!$v.form.password.required">Password is required</div>

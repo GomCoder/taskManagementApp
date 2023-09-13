@@ -17,8 +17,11 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
   private RegistrationManagement registrationManagement;
+
   private DomainEventPublisher domainEventPublisher;
+
   private MailManager mailManager;
 
   public UserServiceImpl(RegistrationManagement registrationManagement, DomainEventPublisher domainEventPublisher, MailManager mailManager) {

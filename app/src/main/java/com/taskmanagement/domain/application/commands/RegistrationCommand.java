@@ -2,6 +2,8 @@ package com.taskmanagement.domain.application.commands;
 
 import org.springframework.util.Assert;
 
+import java.util.Objects;
+
 public class RegistrationCommand {
 
   private String username;
@@ -37,26 +39,11 @@ public class RegistrationCommand {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    RegistrationCommand that = (RegistrationCommand)  o;
-
-    if (username != null ? !username.equals(that.username) : that.username != null) {
-      return false;
-    }
-
-    if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) {
-      return false;
-    }
-
-    return password != null ? password.equals(that.password) : that.password == null;
+  public boolean equals(Object object) {
+    if (this == object) return true;
+    if (object == null || getClass() != object.getClass()) return false;
+    RegistrationCommand that = (RegistrationCommand) object;
+    return Objects.equals(username, that.username) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(password, that.password);
   }
 
   @Override

@@ -9,6 +9,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User extends AbstractBaseEntity {
+  private static final long serialVersionUID = -538781580460070724L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -23,16 +25,16 @@ public class User extends AbstractBaseEntity {
   private String password;
 
   @Column(name = "first_name", nullable = false, length = 45)
-  private String firtstName;
+  private String firstName;
 
   @Column(name = "last_name", nullable = false, length = 45)
   private String lastName;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "create_date", nullable = false)
+  @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
-  public User() {}
+  public User() { }
 
   /**
    * 등록 중 새 새용자 생성
@@ -46,7 +48,7 @@ public class User extends AbstractBaseEntity {
     user.username = username;
     user.emailAddress = emailAddress;
     user.password = password;
-    user.firtstName = "";
+    user.firstName = "";
     user.lastName = "";
     user.createdDate = new Date();
     return user;
@@ -69,8 +71,8 @@ public class User extends AbstractBaseEntity {
     return password;
   }
 
-  public String getFirtstName() {
-    return firtstName;
+  public String getFirstName() {
+    return firstName;
   }
 
   public String getLastName() {
@@ -81,22 +83,14 @@ public class User extends AbstractBaseEntity {
     return createdDate;
   }
 
+
   @Override
-  public boolean equals(Object o) {
-    if(this == o) {
-      return true;
-    }
-
-    if(!(o instanceof User)) {
-      return false;
-    }
-
-    User user = (User) o;
-
-    return Objects.equals(username, user.username) && Objects.equals(emailAddress, user.emailAddress);
-
+  public boolean equals(Object object) {
+    if (this == object) return true;
+    if (object == null || getClass() != object.getClass()) return false;
+    User user = (User) object;
+    return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(createdDate, user.createdDate);
   }
-
 
   /**
    * HashCode 생성
@@ -114,7 +108,7 @@ public class User extends AbstractBaseEntity {
       ", username='" + username + '\'' +
       ", emailAddress='" + emailAddress + '\'' +
       ", password=<Protected> " +
-      ", firtstName='" + firtstName + '\'' +
+      ", firtstName='" + firstName + '\'' +
       ", lastName='" + lastName + '\'' +
       ", createdDate=" + createdDate +
       '}';

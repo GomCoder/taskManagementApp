@@ -11,7 +11,8 @@ import javax.validation.Validator;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * 회원 가입시 유효성 검증에 대한 테스트
