@@ -47,12 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     web.ignoring()
       .antMatchers("/static/**", "/js/**", "/css/**", "/images/**", "/favicon.ico");
   }
-  /*
+
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
+  /*
   @Bean
   public AuthenticationSuccessHandler authenticationSuccessHandler() {
     return new SimpleAuthenticationSuccessHandler();
