@@ -1,6 +1,6 @@
 package com.taskmanagement.web.apis;
 
-import com.taskmanagement.Utils.JsonUtils;
+import com.taskmanagement.utils.JsonUtils;
 import com.taskmanagement.config.SecurityConfiguration;
 import com.taskmanagement.domain.application.UserService;
 import com.taskmanagement.domain.model.user.EmailAddressExistsException;
@@ -14,8 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 

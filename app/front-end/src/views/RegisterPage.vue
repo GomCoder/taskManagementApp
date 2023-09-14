@@ -3,10 +3,7 @@
     <div class="row justify-content-center">
       <div class="register-form">
         <!-- 상단 로그인 이미지, 간단 소개-->
-        <div class="logo-wrapper">
-          <img src="@/images/logo.png" alt="로고 이미지" class="logo">
-          <div class="tagline">Open source task management tool</div>
-        </div>
+        <Logo />
         <!-- 회원가입 Form 요소 -->
         <form @submit.prevent="submitForm">
           <!-- 에러 메시지 출력-->
@@ -56,24 +53,19 @@
         </form>
       </div>
     </div>
-    <footer class="footer">
-      <span class="copyright">&copy; 2018 TaskAgile.com</span>
-      <ul class="footer-links list-inline float-right">
-          <li class="list-inline-item"><a href="#">About</a></li>
-          <li class="list-inline-item"><a href="#">Terms of Service</a></li>
-          <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-          <li class="list-inline-item"><a href="https://github.com/taskagile/vuejs.spring-boot.mysql" target="_blank">GitHub</a></li>
-        </ul>
-    </footer>
+   <PageFooter />
   </div>
 </template>
 
 <script>
 import { required, email, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators'
-import registrationService from '@/serviecs/registration'
+import registrationService from '@/services/registration'
+import Logo from '@/components/Logo.vue'
+import PageFooter from '@/components/PageFooter.vue'
 
 export default {
   name: 'RegisterPage',
+  components: { PageFooter, Logo },
   data: function () {
     return {
       form: {

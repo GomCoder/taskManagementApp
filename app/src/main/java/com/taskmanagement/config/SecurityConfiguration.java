@@ -2,6 +2,7 @@ package com.taskmanagement.config;
 
 import com.sun.tracing.ProbeName;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,13 +17,14 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 /**
  * 스프링 시큐리티를 위한 설정 클래스
  */
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private static final String[] PUBLIC = new String[] {
     "/error", "/login", "/logout", "/register", "/api/registrations"
   };
-  /*
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -35,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
         .logout()
         .logoutUrl("/logout")
-        .logoutSuccessHandler(logoutSuccessHandler())
+        .logoutSuccessUrl("/login?logged-out")
       .and()
         .csrf().disable();
   }
@@ -43,9 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring()
-      .antMatchers("/static/**", "/js/**", "/css/**", "/images", "/favicon.ico");
+      .antMatchers("/static/**", "/js/**", "/css/**", "/images/**", "/favicon.ico");
   }
-
+  /*
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

@@ -1,4 +1,4 @@
-package com.taskmanagement.Utils;
+package com.taskmanagement.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
