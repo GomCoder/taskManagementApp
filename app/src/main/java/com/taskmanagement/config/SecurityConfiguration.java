@@ -1,6 +1,8 @@
 package com.taskmanagement.config;
 
-import com.sun.tracing.ProbeName;
+import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationFailureHandler;
+import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
+import com.taskmanagement.web.apis.authenticate.SimpleLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  /*
+
   @Bean
   public AuthenticationSuccessHandler authenticationSuccessHandler() {
     return new SimpleAuthenticationSuccessHandler();
@@ -60,12 +62,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Bean
   public AuthenticationFailureHandler authenticationFailureHandler() {
-    return new SimpleAuthenticationFailureHandeler();
+    return new SimpleAuthenticationFailureHandler();
   }
 
   @Bean
   public LogoutSuccessHandler logoutSuccessHandler() {
-    return new SimpleLogoutSuccessHander();
+    return new SimpleLogoutSuccessHandler();
   }
-  */
+
 }
