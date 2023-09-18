@@ -1,8 +1,8 @@
 <script>
 import 'bootstrap/dist/js/bootstrap.min'
 import { mapGetters } from 'vuex'
-import meService from '@/services/me'
-import notify from '@/utils/notify'
+// import meService from '@/services/me'
+// import notify from '@/utils/notify'
 
 export default {
   name: 'PageHeader',
@@ -14,10 +14,8 @@ export default {
       'teamBoards'
     ])
   },
-  mounted () {
-    if (!this.user.authenticated) {
-      this.$store.dispatch('getMyData')
-    }
+  created () {
+    this.$store.dispatch('getMyData')
   },
   methods: {
     goHome () {
@@ -25,15 +23,6 @@ export default {
     },
     openBoard (board) {
       this.$router.push({ name: 'board', params: { boardId: board.id } })
-    },
-    signOut () {
-      this.$rt.logout()
-      meService.signOut().then(() => {
-        this.$store.dispatch('logout')
-        this.$router.push({ name: 'login' })
-      }).catch(error => {
-        notify.error(error.message)
-      })
     }
   }
 }
@@ -42,8 +31,8 @@ export default {
 <template>
   <div class="page-header d-flex align-content-center">
     <div class="logo" @click="goHome()">
-      <font-awsome-icon icon="home" class="home-icon" />
-      <img src="/images/logo.png" />
+      <font-awesome-icon icon="house" class="home-icon" />
+      <img src="@/images/logo.png" />
     </div>
     <div class="boards-menu-toggle">
       <div class="dropdown">
@@ -53,7 +42,7 @@ export default {
         <div class="dropdown-menu" aria-labelledby="boardsMenu">
           <div v-show="!hasBoards" class="dropdown-item">{{ $t('header.boardsMenu.noBoard') }}</div>
           <div v-show="hasBoards">
-            <h6 class="dropdown-header" v-show="personalBoards.length">{{ $t('header.boardsMenu.personBoards')}}</h6>
+            <h6 class="dropdown-header" v-show="personalBoards.length">{{ $t('header.boardsMenu.personalBoards')}}</h6>
             <button v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)" class="dropdown-item" type="button">{{ board.name }}</button>
             <div v-for="team in teamBoards" v-bind:key="'t' + team.id">
               <h6 class="dropdown-header">{{ team.name }}</h6>
@@ -65,7 +54,7 @@ export default {
     </div>
     <div class="search-box flex-fill">
       <div class="search-wrapper">
-        <font-awsome-icon icon="search" class="search-icon" />
+        <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="search-icon"/>
         <input type="text" v-bind:placeholder="$t('header.search')" class="form-control form-control-sm" />
       </div>
     </div>
@@ -76,7 +65,7 @@ export default {
         </button>
         <div class="dropdown-menu" aria-labelledby="profileMenu">
           <button class="dropdown-item" type="button">{{ $t('header.profile') }}</button>
-          <button class="dropdown-item" type="button" @click="signOut()">{{ $t('header.signOut') }}</button>
+          <button class="dropdown-item" type="button">{{ $t('header.signOut') }}</button>
         </div>
       </div>
     </div>
@@ -86,7 +75,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-header {
-  flex: none;
   padding: 9px 10px 8px;
   border-bottom: 1px solid #eee;
   .logo {

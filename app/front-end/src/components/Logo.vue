@@ -1,7 +1,7 @@
 <template>
   <div class="logo-wrapper">
     <img src="@/images/logo.png" alt="로고 이미지" class="logo">
-    <div class="tagline">Open source task management tool</div>
+    <div class="tagline">{{ $t("logo.tagLine") }}</div>
   </div>
 </template>
 

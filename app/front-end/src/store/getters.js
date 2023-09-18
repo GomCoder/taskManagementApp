@@ -4,6 +4,10 @@ export const hasBoards = state => {
   return state.boards.length > 0
 }
 
+export const personalBoards = state => {
+  return state.boards.filter(board => board.teamId === 0)
+}
+
 export const teamBoards = state => {
   const teams = []
   state.teams.forEach(team => {

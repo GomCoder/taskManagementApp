@@ -25,5 +25,5 @@ export default new Vuex.Store({
   getters,
   mutations,
   actions,
-  plugins: process.env.NODE_ENV !== 'prodction' ? [createLogger()] : []
+  plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : []
 })

@@ -10,9 +10,9 @@ import java.util.Objects;
 
 public class SimpleUser implements UserDetails {
 
-  private final long userId;
-  private final String username;
-  private final String password;
+  private UserId userId;
+  private String username;
+  private String password;
 
   public SimpleUser(User user) {
     this.userId = user.getId();
@@ -20,7 +20,7 @@ public class SimpleUser implements UserDetails {
     this.password = user.getPassword();
   }
 
-  public long getUserId() {
+  public UserId getUserId() {
     return userId;
   }
 

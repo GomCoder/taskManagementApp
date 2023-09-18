@@ -21,7 +21,7 @@ public class DefaultMailManager implements MailManager {
   private final Mailer mailer;
   private final Configuration configuration;
 
-  public DefaultMailManager(@Value("${app.mail-form}") String mailForm, Mailer mailer, Configuration configuration) {
+  public DefaultMailManager(@Value("${app.mail-from}") String mailForm, Mailer mailer, Configuration configuration) {
     this.mailForm = mailForm;
     this.mailer = mailer;
     this.configuration = configuration;

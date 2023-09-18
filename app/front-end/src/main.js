@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
+import { library as faLibrary } from '@fortawesome/fontawesome-svg-core'
+import { faHome, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { i18n } from './i18n'
 
 // 부트스트랩 axios 설정
 axios.defaults.baseURL = '/api'
@@ -14,13 +18,18 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
+// 데이터 검증 활성화
 Vue.use(Vuelidate)
+
+// fontAwesome 설정
+faLibrary.add(faHome, faSearch, faPlus)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

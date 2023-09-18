@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
-public abstract class HibernateSupport {
+public abstract class HibernateSupport<T> {
 
   EntityManager entityManager;
 
@@ -16,5 +16,10 @@ public abstract class HibernateSupport {
 
   Session getSession() {
     return entityManager.unwrap(Session.class);
+  }
+
+  public void save(T object) {
+    entityManager.persist(object);
+    entityManager.flush();
   }
 }

@@ -34,8 +34,6 @@ public class User extends AbstractBaseEntity {
   @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
-  public User() { }
-
   /**
    * 등록 중 새 새용자 생성
    * @param username
@@ -55,8 +53,8 @@ public class User extends AbstractBaseEntity {
   }
 
   //Getter 함수
-  public Long getId() {
-    return id;
+  public UserId getId() {
+    return new UserId(id);
   }
 
   public String getUsername() {

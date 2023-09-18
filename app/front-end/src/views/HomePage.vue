@@ -1,8 +1,8 @@
 <script>
 import $ from 'jquery'
 import PageHeader from '@/components/PageHeader.vue'
-import CreateBoardModal from '@/modals/CreateBoardModal.vue'
-import CreateTeamModal from '@/modals/CreateTeamModal.vue'
+// import CreateBoardModal from '@/modals/CreateBoardModal.vue'
+// import CreateTeamModal from '@/modals/CreateTeamModal.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -19,9 +19,9 @@ export default {
     ])
   },
   components: {
-    PageHeader,
-    CreateBoardModal,
-    CreateTeamModal
+    PageHeader
+    // CreateBoardModal,
+    // CreateTeamModal
   },
   methods: {
     openBoard (board) {
@@ -53,7 +53,7 @@ export default {
           <p>{{ board.description }}</p>
         </div>
         <div class="board add list-inline-item" @click="createBoard()">
-          <font-awsome-icon icon="plus" />
+          <font-awesome-icon icon="plus" />
           <div>{{ $t('homePage.createNewBoard') }}</div>
         </div>
       </div>
@@ -73,11 +73,11 @@ export default {
     </div>
 
     <div class="create-team-wrapper">
-      <button class="btn btn-link" @click="createTeam()">+ {{ $t('homePage.createNeTeam') }}</button>
+      <button class="btn btn-link" @click="createTeam()">+ {{ $t('homePage.createNewTeam') }}</button>
     </div>
   </div>
-    <CreateBoardModal :teamId="selectedTeamId" @created="onBoardCreated" />
-    <CreateTeamModal />
+<!--    <CreateBoardModal :teamId="selectedTeamId" @created="onBoardCreated" />-->
+<!--    <CreateTeamModal />-->
   </div>
 </template>
 

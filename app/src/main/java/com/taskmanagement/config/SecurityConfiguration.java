@@ -1,5 +1,7 @@
 package com.taskmanagement.config;
 
+import com.taskmanagement.domain.common.security.AccessDeniedHandlerImpl;
+import com.taskmanagement.web.apis.authenticate.AuthenticationFilter;
 import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationFailureHandler;
 import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import com.taskmanagement.web.apis.authenticate.SimpleLogoutSuccessHandler;
@@ -11,8 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 
@@ -42,6 +46,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .logoutSuccessUrl("/login?logged-out")
       .and()
         .csrf().disable();
+
+//    http.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+//      .and()
+//      .authorizeRequests()
+//      .antMatchers(PUBLIC).permitAll()
+//      .anyRequest().authenticated()
+//      .and()
+//      .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//      .formLogin()
+//      .loginPage("/login")
+//      .and()
+//      .logout()
+//      .logoutUrl("/logout")
+//      .logoutSuccessHandler(logoutSuccessHandler())
+//      .and()
+//      .csrf().disable();
   }
 
   @Override
@@ -53,6 +73,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public AuthenticationFilter authenticationFilter() throws Exception {
+    AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+    authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+    authenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+    authenticationFilter.setAuthenticationManager(authenticationManagerBean());
+    return authenticationFilter;
   }
 
   @Bean
@@ -70,4 +99,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new SimpleLogoutSuccessHandler();
   }
 
+  public AccessDeniedHandler accessDeniedHandler() {
+    return new AccessDeniedHandlerImpl();
+  }
 }
