@@ -20,10 +20,8 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
   private final RegistrationManagement registrationManagement;
-
   private final DomainEventPublisher domainEventPublisher;
   private final MailManager mailManager;
-
   private final UserRepository userRepository;
 
   public UserServiceImpl(RegistrationManagement registrationManagement, DomainEventPublisher domainEventPublisher, MailManager mailManager, UserRepository userRepository) {
@@ -61,7 +59,7 @@ public class UserServiceImpl implements UserService {
       command.getPassword());
 
     sendWelcomeMessage(newUser);
-    domainEventPublisher.publish(new UserRegisteredEvent(newUser));
+    domainEventPublisher.publish(new UserRegisteredEvent(this, newUser));
   }
 
   /**

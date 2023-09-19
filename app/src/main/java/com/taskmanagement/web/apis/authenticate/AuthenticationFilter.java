@@ -27,7 +27,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
 
-    log.debug("Proccessing login request");
+    log.debug("Processing login request");
 
     String requestBody = IOUtils.toString(request.getReader());
     LoginRequest loginRequest = JsonUtils.toObject(requestBody, LoginRequest.class);
