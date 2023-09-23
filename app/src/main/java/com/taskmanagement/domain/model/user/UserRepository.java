@@ -19,6 +19,8 @@ public interface UserRepository {
    */
   User findByEmailAddress(String emailAddress);
 
+  User findById(UserId userId);
+
   /**
    * 새 사용자 또는 기존 사용자 저장
    *

@@ -114,7 +114,7 @@ export default {
     openAddMember () {
       $('#addMemberModal').modal('show')
     },
-    openMemberAdded (member) {
+    onMemberAdded (member) {
       this.members.push(member)
     },
     addCardList () {
@@ -299,7 +299,7 @@ export default {
               <div class="list">
                 <div class="list-header">{{ cardList.name }}</div>
                 <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
-                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0, scrollSensivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
+                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
                   <div class="card-item" v-for="card in cardList.cards" v-bind:key="card.id">
                     <div class="card-title">{{ card.title }}</div>
                   </div>
@@ -337,6 +337,171 @@ export default {
 
 <style scoped lang="scss">
 .page-body {
+  flex-grow: 1;
+  position: relative;
+  overflow-y: auto;
+  .board-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .board {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .board-header {
+        flex: none;
+        height: auto;
+        overflow: hidden;
+        position: relative;
+        padding: 8px 4px 8px 8px;
+        .board-hedaer-divider {
+          float: left;
+          border-left: 1px solid #ddd;
+          height: 16px;
+          margin: 8px 10px;
+        }
+        .board-header-item {
+          float: left;
+          height: 32px;
+          line-height: 32px;
+          margin: 0 4px 0 0 ;
+        }
+        .board-name {
+          font-size: 18px;
+          line-height: 32px;
+          padding-left: 4px;
+          text-decoration: none;
+        }
+        .board-members {
+          .member {
+            display: block;
+            float: left;
+            height: 30px;
+            width: 30px;
+            margin: 0 0 0 -2px;
+            border-radius: 50%;
+            background-color: #377EF6;
+            position: relative;
+            span {
+              height: 30px;
+              line-height: 30px;
+              width: 30px;
+              text-align: center;
+              display: block;
+              color: #fff;
+            }
+          }
+        }
+        .add-member-toggle {
+          margin-left: 5px;
+          background-color: #eee;
+          cursor: pointer;
+          svg {
+            font-size: 10px;
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            color: #000;
+          }
+        }
+        .add-member-toggle:hover {
+          background-color: #666;
+          svg {
+            color: #fff;
+          }
+        }
+      }
+    }
+    .board-body {
+      position: relative;
+      flex-grow: 1;
+      .list-container {
+        position: absolute;
+        top: 0;
+        left: 8px;
+        right: 0;
+        bottom: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+        .liat-wrapper {
+          width: 272px;
+          margin: 0 4px;
+          height: 100%;
+          box-sizing: border-box;
+          display: inline-block;
+          vertical-align: top;
+          white-space: nowrap;
+          .list-header {
+            padding: .55rem .75rem;
+            font-weight: 600;
+            cursor: pointer;
+          }
+          .add-card-button {
+            padding: 8px 10px;
+            color: #888;
+            cursor: pointer;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
+          .add-card-button:hover {
+            padding: 0 8px 8px;
+            .form-group {
+              margin-bottom: 5px;
+              textarea {
+                resize: none;
+                padding: 0.30rem 0.50rem;
+                boax-shadow: none;
+              }
+            }
+          }
+          .cards {
+            overflow-y: auto;
+            min-height: 1px;
+            .card-item {
+              overflow: hidden;
+              background: #fff;
+              padding: 5px 8px;
+              border-radius: 4px;
+              margin: 0 8px 8px;
+              box-shadow: 0 1px 0 #ccc;
+              cursor: pointer;
+              .card-title {
+                margin: 0;
+              }
+            }
+            .ghost-card {
+              background-color: #ccc !important;
+              color: #ccc !important;
+            }
+          }
+        }
+        .ghost-card .list {
+          background: #aaa;
+        }
+      }
+      .list-wrapper.add-list {
+        background: #ddd;
+        cursor: pointer;
+        border-radius: 3px;
+        color: #333;
+      }
+      form {
+        padding: 5px;
+        .form-group {
+          margin-bottom: 5px;
+          .form-control {
+            height: calc(1.80rem + 2px);
+            padding: .375rem .3rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 </style>

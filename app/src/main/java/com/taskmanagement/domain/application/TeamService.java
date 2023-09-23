@@ -16,6 +16,13 @@ public interface TeamService {
   List<Team> findTeamsByUserId(UserId userId);
 
   /**
+   * 아이디로 팀 찾기
+   * @param teamId
+   * @return
+   */
+  Team findById(TeamId teamId);
+
+  /**
    * 새로운 팀 생성
    * @param command
    * @return

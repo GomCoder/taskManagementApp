@@ -52,6 +52,15 @@ public class User extends AbstractBaseEntity {
     return user;
   }
 
+  public void updateName(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public String getInitials() {
+    return (firstName.substring(0,1) + lastName.substring(0,1)).toUpperCase();
+  }
+
   //Getter 함수
   public UserId getId() {
     return new UserId(id);

@@ -1,4 +1,4 @@
-package com.taskmanagement.domain.model.board.event;
+package com.taskmanagement.domain.model.board.events;
 
 import com.taskmanagement.domain.common.event.DomainEvent;
 import  com.taskmanagement.domain.model.board.Board;

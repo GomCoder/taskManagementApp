@@ -1,9 +1,11 @@
 package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.board.Board;
+import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.board.BoardRepository;
 import com.taskmanagement.domain.model.user.UserId;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,5 +23,12 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
     NativeQuery<Board> query = getSession().createNativeQuery(sql, Board.class);
     query.setParameter("userId", userId.value());
     return query.list();
+  }
+
+  @Override
+  public Board findById(BoardId boardId) {
+    Query<Board> query = getSession().createQuery("FROM Board WHERE id = :id", Board.class);
+    query.setParameter("id", boardId.value());
+    return query.uniqueResult();
   }
 }

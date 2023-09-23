@@ -2,7 +2,7 @@ package com.taskmanagement.web.results;
 
 import com.taskmanagement.domain.model.board.Board;
 import com.taskmanagement.domain.model.team.Team;
-import com.taskmanagement.domain.model.user.SimpleUser;
+import com.taskmanagement.domain.model.user.User;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -12,9 +12,13 @@ import java.util.Map;
 
 public class MyDataResult {
 
-  public static ResponseEntity<ApiResult> build(SimpleUser currentUser, List<Team> teams, List<Board> boards) {
-    Map<String, Object> user = new HashMap<>();
-    user.put("name", currentUser.getUsername());
+  public static ResponseEntity<ApiResult> build(User user, List<Team> teams, List<Board> boards, String realTimeServerUrl, String realTimeToken) {
+    Map<String, Object> userData = new HashMap<>();
+    userData.put("name", user.getUsername() + " " + user.getLastName());
+    userData.put("token", realTimeToken);
+
+    Map<String, Object> setting = new HashMap<>();
+    setting.put("realTimeServerUrl", realTimeServerUrl);
 
     List<TeamResult> teamResults = new ArrayList<>();
 
@@ -30,13 +34,15 @@ public class MyDataResult {
     ApiResult apiResult = ApiResult.blank()
       .add("user", user)
       .add("teams", teamResults)
-      .add("boards", boardResults);
-    return Result.ok(apiResult);
+      .add("boards", boardResults)
+      .add("setttings", setting);
+
+      return Result.ok(apiResult);
   }
 
   private static class TeamResult {
-    private long id;
-    private String name;
+    private final long id;
+    private final String name;
 
     TeamResult(Team team) {
       this.id = team.getId().value();
@@ -53,10 +59,10 @@ public class MyDataResult {
   }
 
   private static class BoardResult {
-    private long id;
-    private String name;
-    private String description;
-    private long teamId;
+    private final long id;
+    private final String name;
+    private final String description;
+    private final long teamId;
 
     BoardResult(Board board) {
       this.id = board.getId().value();
@@ -81,5 +87,4 @@ public class MyDataResult {
       return teamId;
     }
   }
-
 }

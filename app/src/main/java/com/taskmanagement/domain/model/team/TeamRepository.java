@@ -13,6 +13,13 @@ public interface TeamRepository {
   List<Team> findTeamsByUserId(UserId userId);
 
   /**
+   * 아이디로 팀 찾기
+   * @param teamId
+   * @return
+   */
+  Team findById(TeamId teamId);
+
+  /**
    * 팀 저장하기
    * @param team
    */

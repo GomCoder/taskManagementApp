@@ -1,6 +1,7 @@
 package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.user.User;
+import com.taskmanagement.domain.model.user.UserId;
 import com.taskmanagement.domain.model.user.UserRepository;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,13 @@ public class HibernateUserRepository extends HibernateSupport implements UserRep
   public User findByEmailAddress(String emailAddress) {
     Query<User> query = getSession().createQuery("from User where emailAddress = :emailAddress", User.class);
     query.setParameter("emailAddress", emailAddress);
+    return query.uniqueResult();
+  }
+
+  @Override
+  public User findById(UserId userId) {
+    Query<User> query = getSession().createQuery("FROM User WHERE id = :id", User.class);
+    query.setParameter("id", userId.value());
     return query.uniqueResult();
   }
 

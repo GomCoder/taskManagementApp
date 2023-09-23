@@ -3,8 +3,8 @@ package com.taskmanagement.domain.application.impl;
 import com.taskmanagement.domain.application.TeamService;
 import com.taskmanagement.domain.application.commands.CreateTeamCommand;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
-import com.taskmanagement.domain.model.board.Board;
 import com.taskmanagement.domain.model.team.Team;
+import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.team.TeamRepository;
 import com.taskmanagement.domain.model.user.UserId;
 import org.springframework.stereotype.Service;
@@ -27,6 +27,11 @@ public class TeamServiceImpl implements TeamService {
   @Override
   public List<Team> findTeamsByUserId(UserId userId) {
     return teamRepository.findTeamsByUserId((userId));
+  }
+
+  @Override
+  public Team findById(TeamId teamId) {
+    return teamRepository.findById(teamId);
   }
 
   @Override

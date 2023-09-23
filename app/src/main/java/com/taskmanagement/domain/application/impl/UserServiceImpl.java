@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
     domainEventPublisher.publish(new UserRegisteredEvent(this, newUser));
   }
 
+  @Override
+  public User findById(UserId userId) {
+    return userRepository.findById(userId);
+  }
+
   /**
    * 새로운 사용자에게 보낼 Email 메시지 보내기
    * @param user: 새로운 사용자

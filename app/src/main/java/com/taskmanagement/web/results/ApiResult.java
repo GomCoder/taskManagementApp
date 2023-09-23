@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class ApiResult extends HashMap<String, Object> {
 
-  private static final String MESSAGE_KEY = "meesage";
+  private static final String MESSAGE_KEY = "message";
   private static final String ERROR_CODE_KEY = "errorReferenceCode";
 
   /**

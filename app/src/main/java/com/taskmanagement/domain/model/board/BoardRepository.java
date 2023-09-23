@@ -13,6 +13,13 @@ public interface BoardRepository {
   List<Board> findBoardByMembership(UserId userId);
 
   /**
+   * 아이디로 보드 찾기
+   * @param boardId
+   * @return
+   */
+  Board findById(BoardId boardId);
+
+  /**
    * 보드 저장하기
    * @param board
    */
