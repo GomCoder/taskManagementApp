@@ -25,7 +25,8 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
 
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
+  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+    throws AuthenticationException, IOException {
 
     log.debug("Processing login request");
 
@@ -35,7 +36,8 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
       throw new InsufficientAuthenticationException("Invalid authentication request");
     }
 
-    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password);
+    UsernamePasswordAuthenticationToken token =
+      new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password);
     return this.getAuthenticationManager().authenticate(token);
   }
 

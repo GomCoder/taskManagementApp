@@ -17,8 +17,8 @@ public class MyDataResult {
     userData.put("name", user.getUsername() + " " + user.getLastName());
     userData.put("token", realTimeToken);
 
-    Map<String, Object> setting = new HashMap<>();
-    setting.put("realTimeServerUrl", realTimeServerUrl);
+    Map<String, Object> settings = new HashMap<>();
+    settings.put("realTimeServerUrl", realTimeServerUrl);
 
     List<TeamResult> teamResults = new ArrayList<>();
 
@@ -32,10 +32,10 @@ public class MyDataResult {
     }
 
     ApiResult apiResult = ApiResult.blank()
-      .add("user", user)
+      .add("user", userData)
       .add("teams", teamResults)
       .add("boards", boardResults)
-      .add("setttings", setting);
+      .add("settings", settings);
 
       return Result.ok(apiResult);
   }

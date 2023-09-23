@@ -1,8 +1,8 @@
 <script>
 import 'bootstrap/dist/js/bootstrap.min'
 import { mapGetters } from 'vuex'
-// import meService from '@/services/me'
-// import notify from '@/utils/notify'
+import meService from '@/services/me'
+import notify from '@/utils/notify'
 
 export default {
   name: 'PageHeader',
@@ -14,6 +14,11 @@ export default {
       'teamBoards'
     ])
   },
+  mounted () {
+    if (!this.user.authenticated) {
+      this.$store.dispatch('getMyData')
+    }
+  },
   created () {
     this.$store.dispatch('getMyData')
   },
@@ -23,6 +28,15 @@ export default {
     },
     openBoard (board) {
       this.$router.push({ name: 'board', params: { boardId: board.id } })
+    },
+    signOut () {
+      this.$rt.logout()
+      meService.signOut().then(() => {
+        this.$store.dispatch('logout')
+        this.$router.push({ name: 'login' })
+      }).catch(error => {
+        notify.error(error.message)
+      })
     }
   }
 }
@@ -32,7 +46,7 @@ export default {
   <div class="page-header d-flex align-content-center">
     <div class="logo" @click="goHome()">
       <font-awesome-icon icon="house" class="home-icon" />
-      <img src="@/images/logo.png" />
+      <img src="@/images/logo.png" alt="로고 이미지"/>
     </div>
     <div class="boards-menu-toggle">
       <div class="dropdown">
@@ -65,7 +79,7 @@ export default {
         </button>
         <div class="dropdown-menu" aria-labelledby="profileMenu">
           <button class="dropdown-item" type="button">{{ $t('header.profile') }}</button>
-          <button class="dropdown-item" type="button">{{ $t('header.signOut') }}</button>
+          <button class="dropdown-item" type="button" @click="signOut()">{{ $t('header.signOut') }}</button>
         </div>
       </div>
     </div>

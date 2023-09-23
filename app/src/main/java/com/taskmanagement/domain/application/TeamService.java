@@ -3,6 +3,7 @@ package com.taskmanagement.domain.application;
 import com.taskmanagement.domain.application.commands.CreateTeamCommand;
 import com.taskmanagement.domain.model.board.Board;
 import com.taskmanagement.domain.model.team.Team;
+import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.user.UserId;
 
 import java.util.List;

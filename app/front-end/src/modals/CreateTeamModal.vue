@@ -4,7 +4,7 @@ import { required } from 'vuelidate/lib/validators'
 import teamService from '@/services/teams'
 
 export default {
-  name: 'CreateBoardModal',
+  name: 'CreateTeamModal',
   data () {
     return {
       team: {

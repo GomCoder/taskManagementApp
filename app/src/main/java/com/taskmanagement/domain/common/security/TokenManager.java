@@ -11,7 +11,7 @@ import io.jsonwebtoken.security.Keys;
 public class TokenManager {
   private Key secretKey;
 
-  public TokenManager(@Value("${app.token-secret-key}") String secretKey) {
+  public TokenManager(@Value(value = "${app.token-secret-key}") String secretKey) {
     this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
   }
 
@@ -31,7 +31,7 @@ public class TokenManager {
    * @param jws
    * @return
    */
-  public UserId verifyJwy(String jws) {
+  public UserId verifyJwt(String jws) {
     String userIdValue = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jws).getBody().getSubject();
     return new UserId(Long.valueOf(userIdValue));
   }

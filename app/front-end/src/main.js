@@ -5,9 +5,11 @@ import store from './store'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
 import { library as faLibrary } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faSearch, faPlus, faEllipsisH, faUserPlus, faListUl } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { i18n } from './i18n'
+import eventBus from '@/event-bus'
+import realTimeClient from '@/real-time-client'
 
 // 부트스트랩 axios 설정
 axios.defaults.baseURL = '/api'
@@ -22,10 +24,12 @@ axios.interceptors.response.use(
 Vue.use(Vuelidate)
 
 // fontAwesome 설정
-faLibrary.add(faHome, faSearch, faPlus)
+faLibrary.add(faHome, faSearch, faPlus, faEllipsisH, faUserPlus, faListUl)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
+Vue.prototype.$bus = eventBus
+Vue.prototype.$rt = realTimeClient
 
 new Vue({
   router,

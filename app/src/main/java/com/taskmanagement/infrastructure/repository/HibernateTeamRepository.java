@@ -1,9 +1,11 @@
 package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.team.Team;
+import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.team.TeamRepository;
 import com.taskmanagement.domain.model.user.UserId;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,5 +31,12 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
     NativeQuery<Team> query = getSession().createNativeQuery(sql, Team.class);
     query.setParameter("userId", userId.value());
     return query.list();
+  }
+
+  @Override
+  public Team findById(TeamId teamId) {
+    Query<Team> query = getSession().createQuery("FROM Team WHERE id = :id", Team.class);
+    query.setParameter("id", teamId.value());
+    return query.uniqueResult();
   }
 }

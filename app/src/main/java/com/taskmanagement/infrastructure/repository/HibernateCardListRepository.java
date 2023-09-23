@@ -25,7 +25,7 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
 
   @Override
   public List<CardList> findByBoardId(BoardId boardId) {
-    String sql = "SELECT c1.* FROM card_list c1 WHERE c1.board_Id = :boarId";
+    String sql = "SELECT cl.* FROM card_list cl WHERE cl.board_id = :boardIdd";
     NativeQuery<CardList> query = getSession().createNativeQuery(sql, CardList.class);
     query.setParameter("boardId", boardId.value());
     return query.list();
@@ -33,7 +33,7 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
 
   @Override
   public void changePositions(final List<CardListPosition> cardListPositions) {
-    String sql = " UPDATE card_list SET `position` = ? WHERE id = ?";
+    String sql = " update card_list set `position` = ? where id = ?";
 
     jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
       @Override

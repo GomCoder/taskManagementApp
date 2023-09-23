@@ -6,7 +6,6 @@ import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationFailureHandl
 import com.taskmanagement.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import com.taskmanagement.web.apis.authenticate.SimpleLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -66,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  public void configure(WebSecurity web) throws Exception {
+  public void configure(WebSecurity web) {
     web.ignoring()
       .antMatchers("/static/**", "/js/**", "/css/**", "/images/**", "/favicon.ico");
   }

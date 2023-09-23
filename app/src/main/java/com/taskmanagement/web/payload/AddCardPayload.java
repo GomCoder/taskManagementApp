@@ -16,7 +16,7 @@ public class AddCardPayload {
     return new AddCardCommand(new CardListId(cardListId), userId, title, position);
   }
 
-  public BoardId getBoardId(long boardId) {
+  public BoardId getBoardId() {
     return new BoardId(boardId);
   }
 

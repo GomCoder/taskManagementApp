@@ -41,12 +41,12 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     next()
-    this.unsubscribeFromRealTimeUpadate()
+    this.unsubscribeFromRealTimeUpdate()
     this.loadBoard()
   },
   beforeRouteLeave (to, from, next) {
     next()
-    this.unsubscribeFromRealTimeUpadate()
+    this.unsubscribeFromRealTimeUpdate()
   },
   mounted () {
     this.$el.addEventListener('click', this.dismissActiveForms)
@@ -96,10 +96,10 @@ export default {
       console.log('[BoardPage] Dismissing forms')
       let dismissAddCardForm = true
       let dismissAddListForm = true
-      if (event.target.closeset('.add-card-form') || event.target.closeset('.add-card-button')) {
+      if (event.target.closest('.add-card-form') || event.target.closest('.add-card-button')) {
         dismissAddCardForm = false
       }
-      if (event.target.closeset('.add-list-form') || event.target.closeset('.add-list-button')) {
+      if (event.target.closest('.add-list-form') || event.target.closest('.add-list-button')) {
         dismissAddListForm = false
       }
       if (dismissAddCardForm) {
@@ -238,7 +238,7 @@ export default {
       this.$rt.unsubscribe('/board/' + this.board.id, this.onRealTimeUpdated)
     },
     onRealTimeUpdated (update) {
-      console.log('[BoardPage] Real Time update recived', update)
+      console.log('[BoardPage] Real Time update received', update)
       if (update.type === 'cardAdded') {
         this.onCardAdded(update.card)
       }
@@ -255,10 +255,10 @@ export default {
       this.appendCardToList(cardList, card)
     },
     appendCardToList (cardList, card) {
-      const exstingIndex = cardList.cards.findIndex(exstingCard => {
-        return exstingCard.id === card.id
+      const existingIndex = cardList.cards.findIndex(existingCard => {
+        return existingCard.id === card.id
       })
-      if (exstingIndex === -1) {
+      if (existingIndex === -1) {
         cardList.cards.push({
           id: card.id,
           title: card.title
@@ -393,23 +393,23 @@ export default {
               color: #fff;
             }
           }
-        }
-        .add-member-toggle {
-          margin-left: 5px;
-          background-color: #eee;
-          cursor: pointer;
-          svg {
-            font-size: 10px;
-            position: absolute;
-            top: 9px;
-            left: 9px;
-            color: #000;
+          .add-member-toggle {
+            margin-left: 5px;
+            background-color: #eee;
+            cursor: pointer;
+            svg {
+              font-size: 10px;
+              position: absolute;
+              top: 9px;
+              left: 9px;
+              color: #000;
+            }
           }
-        }
-        .add-member-toggle:hover {
-          background-color: #666;
-          svg {
-            color: #fff;
+          .add-member-toggle:hover {
+            background-color: #666;
+            svg {
+              color: #fff;
+            }
           }
         }
       }
@@ -455,7 +455,7 @@ export default {
               textarea {
                 resize: none;
                 padding: 0.30rem 0.50rem;
-                boax-shadow: none;
+                box-shadow: none;
               }
             }
           }

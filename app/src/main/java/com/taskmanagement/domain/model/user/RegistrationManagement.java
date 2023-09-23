@@ -33,7 +33,7 @@ public class RegistrationManagement {
    * @return newUser
    * @throws RegistrationException
    */
-  public User register(String username, String emailAddress, String password) throws RegistrationException {
+  public User register(String username, String emailAddress, String firstName, String lastName,String password) throws RegistrationException {
     //이미 존재 하는 사용자(username) -> UsernameExistsException()
     User existingUser = repository.findByUsername(username);
 
@@ -52,7 +52,7 @@ public class RegistrationManagement {
     String encryptedPassword = passwordEncryptor.encrypt(password);
 
     //새로운 유저 생성
-    User newUser = User.create(username, emailAddress.toLowerCase(), encryptedPassword);
+    User newUser = User.create(username, emailAddress.toLowerCase(), firstName, lastName,encryptedPassword);
     repository.save(newUser);
     return newUser;
   }

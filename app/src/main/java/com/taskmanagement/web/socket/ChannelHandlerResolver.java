@@ -26,7 +26,7 @@ public class ChannelHandlerResolver {
 
   public ChannelHandlerInvoker findInvoker(IncomingMessage incomingMessage) {
     ChannelHandlerInvoker invoker = null;
-    Set<String> pathPatterns = invoker.keySet();
+    Set<String> pathPatterns = invokers.keySet();
 
     for(String pathPattern : pathPatterns) {
       if (antPathMatcher.match(pathPattern, incomingMessage.getChannel())) {
@@ -51,7 +51,7 @@ public class ChannelHandlerResolver {
       ChannelHandler handlerAnnotation = handlerClass.getAnnotation(ChannelHandler.class);
       String channelPattern = ChannelHandlers.getPattern(handlerAnnotation);
 
-      if (invokers.containesKey(channelPattern)) {
+      if (invokers.containsKey(channelPattern)) {
         throw new IllegalStateException("Duplicated handlers found for chanel pattern `\" + channelPattern + \"`.");
       }
       invokers.put(channelPattern, new ChannelHandlerInvoker(handler));

@@ -6,8 +6,10 @@ import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.user.SimpleUser;
 import com.taskmanagement.web.payload.AddCardPayload;
 import com.taskmanagement.web.payload.ChangeCardPositionsPayload;
+import com.taskmanagement.web.results.AddCardResult;
 import com.taskmanagement.web.results.ApiResult;
 import com.taskmanagement.web.results.Result;
+import com.taskmanagement.web.updater.CardUpdater;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class CardApiController {
   private CardService cardService;
-  private CardUpater cardUpater;
+  private CardUpdater cardUpdater;
 
   public CardApiController(CardService cardService, CardUpdater cardUpdater) {
     this.cardService = cardService;
-    this.cardUpater = cardUpdater;
+    this.cardUpdater = cardUpdater;
   }
 
   @PostMapping("/api/cards")
   public ResponseEntity<ApiResult> addCard(@RequestBody AddCardPayload payload, @CurrentUser SimpleUser currentUser) {
     Card card = cardService.addCard(payload.toCommand(currentUser.getUserId()));
-    cardUpater.onCardAdded(payload.getBoardId(), card);
+    cardUpdater.onCardAdded(payload.getBoardId(), card);
     return AddCardResult.build(card);
   }
 

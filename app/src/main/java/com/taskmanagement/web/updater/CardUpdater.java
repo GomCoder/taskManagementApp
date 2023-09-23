@@ -3,6 +3,7 @@ package com.taskmanagement.web.updater;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.utils.JsonUtils;
+import com.taskmanagement.web.socket.SubscriptionHub;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

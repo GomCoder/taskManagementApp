@@ -32,7 +32,7 @@ public class WebSocketRequestDispatcher extends TextWebSocketHandler {
     String token = session.getToken();
 
     try {
-      UserId userId = tokenManager.verifyJwy(token);
+      UserId userId = tokenManager.verifyJwt(token);
       session.setUserId(userId);
       session.reply("authenticated");
     } catch(JwtException exception) {

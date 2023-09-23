@@ -26,8 +26,7 @@ public class MeApiController {
   private final UserService userService;
   private final TokenManager tokenManager;
 
-
-  public MeApiController(@Value("${app.real-time-server-url}") String realTimeServerUrl, TeamService teamService, UserService userService, BoardService boardService, TokenManager tokenManager) {
+  public MeApiController(@Value(value="${app.real-time-server-url}") String realTimeServerUrl, TeamService teamService, UserService userService, BoardService boardService, TokenManager tokenManager) {
     this.realTimeServerUrl = realTimeServerUrl;
     this.teamService = teamService;
     this.userService = userService;

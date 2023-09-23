@@ -4,8 +4,7 @@ import com.taskmanagement.domain.common.model.AbstractBaseEntity;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.user.UserId;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,12 +12,21 @@ import java.util.Objects;
 @Table(name = "card_list")
 public class CardList extends AbstractBaseEntity {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(name = "board_id")
   private long boardId;
+  @Column(name = "user_id")
   private long userId;
+  @Column(name ="name", nullable = false)
   private String name;
+  @Column(name ="position")
   private int position;
+  @Column(name = "archived")
   private boolean archived;
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
   public static CardList create(BoardId boardId, UserId userId, String name, int position) {
@@ -41,7 +49,7 @@ public class CardList extends AbstractBaseEntity {
   }
 
   public UserId getUserId() {
-    return UserId(userId);
+    return new UserId(userId);
   }
 
   public String getName() {

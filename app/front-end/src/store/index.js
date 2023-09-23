@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 const state = {
   user: {
-    name: null
+    name: null,
+    authenticated: false
   },
   /**
    * teams: {id, name}

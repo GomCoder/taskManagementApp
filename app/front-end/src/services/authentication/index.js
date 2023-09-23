@@ -9,9 +9,9 @@ export default {
    */
   authenticate (detail) {
     // eslint-disable-next-line promise/param-names
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
       axios.post('/authentications', detail).then(({ data }) => {
-        reslove(data)
+        resolve(data)
       }).catch((error) => {
         reject(errorParser.parse(error))
       })

@@ -41,13 +41,13 @@ public class User extends AbstractBaseEntity {
    * @param password
    * @return
    */
-  public static User create(String username, String emailAddress, String password) {
+  public static User create(String username, String emailAddress, String firstName, String lastName, String password) {
     User user = new User();
     user.username = username;
     user.emailAddress = emailAddress;
     user.password = password;
-    user.firstName = "";
-    user.lastName = "";
+    user.firstName = firstName;
+    user.lastName = lastName;
     user.createdDate = new Date();
     return user;
   }

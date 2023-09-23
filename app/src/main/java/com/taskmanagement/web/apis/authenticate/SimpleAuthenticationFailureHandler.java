@@ -25,7 +25,7 @@ public class SimpleAuthenticationFailureHandler implements AuthenticationFailure
     } else if (exception instanceof InsufficientAuthenticationException) {
       failure = ApiResult.message("Invalid authentication request");
     } else {
-      failure = ApiResult.message("Quthentication failure");
+      failure = ApiResult.message("Authentication failure");
     }
     JsonUtils.write(response.getWriter(), failure);
   }
