@@ -6,6 +6,7 @@ import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.team.TeamRepository;
+import com.taskmanagement.domain.model.team.event.TeamCreatedEvent;
 import com.taskmanagement.domain.model.user.UserId;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class TeamServiceImpl implements TeamService {
   public Team createTeam(CreateTeamCommand command) {
     Team team = Team.create(command.getName(), command.getUserId());
     teamRepository.save(team);
+    domainEventPublisher.publish(new TeamCreatedEvent(this, team));
     return team;
   }
 }

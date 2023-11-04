@@ -10,7 +10,7 @@ public interface BoardRepository {
    * @param userId
    * @return
    */
-  List<Board> findBoardByMembership(UserId userId);
+  List<Board> findBoardsByMembership(UserId userId);
 
   /**
    * 아이디로 보드 찾기

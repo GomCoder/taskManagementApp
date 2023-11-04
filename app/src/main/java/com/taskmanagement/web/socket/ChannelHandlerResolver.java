@@ -52,7 +52,7 @@ public class ChannelHandlerResolver {
       String channelPattern = ChannelHandlers.getPattern(handlerAnnotation);
 
       if (invokers.containsKey(channelPattern)) {
-        throw new IllegalStateException("Duplicated handlers found for chanel pattern `\" + channelPattern + \"`.");
+        throw new IllegalStateException("Duplicated handlers found for chanel pattern `" + channelPattern + "`.");
       }
       invokers.put(channelPattern, new ChannelHandlerInvoker(handler));
       log.debug("Mapped channel `{}` to channel handler `{}`", channelPattern, handlerClass.getName());

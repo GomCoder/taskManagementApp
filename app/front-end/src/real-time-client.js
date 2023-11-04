@@ -3,12 +3,14 @@ import SockJS from 'sockjs-client'
 import globalBus from '@/event-bus'
 
 class RealTimeClient {
+  // 생성자
   constructor () {
     this.serverUrl = null
     this.token = null
     this.socket = null
     this.authenticated = false
     this.loggedOut = false
+    this.triedAttemps = 0
     this.$bus = new Vue()
     this.subscribeQueue = {
       /* channel: [handler1, handler2] */
@@ -18,6 +20,7 @@ class RealTimeClient {
     }
   }
 
+  // 커넥션을 초기화
   init (serverUrl, token) {
     if (this.authenticated) {
       console.warn('[RealTimeClient] WS connection already authenticated.')
@@ -29,6 +32,7 @@ class RealTimeClient {
     this.connect()
   }
 
+  // 실시간 클라이언트의 프로퍼티를 초기 값으로 재설정하고 소켓을 닫아 클라이언트의 상태를 제거함
   logout () {
     console.log('[RealTimeClient] Logging out')
     this.subscribeQueue = {}
@@ -38,6 +42,7 @@ class RealTimeClient {
     this.socket && this.socket.close()
   }
 
+  // 실시간 클라이언트와 서버가 연결
   connect () {
     console.log('[RealTimeClient] Connecting to ' + this.serverUrl)
     this.socket = new SockJS(this.serverUrl + '?token=' + this.token)
@@ -56,6 +61,7 @@ class RealTimeClient {
     }
   }
 
+  // 실시간 클라이언트가 자신이 관심있는 채널을 구독하기 위한 API
   subscribe (channel, handler) {
     if (!this._isConnected()) {
       this._addToSubscribeQueue(channel, handler)
@@ -92,6 +98,7 @@ class RealTimeClient {
   }
 
   _onConnected () {
+    this.triedAttemps = 0
     globalBus.$emit('RealTimeClient.connected')
     console.log('[RealTimeClient] Connected')
 
@@ -120,10 +127,15 @@ class RealTimeClient {
       console.log('[RealTimeClient] Logged out')
       globalBus.$emit('RealTimeClient.loggedOut')
     } else {
+      if (this.triedAttemps > 30) {
+        console.log('[RealTimeClient] Fail to connect to the server')
+        return
+      }
       console.log('[RealTimeClient] Disconnected')
       globalBus.$emit('RealTimeClient.disconnected')
 
       setTimeout(() => {
+        this.triedAttemps++
         console.log('[RealTimeClient] Reconnecting')
         globalBus.$emit('RealTimeClient.reconnecting')
         this.connect()
@@ -162,7 +174,7 @@ class RealTimeClient {
     if (!handlers) {
       this.subscribeQueue[channel] = [handler]
     } else {
-      handlers.push(handler)
+      handlers.push(handlers)
     }
   }
 

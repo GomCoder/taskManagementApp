@@ -1,13 +1,12 @@
 package com.taskmanagement.web.socket;
-
 import com.taskmanagement.utils.JsonUtils;
 import org.springframework.web.socket.TextMessage;
 
-import javax.xml.soap.Text;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WebSocketMessages {
+
   static TextMessage reply(String reply) {
     Map<String, String> messageObject = new HashMap<>();
     messageObject.put("type", "reply");

@@ -1,3 +1,77 @@
+<template>
+<div class="page" v-show="board.id">
+  <PageHeader />
+  <div class="page-body">
+    <div class="board-wrapper">
+      <div class="board">
+        <div class="board-header clearfix">
+          <!-- 보드 명과 보드 구분 출력 -->
+          <div class="board-name board-header-item">{{ board.name }}</div>
+          <div class="board-header-divider"></div>
+          <div class="team-name board-header-item">
+            <span v-if="!board.personal">{{ team.name }}</span>
+            <span v-if="board.personal">Personal</span>
+          </div>
+          <div class="board-header-divider"></div>
+          <div class="board-members board-header-item">
+            <div class="member" v-for="member in members" v-bind:key="member.id">
+              <span>{{ member.shortName }}</span>
+            </div>
+            <div class="member add-member-toggle" @click="openAddMember()">
+              <span><font-awesome-icon icon="user-plus" /></span>
+            </div>
+          </div>
+        </div>
+        <div class="board-body">
+          <draggable v-model="cardLists" class="list-container" @end="onCardListDragEnded"
+          :options="{handle: '.list-header', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}">
+            <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
+              <div class="list">
+                <div class="list-header">{{ cardList.name }}</div>
+                <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
+                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
+                  <div class="card-item" v-for="card in cardList.cards" v-bind:key="card.id" @click="openCard(card)">
+                    <div class="card-title">{{ card.title }}</div>
+                  </div>
+                  <div class="add-card-form-wrapper" v-if="cardList.cardForm.open">
+                    <form @submit.prevent="addCard(cardList)" class="add-card-form">
+                      <div class="form-group">
+                        <textarea class="form-control" v-model="cardList.cardForm.title" v-bind:id="'cardTitle' + cardList.id"
+                                  @keydown.enter.prevent="addCard(cardList)" placeholder="Type card title here"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                      <button type="button" class="btn btn-sm btn-link btn-cancel" @click="closeAddCardForm(cardList)">Cancel</button>
+                    </form>
+                  </div>
+                </draggable>
+                <div class="add-card-button" v-show="!cardList.cardForm.open" @click="openAddCardForm(cardList)">+ Add a card</div>
+              </div>
+            </div>
+            <div class="list-wrapper add-list">
+              <div class="add-list-button" v-show="!addListForm.open" @click="openAddListForm()">+ Add a list</div>
+              <form @submit.prevent="addCardList()" v-show="addListForm.open" class="add-list-form">
+                <div class="form-group">
+                  <input type="text" class="form-control" v-model="addListForm.name" id="cardListName" placeholder="Type list name here" />
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary">Add List</button>
+                <button type="button" class="btn btn-sm btn-link btn-cancel" @click="closeAddListForm()">Cancel</button>
+              </form>
+            </div>
+          </draggable>
+        </div>
+      </div>
+    </div>
+  </div>
+  <AddMemberModal :boardId="board.id" @added="onMemberAdded" />
+  <CardModal
+    :card="openedCard"
+    :cardList="focusedCardList"
+    :board="board"
+    :members="members"
+  />
+</div>
+</template>
+
 <script>
 import PageHeader from '@/components/PageHeader.vue'
 import draggable from 'vuedraggable'
@@ -7,6 +81,8 @@ import notify from '@/utils/notify'
 import boardService from '@/services/boards'
 import cardListService from '@/services/card-lists'
 import cardService from '@/services/cards'
+import CardModal from '@/modals/CardModal.vue'
+
 export default {
   name: 'BoardPage',
   data () {
@@ -16,66 +92,116 @@ export default {
         name: '',
         personal: false
       },
-      /* {id, name, cards, cardForm} */
-      cardLists: [],
+      cardLists: [/* {id, name, cards, cardForm} */],
       team: {
         name: ''
       },
-      /* {id, shortName} */
-      members: [],
+      members: [/* {id, shortName} */],
       addListForm: {
         open: false,
         name: ''
-      }
+      },
+      openedCard: {}
+    }
+  },
+  computed: {
+    focusedCardList () {
+      return this.cardLists.filter(cardList => cardList.id === this.openedCard.cardListId)[0] || {}
     }
   },
   components: {
+    CardModal,
     PageHeader,
     AddMemberModal,
     draggable
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.loadBoard()
-    })
+  watch: {
+    '$route' (to, from) {
+      if (to.name === from.name && to.name === 'board') {
+        this.unsubscribeFromRealTimeUpdate(from.params.boardId)
+        this.loadBoard(to.params.boardId)
+      }
+
+      if (to.name === 'card' && from.name === 'board') {
+        this.loadCard(to.params.cardId).then(() => {
+          this.openCardWindow()
+        })
+      }
+      if (to.name === 'board' && from.name === 'card') {
+        this.closeCardWindow()
+        this.openedCard = {}
+      }
+    }
   },
-  beforeRouteUpdate (to, from, next) {
-    next()
-    this.unsubscribeFromRealTimeUpdate()
-    this.loadBoard()
-  },
+  /**
+   * beforeRouteLeave
+   * @param to
+   * @param from
+   * @param next
+   */
   beforeRouteLeave (to, from, next) {
+    console.log('[BoardPage] Before route leave')
     next()
-    this.unsubscribeFromRealTimeUpdate()
+    this.unsubscribeFromRealTimeUpdate(this.board.id)
   },
   mounted () {
+    console.log('[BoardPage] Mounted')
+    this.loadInitial()
     this.$el.addEventListener('click', this.dismissActiveForms)
+    $('#cardModal').on('hide.bs.modal', () => {
+      this.$router.push({ name: 'board', params: { boardId: this.board.id } })
+    })
   },
   beforeDestroy () {
     this.$el.removeEventListener('click', this.dismissActiveForms)
+    this.$rt.unsubscribe('/board/' + this.board.id, this.onRealTimeUpdated)
   },
   methods: {
-    loadBoard () {
-      console.log('[BoardPage] Loading board')
-      boardService.getBoard(this.$route.params.boardId).then(data => {
-        this.team.name = data.team ? data.team.name : ''
-        this.board.id = data.board.id
-        this.board.personal = data.board.personal
-        this.board.name = data.board.name
-        this.members.splice(0)
-        data.members.forEach(member => {
-          this.members.push({
-            id: member.userId,
-            shortName: member.shortName
+    loadInital () {
+      if (this.$route.params.cardId) {
+        console.log('[BoardPage] Opened with card URL')
+        this.loadCard(this.$route.params.cardId).then(card => {
+          return this.loadBoard(card.boardId)
+        }).then(() => {
+          this.openCardWindow()
+        })
+      } else {
+        console.log('[BoardPage] Opened with board URL')
+        this.loadBoard(this.$route.params.boardId)
+      }
+    },
+    loadCard (cardId) {
+      return new Promise(resolve => {
+        console.log('[BoardPage] Loading card ' + cardId)
+        cardService.getCard(cardId).then(card => {
+          this.openedCard = card
+          resolve(card)
+        }).catch(error => {
+          notify.error(error.message)
+        })
+      })
+    },
+    loadBoard (boardId) {
+      return new Promise(resolve => {
+        console.log('[BoardPage] Loading board' + boardId)
+        boardService.getBoard(boardId).then(data => {
+          this.team.name = data.team ? data.team.name : ''
+          this.board.id = data.board.id
+          this.board.personal = data.board.personal
+          this.board.name = data.board.name
+
+          this.members.splice(0)
+
+          data.members.forEach(member => {
+            this.members.push({
+              id: member.userId,
+              name: member.name,
+              shortName: member.shortName
+            })
           })
-        })
-        this.cardLists.splice(0)
-        data.cardLists.sort((list1, list2) => {
-          return list1.position - list2.position
-        })
-        data.cardLists.forEach(cardList => {
-          cardList.cards.sort((card1, card2) => {
-            return card1.position - card2.position
+          this.cardLists.splice(0)
+          data.cardLists.sort((list1, list2) => {
+            return list1.position - list2.position
           })
           this.cardLists.push({
             id: cardList.id,
@@ -87,7 +213,8 @@ export default {
             }
           })
         })
-        this.subscribeToRealTimeUpdate()
+        this.subscribeToRealTimeUpdate(data.board.id)
+        resolve()
       }).catch(error => {
         notify.error(error.message)
       })
@@ -231,11 +358,11 @@ export default {
         notify.error(error.message)
       })
     },
-    subscribeToRealTimeUpdate () {
-      this.$rt.subscribe('/board/' + this.board.id, this.onRealTimeUpdated)
+    subscribeToRealTimeUpdate (boardId) {
+      this.$rt.subscribe('/board/' + boardId, this.onRealTimeUpdated)
     },
-    unsubscribeFromRealTimeUpdate () {
-      this.$rt.unsubscribe('/board/' + this.board.id, this.onRealTimeUpdated)
+    unsubscribeFromRealTimeUpdate (boardId) {
+      this.$rt.unsubscribe('/board/' + boardId, this.onRealTimeUpdated)
     },
     onRealTimeUpdated (update) {
       console.log('[BoardPage] Real Time update received', update)
@@ -264,76 +391,22 @@ export default {
           title: card.title
         })
       }
+    },
+    openCard (card) {
+      const titlePart = card.title.toLowerCase().trim().replace(/\s/g, '-')
+      this.$router.push({ name: 'card', params: { cardId: card.id, cardTitle: titlePart } })
+    },
+    openCardWindow () {
+      console.log('[BoardPage] Open card window ' + this.openedCard.id)
+      $('#cardModal').modal('show')
+    },
+    closeCardWindow () {
+      console.log('[BoardPage] Close card window ' + this.openedCard.id)
+      $('#cardModal').modal('hide')
     }
   }
 }
 </script>
-
-<template>
-<div class="page">
-  <PageHeader />
-  <div class="page-body">
-    <div class="board-wrapper">
-      <div class="board">
-        <div class="board-header clearfix">
-          <div class="board-name board-header-item">{{ board.name }}</div>
-          <div class="board-header-divider"></div>
-          <div class="team-name board-header-item">
-            <span v-if="!board.personal">{{ team.name }}</span>
-            <span v-if="board.personal">Personal</span>
-          </div>
-          <div class="board-header-divider"></div>
-          <div class="board-members board-header-item">
-            <div class="member" v-for="member in members" v-bind:key="member.id">
-              <span>{{ member.shortName }}</span>
-            </div>
-            <div class="member add-member-toggle" @click="openAddMember()">
-              <span><font-awesome-icon icon="user-plus" /></span>
-            </div>
-          </div>
-        </div>
-        <div class="board-body">
-          <draggable v-model="cardLists" class="list-container" @end="onCardListDragEnded"
-          :options="{handle: '.list-header', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}">
-            <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
-              <div class="list">
-                <div class="list-header">{{ cardList.name }}</div>
-                <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
-                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
-                  <div class="card-item" v-for="card in cardList.cards" v-bind:key="card.id">
-                    <div class="card-title">{{ card.title }}</div>
-                  </div>
-                  <div class="add-card-form-wrapper" v-if="cardList.cardForm.open">
-                    <form @submit.prevent="addCard(cardList)" class="add-card-form">
-                      <div class="form-group">
-                        <textarea class="form-control" v-model="cardList.cardForm.title" v-bind:id="'cardTitle' + cardList.id" @keydown.enter.prevent="addCard(cardList)" placeholder="Type card title here"></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-sm btn-primary">Add</button>
-                      <button type="button" class="btn btn-sm btn-link btn-cancel" @click="closeAddCardForm(cardList)">Cancel</button>
-                    </form>
-                  </div>
-                </draggable>
-                <div class="add-card-button" v-show="!cardList.cardForm.open" @click="openAddCardForm(cardList)">+ Add a card</div>
-              </div>
-            </div>
-            <div class="list-wrapper add-list">
-              <div class="add-list-button" v-show="!addListForm.open" @click="openAddListForm()">+ Add a list</div>
-              <form @submit.prevent="addCardList()" v-show="addListForm.open" class="add-list-form">
-                <div class="form-group">
-                  <input type="text" class="form-control" v-model="addListForm.name" id="cardListName" placeholder="Type list name here" />
-                </div>
-                <button type="submit" class="btn btn-sm btn-primary">Add List</button>
-                <button type="button" class="btn btn-sm btn-link btn-cancel" @click="closeAddListForm()">Cancel</button>
-              </form>
-            </div>
-          </draggable>
-        </div>
-      </div>
-    </div>
-  </div>
-  <AddMemberModal :boardId="board.id" @added="onMemberAdded" />
-</div>
-</template>
 
 <style scoped lang="scss">
 .page-body {
@@ -356,7 +429,7 @@ export default {
         overflow: hidden;
         position: relative;
         padding: 8px 4px 8px 8px;
-        .board-hedaer-divider {
+        .board-header-divider {
           float: left;
           border-left: 1px solid #ddd;
           height: 16px;
@@ -472,7 +545,14 @@ export default {
               cursor: pointer;
               .card-title {
                 margin: 0;
+                a {
+                  color: #333;
+                  text-decoration: none;
+                }
               }
+            }
+            .card-item:hover {
+              background: #dddd;
             }
             .ghost-card {
               background-color: #ccc !important;

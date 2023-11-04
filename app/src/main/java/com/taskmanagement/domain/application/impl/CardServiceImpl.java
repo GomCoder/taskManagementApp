@@ -19,7 +19,8 @@ public class CardServiceImpl implements CardService {
   private CardRepository cardRepository;
   private DomainEventPublisher domainEventPublisher;
 
-  public CardServiceImpl(CardRepository cardRepository, DomainEventPublisher domainEventPublisher) {
+  public CardServiceImpl(CardRepository cardRepository,
+                         DomainEventPublisher domainEventPublisher) {
     this.cardRepository = cardRepository;
     this.domainEventPublisher = domainEventPublisher;
   }
@@ -31,7 +32,10 @@ public class CardServiceImpl implements CardService {
 
   @Override
   public Card addCard(AddCardCommand command) {
-    Card card = Card.create(command.getCardListId(), command.getUserId(), command.getTitle(), command.getPosition());
+    Card card = Card.create(command.getCardListId(),
+                            command.getUserId(),
+                            command.getTitle(),
+                            command.getPosition());
     cardRepository.save(card);
     domainEventPublisher.publish(new CardAddedEvent(this, card));
     return card;

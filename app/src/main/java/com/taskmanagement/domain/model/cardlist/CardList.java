@@ -71,7 +71,7 @@ public class CardList extends AbstractBaseEntity {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof CardList)) return false;
     CardList cardList = (CardList) o;
     return boardId == cardList.boardId &&
       position == cardList.position &&

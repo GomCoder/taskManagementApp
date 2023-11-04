@@ -10,7 +10,12 @@ export default {
   name: 'App',
   created () {
     this.$bus.$on('myDataFetched', myData => {
+      // 실시간 연결 초기화
       this.$rt.init(myData.settings.realTimeServerUrl, myData.user.token)
+    })
+
+    this.$bus.$on('user.unauthenticated', () => {
+      this.$router.push({name: 'login'})
     })
   }
 }
@@ -20,6 +25,7 @@ export default {
 html, body {
   height: 100%;
   font-size: 14px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !important;
 }
 
 #app, .page {
@@ -34,6 +40,14 @@ html, body {
 
 .public.container {
   max-width: 900px;
+}
+input.form-control:focus,
+textarea.form-control:focus {
+  border: 1px solid #377EF6 !important;
+}
+
+.btn-cancel {
+  color: #666 !important;
 }
 
 .public {
@@ -73,6 +87,9 @@ html, body {
       .modal-title {
         font-size: 1rem;
       }
+      .close {
+        outline: none !important;
+      }
     }
     .modal-body {
       padding-bottom: 0;
@@ -90,6 +107,9 @@ html, body {
         color: #666;
       }
     }
+  }
+  .modal-open .modal-backdrop.show {
+    opacity: .7;
   }
 }
 </style>

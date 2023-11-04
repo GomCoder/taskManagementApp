@@ -1,9 +1,57 @@
+<template>
+  <div>
+    <PageHeader />
+    <div class="boards-container">
+      <!-- Personal Board 출력 부분 -->
+      <div class="boards-section">
+        <h2 class="section-title">{{ $t('homePage.personalBoards') }}</h2>
+        <div class="boards d-flex align-content-start flex-wrap">
+          <div class="board list-inline-item" v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)">
+            <h3>{{ board.name }}</h3>
+            <p>{{ board.description }}</p>
+          </div>
+          <!-- 개인 보드 추가 하기 -->
+          <div class="board add list-inline-item" @click="createBoard()">
+            <font-awesome-icon icon="plus" />
+            <div>{{ $t('homePage.createNewBoard') }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Team Board 출력 부분 -->
+      <div class="boards-section" v-for="team in teamBoards" v-bind:key="team.id">
+        <h2 class="section-title">{{ team.name }}</h2>
+        <div class="boards d-flex align-content-start flex-wrap">
+          <div class="board list-inline-item" v-for="board in team.boards" v-bind:key="board.id" @click="openBoard(board)">
+            <h3>{{ board.name }}</h3>
+            <p>{{ board.description }}</p>
+          </div>
+          <!-- 팀 보드 추가 하기 -->
+          <div class="board add list-inline-item" @click="createBoard(team)">
+            <font-awesome-icon icon="plus" />
+            <div>{{ $t('homePage.createNewBoard') }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- 팀 생성하기 -->
+      <div class="create-team-wrapper">
+        <button class="btn btn-link" @click="createTeam()">+ {{ $t('homePage.createNewTeam') }}</button>
+      </div>
+    </div>
+    <CreateBoardModal
+      :teamId="selectedTeamId"
+      @created="onBoardCreated" />
+    <CreateTeamModal />
+  </div>
+</template>
+
 <script>
 import $ from 'jquery'
 import PageHeader from '@/components/PageHeader.vue'
 import CreateBoardModal from '@/modals/CreateBoardModal.vue'
 import CreateTeamModal from '@/modals/CreateTeamModal.vue'
 import { mapGetters } from 'vuex'
+// eslint-disable-next-line no-unused-vars
+import { personalBoards, teamBoards } from '@/store/getters'
 
 export default {
   name: 'HomePage',
@@ -22,13 +70,15 @@ export default {
     CreateTeamModal,
     CreateBoardModal,
     PageHeader
-    // CreateBoardModal,
-    // CreateTeamModal
   },
   methods: {
     openBoard (board) {
       this.$router.push({ name: 'board', params: { boardId: board.id } })
     },
+    /**
+     * 보드 생성을 위해 단순히 Modal 창을 띄운다
+     * @param team
+     */
     createBoard (team) {
       this.selectTeamId = team ? team.id : 0
       $('#createBoardModal').modal('show')
@@ -36,54 +86,16 @@ export default {
     createTeam () {
       $('#createTeamModal').modal('show')
     },
+    /**
+     * 사용자를 보드 페이지로 Redirect 시킴
+     * @param boardId
+     */
     onBoardCreated (boardId) {
       this.$router.push({ name: 'board', params: { boardId: boardId } })
     }
   }
 }
 </script>
-
-<template>
-  <div>
-    <PageHeader />
-    <div class="boards-container">
-      <div class="boards-section">
-        <h2 class="section-title">{{ $t('homePage.personalBoards') }}</h2>
-        <div class="boards d-flex align-content-start flex-wrap">
-          <div class="board list-inline-item" v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)">
-            <h3>{{ board.name }}</h3>
-            <p>{{ board.description }}</p>
-          </div>
-          <div class="board add list-inline-item" @click="createBoard()">
-            <font-awesome-icon icon="plus" />
-            <div>{{ $t('homePage.createNewBoard') }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="boards-section" v-for="team in teamBoards" v-bind:key="team.id">
-        <h2 class="section-title">{{ team.name }}</h2>
-        <div class="boards d-flex align-content-start flex-wrap">
-          <div class="board list-inline-item" v-for="board in team.boards" v-bind:key="board.id" @click="openBoard(board)">
-            <h3>{{ board.name }}</h3>
-            <p>{{ board.description }}</p>
-          </div>
-          <div class="board add list-inline-item" @click="createBoard(team)">
-            <font-awesome-icon icon="plus" />
-            <div>{{ $t('homePage.createNewBoard') }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="create-team-wrapper">
-        <button class="btn btn-link" @click="createTeam()">+ {{ $t('homePage.createNewTeam') }}</button>
-      </div>
-    </div>
-    <CreateBoardModal
-      :teamId="selectedTeamId"
-      @created="onBoardCreated" />
-    <CreateTeamModal />
-  </div>
-</template>
 
 <style scoped lang="scss">
 .boards-container {
@@ -96,6 +108,7 @@ export default {
   .boards-section {
     margin: 30px 10px;
     .boards {
+      margin-top: -20px;
       .board {
         width: 270px;
         height: 110px;
@@ -104,6 +117,7 @@ export default {
         color: #fff;
         padding: 15px;
         margin-right: 10px;
+        margin-top: 20px;
         cursor: pointer;
       }
       h3 {

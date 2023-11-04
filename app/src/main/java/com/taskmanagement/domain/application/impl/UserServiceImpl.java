@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
   private final RegistrationManagement registrationManagement;
   private final DomainEventPublisher domainEventPublisher;
   private final MailManager mailManager;
+
   private final UserRepository userRepository;
 
   public UserServiceImpl(RegistrationManagement registrationManagement, DomainEventPublisher domainEventPublisher, MailManager mailManager, UserRepository userRepository) {
@@ -50,6 +51,13 @@ public class UserServiceImpl implements UserService {
     return new SimpleUser(user);
   }
 
+  /**
+   * 새 사용자를 사용자 이름, 전자 메일 주소 및 암호로 등록합니다.
+   * 성공: 아무것도 반환하지 않음
+   * 실패: RegistrationException 반환함
+   * @param command
+   * @throws RegistrationException
+   */
   @Override
   public void register(RegistrationCommand command) throws RegistrationException {
     Assert.notNull(command, "Parameter `command` must not be null");
@@ -63,7 +71,11 @@ public class UserServiceImpl implements UserService {
     sendWelcomeMessage(newUser);
     domainEventPublisher.publish(new UserRegisteredEvent(this, newUser));
   }
-
+  /**
+   * 아이디로 사용자 조회하기
+   * @param userId
+   * @return userRepository.findById(userId)
+   */
   @Override
   public User findById(UserId userId) {
     return userRepository.findById(userId);

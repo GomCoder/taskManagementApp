@@ -48,7 +48,9 @@ public class BoardMember extends AbstractBaseEntity {
   }
 
   @Embeddable
-  public static class BoardMemberId implements Serializable {
+  public static class BoardMemberId implements Serializable{
+
+    private static final long serialVersionUID = -5739169913659318896L;
     @Column(name = "board_id")
     private long boardId;
     @Column(name = "user_id")

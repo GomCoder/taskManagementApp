@@ -25,8 +25,8 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
       " SELECT t.* FROM team t WHERE t.user_id = :userId " +
         " UNION " +
         " ( " +
-        " SELECT t.* FROM team t, board b, board_member bm " +
-        " WHERE t.id = b.team_id AND bm.board_id AND bm.user_id = :userId " +
+        "   SELECT t.* FROM team t, board b, board_member bm " +
+        "   WHERE t.id = b.team_id AND bm.board_id AND bm.user_id = :userId " +
         " ) ";
     NativeQuery<Team> query = getSession().createNativeQuery(sql, Team.class);
     query.setParameter("userId", userId.value());

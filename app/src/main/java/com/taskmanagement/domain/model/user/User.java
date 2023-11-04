@@ -34,12 +34,17 @@ public class User extends AbstractBaseEntity {
   @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
+  public User() {
+
+  }
+
+
   /**
    * 등록 중 새 새용자 생성
-   * @param username
-   * @param emailAddress
-   * @param password
-   * @return
+   * @param username : 사용자 이름
+   * @param emailAddress : 이메일 주소
+   * @param password : 비밀 번호
+   * @return user
    */
   public static User create(String username, String emailAddress, String firstName, String lastName, String password) {
     User user = new User();
@@ -101,7 +106,7 @@ public class User extends AbstractBaseEntity {
 
   /**
    * HashCode 생성
-   * @return
+   * @return Object.hash (사용자 이름, 이메일 주소)정보
    */
   @Override
   public int hashCode() {
@@ -115,7 +120,7 @@ public class User extends AbstractBaseEntity {
       ", username='" + username + '\'' +
       ", emailAddress='" + emailAddress + '\'' +
       ", password=<Protected> " +
-      ", firtstName='" + firstName + '\'' +
+      ", firstName='" + firstName + '\'' +
       ", lastName='" + lastName + '\'' +
       ", createdDate=" + createdDate +
       '}';

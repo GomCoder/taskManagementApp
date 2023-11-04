@@ -6,4 +6,8 @@ public class UserId extends AbstractBaseId {
   public UserId(long id) {
     super(id);
   }
+
+  public String toString() {
+    return String.valueOf(value());
+  }
 }

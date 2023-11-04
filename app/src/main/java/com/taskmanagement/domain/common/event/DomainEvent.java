@@ -1,4 +1,5 @@
 package com.taskmanagement.domain.common.event;
+
 import org.springframework.context.ApplicationEvent;
 /**
  * 도메인 이벤트 추상화 메서드

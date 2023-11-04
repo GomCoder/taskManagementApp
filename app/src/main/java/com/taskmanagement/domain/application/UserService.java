@@ -15,6 +15,8 @@ public interface UserService extends UserDetailsService {
   User findById(UserId userId);
   /**
    * 새 사용자를 사용자 이름, 전자 메일 주소 및 암호로 등록합니다.
+   * 성공: 아무것도 반환하지 않음
+   * 실패: RegistrationException 반환함
    * @param command
    * @throws RegistrationException
    */

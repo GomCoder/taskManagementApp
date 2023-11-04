@@ -21,5 +21,4 @@ public interface BoardMemberRepository {
    * 보드에 사용자 추가하기
    */
   void add(BoardId boardId, UserId userId);
-
 }

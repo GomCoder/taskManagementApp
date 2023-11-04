@@ -10,7 +10,7 @@ public class BoardChannelHandler {
 
   @Action("subscribe")
   public void subscribe(RealTimeSession session, @ChannelValue String channel) {
-    log.debug("RealTimeSession[{}] Susbscribe to channel `{}`", session.id(), channel);
+    log.debug("RealTimeSession[{}] Subscribe to channel `{}`", session.id(), channel);
     SubscriptionHub.subscribe(session, channel);
   }
 

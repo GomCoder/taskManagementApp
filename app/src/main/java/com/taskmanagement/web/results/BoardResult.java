@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 public class BoardResult {
-  public static ResponseEntity<ApiResult> build(Team team, Board board, List<User> members, List<CardList> cardLists, List<Card> cards) {
+  public static ResponseEntity<ApiResult> build(Team team,
+                                                Board board,
+                                                List<User> members,
+                                                List<CardList> cardLists,
+                                                List<Card> cards) {
     Map<String, Object> boardData = new HashMap<>();
     boardData.put("id", board.getId().value());
     boardData.put("name", board.getName());
@@ -22,18 +26,18 @@ public class BoardResult {
 
     List<MemberData> membersData = new ArrayList<>();
 
-    for(User user : members) {
+    for(User user: members) {
       membersData.add(new MemberData(user));
     }
 
     List<CardListData> cardListsData  = new ArrayList<>();
     Map<CardListId, List<Card>> cardsByList = new HashMap<>();
 
-    for(Card card : cards) {
+    for(Card card: cards) {
       cardsByList.computeIfAbsent(card.getCardListId(), k -> new ArrayList<>()).add(card);
     }
 
-    for(CardList cardList : cardLists) {
+    for(CardList cardList: cardLists) {
       cardListsData.add(new CardListData(cardList, cardsByList.get(cardList.getId())));
     }
 
@@ -51,8 +55,8 @@ public class BoardResult {
   }
 
   private static class MemberData {
-    private long userId;
-    private String shortName;
+    private final long userId;
+    private final String shortName;
 
     MemberData(User user) {
       this.userId = user.getId().value();
@@ -69,10 +73,10 @@ public class BoardResult {
   }
 
   private static class CardListData {
-    private long id;
-    private String name;
-    private int position;
-    private List<CardData> cards = new ArrayList<>();
+    private final long id;
+    private final String name;
+    private final int position;
+    private final List<CardData> cards = new ArrayList<>();
 
     CardListData(CardList cardList, List<Card> cards) {
       this.id = cardList.getId().value();
@@ -80,7 +84,7 @@ public class BoardResult {
       this.position = cardList.getPosition();
 
       if (cards != null) {
-        for(Card card : cards) {
+        for(Card card: cards) {
           this.cards.add(new CardData(card));
         }
       }
@@ -104,9 +108,9 @@ public class BoardResult {
   }
 
   private static class CardData {
-    private long id;
-    private String title;
-    private int position;
+    private final long id;
+    private final String title;
+    private final int position;
 
     CardData(Card card) {
       this.id = card.getId().value();

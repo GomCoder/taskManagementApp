@@ -1,3 +1,41 @@
+<template>
+  <form @submit.prevent="saveBoard">
+    <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="createBoardModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- 모달 창 헤더 -->
+          <div class="modal-header">
+            <h5 class="modal-title">Crate Board</h5>
+            <button type="button" class="close" @click="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- 모달 창 바디 -->
+          <div class="modal-body">
+            <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="boardNameInput" v-model="board.name" placeholder="Board name" maxlength="128" />
+              <div class="field-error" v-if="$v.board.name.$dirty">
+                <div class="error" v-if="!$v.board.name.required">Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" v-model="board.description" placeholder="Add board description here"></textarea>
+              <div class="field-error" v-if="$v.board.description.$dirty">
+                <div class="error" v-if="!$v.board.description.required">Description is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="button" class="btn btn-default btn-cancel" @click="close">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
+
 <script>
 import $ from 'jquery'
 import { required } from 'vuelidate/lib/validators'
@@ -43,7 +81,7 @@ export default {
       }
       boardService.create(board).then((createdBoard) => {
         this.$store.dispatch('addBoard', createdBoard)
-        this.$emit('create', createdBoard.id)
+        this.$emit('created', createdBoard.id)
         this.close()
       }).catch(error => {
         this.errorMessage = error.message
@@ -59,44 +97,6 @@ export default {
   }
 }
 </script>
-
-<template>
-  <form @submit.prevent="saveBoard">
-    <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="createBoardModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <!-- 모달 창 헤더 -->
-          <div class="modal-header">
-            <h5 class="modal-title">Crate Board</h5>
-            <button type="button" class="close" @click="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!-- 모달 창 바디 -->
-          <div class="modal-body">
-            <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="boardNameInput" v-model="board.name" placeholder="Board name" maxlength="128" />
-              <div class="field-error" v-if="$v.board.name.$dirty">
-                <div class="error" v-if="!$v.board.name.required">Name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" v-model="board.description" placeholder="Add board description here"></textarea>
-              <div class="field-error" v-if="$v.board.description.$dirty">
-                <div class="error" v-if="!$v.board.description.required">Description is required</div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Create</button>
-            <button type="button" class="btn btn-default btn-cancel" @click="close">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</template>
 
 <style scoped lang="scss">
 .modal {

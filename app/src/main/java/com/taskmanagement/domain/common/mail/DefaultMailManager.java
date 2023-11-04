@@ -27,6 +27,13 @@ public class DefaultMailManager implements MailManager {
     this.configuration = configuration;
   }
 
+  /**
+   * 이메일을 보내는 메서드
+   * @param emailAddress: 받는 사람의 이메일 주소
+   * @param subject: 메일 제목
+   * @param template: 메일 메시지의 템플릿
+   * @param variables: 템플릿에서 활용할 변수
+   */
   @Override
   public void send(String emailAddress, String subject, String template, MessageVariable... variables) {
     Assert.hasText(emailAddress, "Parameter `emailAddress` must not be blank");
@@ -50,7 +57,7 @@ public class DefaultMailManager implements MailManager {
       }
       return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
     } catch(Exception e) {
-      log.error("Failed to create message body from template `\" + templateName + \"`", e);
+      log.error("Failed to create message body from template `" + templateName + "`", e);
       return null;
     }
   }

@@ -18,7 +18,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler({Exception.class})
   protected ResponseEntity<ApiResult> handle(RuntimeException ex) {
     String errorReferenceCode = UUID.randomUUID().toString();
-    log.error("Unhandled exception error [code=\" + errorReferenceCode + \"]" + ex);
+    log.error("Unhandled exception error [code=" + errorReferenceCode + "]" + ex);
     return Result.serverError("Sorry, there is an error on the server side.", errorReferenceCode);
   }
 }

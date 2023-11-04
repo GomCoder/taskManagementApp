@@ -17,7 +17,7 @@ public interface BoardService {
    */
   List<Board> findBoardsByMembership(UserId userId);
   /**
-   * 아이디로 보드 착기
+   * 아이디로 보드 찾기
    */
   Board findById(BoardId boardId);
 

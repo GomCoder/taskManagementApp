@@ -20,22 +20,22 @@ import com.taskmanagement.web.results.BoardResult;
 import com.taskmanagement.web.results.Result;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import com.taskmanagement.web.results.CreateBoardResult;
 
 import java.util.List;
 
 @Controller
 public class BoardApiController {
-  private BoardService boardService;
-  private TeamService teamService;
-  private CardListService cardListService;
-  private CardService cardService;
+  private final BoardService boardService;
+  private final TeamService teamService;
+  private final CardListService cardListService;
+  private final CardService cardService;
 
-  public BoardApiController(BoardService boardService, TeamService teamService, CardListService cardListService, CardService cardService) {
+  public BoardApiController(BoardService boardService,
+                            TeamService teamService,
+                            CardListService cardListService,
+                            CardService cardService) {
     this.boardService = boardService;
     this.teamService = teamService;
     this.cardListService = cardListService;
@@ -43,7 +43,8 @@ public class BoardApiController {
   }
 
   @PostMapping("/api/boards")
-  public ResponseEntity<ApiResult> createBoard(@RequestBody CreateBoardPayload payload, @CurrentUser SimpleUser currentUser) {
+  public ResponseEntity<ApiResult> createBoard(@RequestBody CreateBoardPayload payload,
+                                               @CurrentUser SimpleUser currentUser) {
     Board board = boardService.createBoard(payload.toCommand(currentUser.getUserId()));
     return CreateBoardResult.build(board);
   }
@@ -67,12 +68,12 @@ public class BoardApiController {
 
     List<CardList> cardLists = cardListService.findByBoardId(boardId);
     List<Card> cards = cardService.findByBoardId(boardId);
-
     return BoardResult.build(team, board, members, cardLists, cards);
   }
 
-  @PostMapping("/api/boards/{boardId}/members")
-  public ResponseEntity<ApiResult> addMember(@PathVariable("boardId") long rawBoardId, @RequestBody AddBoardMemberPayload payload) {
+  @PostMapping(value="/api/boards/{boardId}/members")
+  public ResponseEntity<ApiResult> addMember(@PathVariable("boardId") long rawBoardId,
+                                             @RequestBody AddBoardMemberPayload payload) {
     BoardId boardId = new BoardId(rawBoardId);
     Board board = boardService.findById(boardId);
 

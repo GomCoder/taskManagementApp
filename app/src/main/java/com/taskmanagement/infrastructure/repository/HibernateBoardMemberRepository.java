@@ -22,8 +22,9 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
     String sql =
       " SELECT u.* FROM user u " +
         " LEFT JOIN board_member bm ON u.id = bm.user_id " +
-        " WHERE bm.board_id = :boardId ";
+        " WHERE bm.board_id = :boardId";
     NativeQuery<User> query = getSession().createNativeQuery(sql, User.class);
+    query.setParameter("boardId", boardId.value());
     return query.list();
   }
 
@@ -33,5 +34,7 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
     NativeQuery query = getSession().createNativeQuery(sql);
     query.setParameter("boardId", boardId.value());
     query.setParameter("userId", userId.value());
+    query.executeUpdate();
+    System.out.println("------add() 호출...");
   }
 }

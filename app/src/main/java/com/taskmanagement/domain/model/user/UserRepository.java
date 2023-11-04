@@ -19,6 +19,11 @@ public interface UserRepository {
    */
   User findByEmailAddress(String emailAddress);
 
+  /**
+   * ID로 사용자 조회
+   * @param userId
+   * @return
+   */
   User findById(UserId userId);
 
   /**

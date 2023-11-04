@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Board extends AbstractBaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
   @Column(name = "name", nullable = false, length = 128, unique = true)
   private String name;
   @Column(name = "description", nullable = false, length = 256, unique = true)
@@ -30,11 +30,11 @@ public class Board extends AbstractBaseEntity {
 
   /**
    * 새로운 보드 생성하기
-   * @param userId
-   * @param name
-   * @param description
-   * @param teamId
-   * @return
+   * @param userId: 사용자 아이디
+   * @param name : 사용자 이름
+   * @param description: 설명
+   * @param teamId : 팀 아이디
+   * @return board
    */
   public static Board create(UserId userId, String name, String description, TeamId teamId) {
     Board board = new Board();

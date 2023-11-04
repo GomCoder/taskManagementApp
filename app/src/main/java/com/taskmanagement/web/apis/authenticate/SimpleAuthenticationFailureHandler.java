@@ -16,7 +16,9 @@ public class SimpleAuthenticationFailureHandler implements AuthenticationFailure
 
 
   @Override
-  public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+  public void onAuthenticationFailure(HttpServletRequest request,
+                                      HttpServletResponse response,
+                                      AuthenticationException exception) throws IOException {
     response.setStatus(HttpStatus.BAD_REQUEST.value());
     ApiResult failure;
 

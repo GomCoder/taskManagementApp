@@ -18,7 +18,7 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
   }
 
   @Override
-  public List<Board> findBoardByMembership(UserId userId) {
+  public List<Board> findBoardsByMembership(UserId userId) {
     String sql = "SELECT b.* FROM board b LEFT JOIN board_member bm ON b.id = bm.board_id WHERE bm.user_id = :userId";
     NativeQuery<Board> query = getSession().createNativeQuery(sql, Board.class);
     query.setParameter("userId", userId.value());
@@ -27,7 +27,7 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
 
   @Override
   public Board findById(BoardId boardId) {
-    Query<Board> query = getSession().createQuery("FROM Board WHERE id = :id", Board.class);
+    Query<Board> query = getSession().createQuery("from Board where id = :id", Board.class);
     query.setParameter("id", boardId.value());
     return query.uniqueResult();
   }

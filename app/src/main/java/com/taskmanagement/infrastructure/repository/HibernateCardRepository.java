@@ -25,7 +25,7 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
 
   @Override
   public List<Card> findByBoardId(BoardId boardId) {
-    String sql = "SELECT c.* FROM card c LEFT JOIN card_list c1 ON c.card_list_id = c1.id WHERE c1.board_id :boardId";
+    String sql = "SELECT c.* FROM card c LEFT JOIN card_list c1 ON c.card_list_id = c1.id WHERE c1.board_id = :boardId";
     NativeQuery<Card> query = getSession().createNativeQuery(sql, Card.class);
     query.setParameter("boardId", boardId.value());
     return query.list();

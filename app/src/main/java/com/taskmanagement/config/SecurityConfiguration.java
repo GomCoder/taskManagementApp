@@ -22,7 +22,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 /**
  * 스프링 시큐리티를 위한 설정 클래스
  */
-//@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -32,34 +31,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-//    http
-//      .authorizeRequests()
-//        .antMatchers(PUBLIC).permitAll()
-//        .anyRequest().authenticated()
-//      .and()
-//        .formLogin()
-//        .loginPage("/login")
-//      .and()
-//        .logout()
-//        .logoutUrl("/logout")
-//        .logoutSuccessUrl("/login?logged-out")
-//      .and()
-//        .csrf().disable();
-
     http
       .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
       .and()
-      .authorizeRequests()
-      .antMatchers(PUBLIC).permitAll()
-      .anyRequest().authenticated()
+        .authorizeRequests()
+        .antMatchers(PUBLIC).permitAll()
+        .anyRequest().authenticated()
       .and()
-      .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-      .formLogin()
-      .loginPage("/login")
+        .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+        .formLogin()
+        .loginPage("/login")
       .and()
-      .logout()
-      .logoutUrl("/api/me/logout")
-      .logoutSuccessHandler(logoutSuccessHandler())
+        .logout()
+        .logoutUrl("/api/me/logout")
+        .logoutSuccessHandler(logoutSuccessHandler())
       .and()
       .csrf().disable();
   }

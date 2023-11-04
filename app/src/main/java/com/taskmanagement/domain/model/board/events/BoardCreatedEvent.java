@@ -14,5 +14,4 @@ public class BoardCreatedEvent extends DomainEvent {
   public Board getBoard() {
     return board;
   }
-
 }

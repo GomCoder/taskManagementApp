@@ -14,14 +14,15 @@ import com.taskmanagement.web.results.CreateTeamResult;
 
 @Controller
 public class TeamApiController {
-  private TeamService teamService;
+  private final TeamService teamService;
 
   public TeamApiController(TeamService teamService) {
     this.teamService = teamService;
   }
 
   @PostMapping("/api/teams")
-  public ResponseEntity<ApiResult> createTeam(@RequestBody CreateTeamPayload payload, @CurrentUser SimpleUser currentUser) {
+  public ResponseEntity<ApiResult> createTeam(@RequestBody CreateTeamPayload payload,
+                                              @CurrentUser SimpleUser currentUser) {
     Team team = teamService.createTeam(payload.toCommand(currentUser.getUserId()));
     return CreateTeamResult.build(team);
   }

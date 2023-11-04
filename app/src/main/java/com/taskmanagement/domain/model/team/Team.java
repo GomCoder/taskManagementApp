@@ -48,8 +48,8 @@ public class Team extends AbstractBaseEntity {
     return name;
   }
 
-  public long getUserId() {
-    return userId;
+  public UserId getUserId() {
+    return new UserId(userId);
   }
 
   public boolean isArchived() {

@@ -27,7 +27,7 @@ public class ApplicationProperties {
   @NotEmpty
   private String realTimeServerUrl;
 
-  //Getter와 Setter
+  // Getter와 Setter
   public void setMailFrom(String mailFrom) {
     this.mailFrom = mailFrom;
   }

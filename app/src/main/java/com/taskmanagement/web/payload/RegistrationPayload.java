@@ -1,4 +1,7 @@
 package com.taskmanagement.web.payload;
+/**
+ * Form 데이터 검증에 사용하는 클래스
+ */
 
 import com.taskmanagement.domain.application.commands.RegistrationCommand;
 
@@ -30,7 +33,11 @@ public class RegistrationPayload {
   private String password;
 
   public RegistrationCommand toCommand() {
-    return new RegistrationCommand(this.username, this.emailAddress, this.firstName, this.lastName, this.password);
+    return new RegistrationCommand(this.username,
+      this.emailAddress,
+      this.firstName,
+      this.lastName,
+      this.password);
   }
 
   //Getter, Setter

@@ -12,9 +12,13 @@ import java.util.Map;
 
 public class MyDataResult {
 
-  public static ResponseEntity<ApiResult> build(User user, List<Team> teams, List<Board> boards, String realTimeServerUrl, String realTimeToken) {
+  public static ResponseEntity<ApiResult> build(User user,
+                                                List<Team> teams,
+                                                List<Board> boards,
+                                                String realTimeServerUrl,
+                                                String realTimeToken) {
     Map<String, Object> userData = new HashMap<>();
-    userData.put("name", user.getUsername() + " " + user.getLastName());
+    userData.put("name", user.getFirstName() + " " + user.getLastName());
     userData.put("token", realTimeToken);
 
     Map<String, Object> settings = new HashMap<>();
@@ -22,12 +26,12 @@ public class MyDataResult {
 
     List<TeamResult> teamResults = new ArrayList<>();
 
-    for(Team team : teams) {
+    for(Team team: teams) {
       teamResults.add(new TeamResult(team));
     }
 
     List<BoardResult> boardResults = new ArrayList<>();
-    for (Board board : boards) {
+    for (Board board: boards) {
       boardResults.add(new BoardResult(board));
     }
 
@@ -37,9 +41,13 @@ public class MyDataResult {
       .add("boards", boardResults)
       .add("settings", settings);
 
-      return Result.ok(apiResult);
+    System.out.println("user:" + userData + "\nteams: " + teamResults + "\nboards: " + boardResults);
+    return Result.ok(apiResult);
   }
 
+  /**
+   * Team Result
+   */
   private static class TeamResult {
     private final long id;
     private final String name;
@@ -58,6 +66,9 @@ public class MyDataResult {
     }
   }
 
+  /**
+   * Board Result
+   */
   private static class BoardResult {
     private final long id;
     private final String name;

@@ -1,3 +1,34 @@
+
+<template>
+  <form @submit.prevent="addMember">
+    <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="addMemberModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Member</h5>
+            <button type="button" class="close" @click="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="usernameOrEmailAddressInput" v-model="usernameOrEmailAddress" placeholder="Username or email address" maxlength="128">
+              <div class="field-error" v-if="$v.usernameOrEmailAddress.$dirty">
+                <div class="error" v-if="!$v.usernameOrEmailAddress.required">This is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-default btn-cancel" @click="close">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
+
 <script>
 import $ from 'jquery'
 import { required } from 'vuelidate/lib/validators'
@@ -44,36 +75,6 @@ export default {
   }
 }
 </script>
-
-<template>
-  <form @submit.prevent="addMember">
-    <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="addMemberModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Member</h5>
-            <button type="button" class="close" @click="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="usernameOrEmailAddressInput" v-model="usernameOrEmailAddress" placeholder="Username or email address" maxlength="128">
-              <div class="field-error" v-if="$v.usernameOrEmailAddress.$dirty">
-                <div class="error" v-if="!$v.usernameOrEmailAddress.required">This is required</div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn btn-default btn-cancel" @click="close">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</template>
 
 <style scoped lang="scss">
 .modal {

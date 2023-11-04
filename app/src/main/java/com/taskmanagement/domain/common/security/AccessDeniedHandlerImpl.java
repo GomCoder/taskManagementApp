@@ -22,7 +22,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
       log.debug("Accesses to `" + request.getRequestURI() + "` denied.");
     }
 
-    if (request.getRequestURI().startsWith("/api")) {
+    if (request.getRequestURI().startsWith("/api/")) {
       if (request.getUserPrincipal() instanceof SimpleUser) {
         response.sendError(HttpServletResponse.SC_FORBIDDEN);
       } else {

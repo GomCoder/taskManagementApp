@@ -26,7 +26,11 @@ public class MeApiController {
   private final UserService userService;
   private final TokenManager tokenManager;
 
-  public MeApiController(@Value(value="${app.real-time-server-url}") String realTimeServerUrl, TeamService teamService, UserService userService, BoardService boardService, TokenManager tokenManager) {
+  public MeApiController(@Value(value = "${app.real-time-server-url}") String realTimeServerUrl,
+                         TeamService teamService,
+                         UserService userService,
+                         BoardService boardService,
+                         TokenManager tokenManager) {
     this.realTimeServerUrl = realTimeServerUrl;
     this.teamService = teamService;
     this.userService = userService;
@@ -39,7 +43,7 @@ public class MeApiController {
     User user = userService.findById(currentUser.getUserId());
     List<Team> teams = teamService.findTeamsByUserId(currentUser.getUserId());
     List<Board> boards = boardService.findBoardsByMembership(currentUser.getUserId());
-    String realTimeToken = tokenManager.jwt(user.getId());
+    String realTimeToken = tokenManager.jwt(currentUser.getUserId());
     return MyDataResult.build(user, teams, boards, realTimeServerUrl, realTimeToken);
   }
 }

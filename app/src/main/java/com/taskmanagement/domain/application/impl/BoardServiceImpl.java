@@ -24,7 +24,11 @@ public class BoardServiceImpl implements BoardService {
   private final UserFinder userFinder;
   private final DomainEventPublisher domainEventPublisher;
 
-  public BoardServiceImpl(BoardRepository boardRepository, BoardManagement boardManagement, BoardMemberRepository boardMemberRepository,UserFinder userFinder, DomainEventPublisher domainEventPublisher) {
+  public BoardServiceImpl(BoardRepository boardRepository,
+                          BoardManagement boardManagement,
+                          BoardMemberRepository boardMemberRepository,
+                          UserFinder userFinder,
+                          DomainEventPublisher domainEventPublisher) {
     this.boardRepository = boardRepository;
     this.boardManagement = boardManagement;
     this.boardMemberRepository = boardMemberRepository;
@@ -32,10 +36,9 @@ public class BoardServiceImpl implements BoardService {
     this.domainEventPublisher = domainEventPublisher;
   }
 
-
   @Override
   public List<Board> findBoardsByMembership(UserId userId) {
-    return boardRepository.findBoardByMembership(userId);
+    return boardRepository.findBoardsByMembership(userId);
   }
 
   @Override
@@ -49,16 +52,20 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
+  public Board createBoard(CreateBoardCommand command) {
+    Board board = boardManagement.createBoard(command.getUserId(),
+                                              command.getName(),
+                                              command.getDescription(),
+                                              command.getTeamId());
+    domainEventPublisher.publish(new BoardCreatedEvent(this, board));
+    return board;
+  }
+
+  @Override
   public User addMember(BoardId boardId, String usernameOrEmailAddress) throws UserNotFoundException {
     User user = userFinder.find(usernameOrEmailAddress);
     boardMemberRepository.add(boardId, user.getId());
     domainEventPublisher.publish(new BoardMemberAddedEvent(this, boardId, user));
     return user;
-  }
-  @Override
-  public Board createBoard(CreateBoardCommand command) {
-    Board board = boardManagement.createBoard(command.getUserId(), command.getName(), command.getDescription(), command.getTeamId());
-    domainEventPublisher.publish(new BoardCreatedEvent(this, board));
-    return board;
   }
 }

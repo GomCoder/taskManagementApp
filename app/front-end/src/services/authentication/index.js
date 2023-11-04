@@ -12,6 +12,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('/authentications', detail).then(({ data }) => {
         resolve(data)
+        console.log('authenticate() 호출...' + resolve(data))
       }).catch((error) => {
         reject(errorParser.parse(error))
       })

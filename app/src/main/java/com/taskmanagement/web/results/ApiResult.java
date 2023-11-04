@@ -1,11 +1,14 @@
 package com.taskmanagement.web.results;
+/**
+ * API의 결과를 생성하는 클래스
+ */
 
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
 
 public class ApiResult extends HashMap<String, Object> {
-
+  private static final long serialVersionUID = 877825499039674411L;
   private static final String MESSAGE_KEY = "message";
   private static final String ERROR_CODE_KEY = "errorReferenceCode";
 

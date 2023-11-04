@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class CardListApiController {
-  private CardListService cardListService;
+  private final CardListService cardListService;
 
   public CardListApiController(CardListService cardListService) {
     this.cardListService = cardListService;

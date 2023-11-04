@@ -34,10 +34,33 @@
               </div>
           </div>
 
+          <!-- FirstName 입력-->
+          <div class="form-group">
+            <label for="firstName">{{ $t('registerPage.form.firstName.label') }}</label>
+            <input type="text" class="form-control" id="firstName" v-model="form.firstName">
+            <div class="field-error">
+              <div class="error" v-if="!$v.form.firstName.required">{{ $t('registerPage.form.firstName.required') }}</div>
+              <div class="error" v-if="!$v.form.firstName.alpha">{{ $t('registerPage.form.firstName.alpha') }}</div>
+              <div class="error" v-if="!$v.form.firstName.minLength">{{ $t('registerPage.form.firstName.minLength', {minLength: $v.form.firstName.$params.minLength.min}) }}</div>
+              <div class="error" v-if="!$v.form.firstName.maxLength">{{ $t('registerPage.form.firstName.maxLength', {maxLength: $v.form.firstName.$params.maxLength.max}) }}</div>
+            </div>
+          </div>
+          <!-- LastName 입력-->
+          <div class="form-group">
+            <label for="lastName">{{ $t('registerPage.form.lastName.label') }}</label>
+            <input type="text" class="form-control" id="lastName" v-model="form.lastName">
+            <div class="field-error" v-if="$v.form.lastName.$dirty">
+              <div class="error" v-if="!$v.form.lastName.required">{{ $t('registerPage.form.lastName.required') }}</div>
+              <div class="error" v-if="!$v.form.lastName.alpha">{{ $t('registerPage.form.lastName.alpha') }}</div>
+              <div class="error" v-if="!$v.form.lastName.minLength">{{ $t('registerPage.form.lastName.minLength', {minLength: $v.form.lastName.$params.minLength.min}) }}</div>
+              <div class="error" v-if="!$v.form.lastName.maxLength">{{ $t('registerPage.form.lastName.maxLength', {maxLength: $v.form.lastName.$params.maxLength.max}) }}</div>
+            </div>
+          </div>
+
           <div class="form-group">
             <!-- 사용자 비밀번호 입력 -->
             <label for="password">{{ $t('registerPage.form.password.label') }}</label>
-            <input type="password" class="form-control" id-="password" v-model="form.password">
+            <input type="password" class="form-control" id="password" v-model="form.password">
             <!-- 사용자 비밀번호 입력 오류 메시지 -->
             <div class="field-error" v-if="$v.form.password.$dirty">
                 <div class="error" v-if="!$v.form.password.required">{{ $t('registerPage.form.password.required') }}</div>
@@ -49,7 +72,7 @@
           <!-- 가입하기 버튼 -->
           <button type="submit" class="btn btn-primary btn-block">{{ $t('registerPage.form.submit') }}</button>
           <p class="accept-terms text-muted">
-            <i18n path="registerPage.form.terms.accept" tag="p" class="aceept-terms text-muted">
+            <i18n path="registerPage.form.terms.accept" tag="p" class="accept-terms text-muted">
               <a href="#" place="termsOfService">{{ $t('registerPage.form.terms.termsOfService') }}</a>
               <a href="#" place="privacyPolicy">{{ $t('registerPage.form.terms.privacyPolicy') }}</a>
             </i18n>
@@ -63,14 +86,15 @@
 </template>
 
 <script>
-import { required, email, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators'
+import { required, email, minLength, maxLength, alphaNum, alpha } from 'vuelidate/lib/validators'
 import registrationService from '@/services/registration'
 import Logo from '@/components/Logo.vue'
 import PageFooter from '@/components/PageFooter.vue'
+import { i18n } from '@/i18n'
 
 export default {
   name: 'RegisterPage',
-  components: { PageFooter, Logo },
+  components: { PageFooter, Logo, i18n },
   data: function () {
     return {
       form: {
@@ -94,6 +118,18 @@ export default {
         email,
         maxLength: maxLength(100)
       },
+      firstName: {
+        required,
+        minLength: minLength(1),
+        maxLength: maxLength(45),
+        alpha
+      },
+      lastName: {
+        required,
+        minLength: minLength(1),
+        maxLength: maxLength(45),
+        alpha
+      },
       password: {
         required,
         minLength: minLength(6),
@@ -113,7 +149,7 @@ export default {
       }
 
       registrationService.register(this.form).then(() => {
-        this.$router.push({ name: 'LoginPage' })
+        this.$router.push({ name: 'login' })
       }).catch((error) => {
         this.errorMessage = 'Failed to register user. ' + error.message
       })
