@@ -31,10 +31,11 @@ export default {
           this.$emit('failed', data._response.jqXHR.responseJSON.message)
         },
         done: (e, data) => {
-          this.$emit('upload', data.result)
+          this.$emit('uploaded', data.result)
         },
         progress: (e, data) => {
-          const progress = parseInt(data.loaded / data.total * 100, 10)
+          // const progress = parseInt(data.loaded / data.total * 100, 10)
+          const progress = `${Math.round((data.loaded / data.total) * 100)}%`
           this.$emit('progress', progress)
         }
       })

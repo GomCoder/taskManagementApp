@@ -6,7 +6,7 @@ import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.team.TeamRepository;
-import com.taskmanagement.domain.model.team.event.TeamCreatedEvent;
+import com.taskmanagement.domain.model.team.events.TeamCreatedEvent;
 import com.taskmanagement.domain.model.user.UserId;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TeamServiceImpl implements TeamService {
-  private TeamRepository teamRepository;
-  private DomainEventPublisher domainEventPublisher;
+  private final TeamRepository teamRepository;
+  private final DomainEventPublisher domainEventPublisher;
 
   public TeamServiceImpl(TeamRepository teamRepository, DomainEventPublisher domainEventPublisher) {
     this.teamRepository = teamRepository;
@@ -39,7 +39,8 @@ public class TeamServiceImpl implements TeamService {
   public Team createTeam(CreateTeamCommand command) {
     Team team = Team.create(command.getName(), command.getUserId());
     teamRepository.save(team);
-    domainEventPublisher.publish(new TeamCreatedEvent(this, team));
+    domainEventPublisher.publish(new TeamCreatedEvent(team, command));
+    System.out.println(team.getCreatedDate());
     return team;
   }
 }

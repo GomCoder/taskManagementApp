@@ -9,8 +9,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User extends AbstractBaseEntity {
-  private static final long serialVersionUID = -538781580460070724L;
 
+  private static final long serialVersionUID = -3814094025848881356L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -21,7 +21,7 @@ public class User extends AbstractBaseEntity {
   @Column(name ="email_address", nullable = false, length = 100, unique = true)
   private String emailAddress;
 
-  @Column(name = "password", nullable = false, length = 30)
+  @Column(name = "password", nullable = false, length = 128)
   private String password;
 
   @Column(name = "first_name", nullable = false, length = 45)

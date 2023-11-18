@@ -1,28 +1,21 @@
 package com.taskmanagement.domain.application.commands;
 
-import com.taskmanagement.domain.model.cardlist.CardList;
 import com.taskmanagement.domain.model.cardlist.CardListId;
-import com.taskmanagement.domain.model.user.UserId;
 
-public class AddCardCommand {
-  private CardListId cardListId;
-  private UserId userId;
-  private String title;
-  private int position;
+public class AddCardCommand extends UserCommand{
+  private final CardListId cardListId;
 
-  public AddCardCommand(CardListId cardListId, UserId userId, String title, int position) {
+  private final String title;
+  private final int position;
+
+  public AddCardCommand(CardListId cardListId, String title, int position) {
     this.cardListId = cardListId;
-    this.userId = userId;
     this.title = title;
     this.position = position;
   }
 
   public CardListId getCardListId() {
     return cardListId;
-  }
-
-  public UserId getUserId() {
-    return userId;
   }
 
   public String getTitle() {

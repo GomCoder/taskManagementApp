@@ -4,6 +4,7 @@ import com.taskmanagement.domain.model.user.UserId;
 import com.taskmanagement.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.util.UriComponents;
@@ -16,7 +17,7 @@ public class RealTimeSession {
   private static final Logger log = LoggerFactory.getLogger(RealTimeSession.class);
   private static final String KEY_USER_ID = "KEY_USER_ID";
 
-  private WebSocketSession session;
+  private final WebSocketSession session;
 
   RealTimeSession(WebSocketSession session) {
     this.session = session;
@@ -31,15 +32,15 @@ public class RealTimeSession {
   }
 
   public void setUserId(UserId userId) {
-    addAttribute(KEY_USER_ID, userId);
+    addAttribute(userId);
   }
 
   public UserId getUserId() {
     return getAttribute(KEY_USER_ID);
   }
 
-  void addAttribute(String key, Object value) {
-    session.getAttributes().put(key, value);
+  void addAttribute(Object value) {
+    session.getAttributes().put(RealTimeSession.KEY_USER_ID, value);
   }
 
   @SuppressWarnings("unchecked")

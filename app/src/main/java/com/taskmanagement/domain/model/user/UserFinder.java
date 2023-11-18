@@ -1,11 +1,11 @@
 package com.taskmanagement.domain.model.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserFinder {
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   public UserFinder(UserRepository userRepository) {
     this.userRepository = userRepository;

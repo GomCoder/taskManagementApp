@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 public class AsyncMailer implements Mailer {
 
   private static final Logger log = LoggerFactory.getLogger(AsyncMailer.class);
-  private JavaMailSender mailSender;
+  private final JavaMailSender mailSender;
 
   public AsyncMailer(JavaMailSender mailSender) {
     this.mailSender = mailSender;

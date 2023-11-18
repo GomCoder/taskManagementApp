@@ -44,6 +44,7 @@ public class MeApiController {
     List<Team> teams = teamService.findTeamsByUserId(currentUser.getUserId());
     List<Board> boards = boardService.findBoardsByMembership(currentUser.getUserId());
     String realTimeToken = tokenManager.jwt(currentUser.getUserId());
+    System.out.println("getMyData() 호출");
     return MyDataResult.build(user, teams, boards, realTimeServerUrl, realTimeToken);
   }
 }

@@ -2,6 +2,7 @@ package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.cardlist.CardList;
+import com.taskmanagement.domain.model.cardlist.CardListId;
 import com.taskmanagement.domain.model.cardlist.CardListPosition;
 import com.taskmanagement.domain.model.cardlist.CardListRepository;
 import org.hibernate.query.NativeQuery;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Repository
 public class HibernateCardListRepository extends HibernateSupport<CardList> implements CardListRepository {
-  private JdbcTemplate jdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
 
   HibernateCardListRepository(EntityManager entityManager, JdbcTemplate jdbcTemplate) {
     super(entityManager);
@@ -48,5 +49,10 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
         return cardListPositions.size();
       }
     });
+  }
+
+  @Override
+  public CardList findById(CardListId cardListId) {
+    return getSession().find(CardList.class, cardListId.value());
   }
 }

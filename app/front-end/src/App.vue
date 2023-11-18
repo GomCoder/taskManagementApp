@@ -15,7 +15,7 @@ export default {
     })
 
     this.$bus.$on('user.unauthenticated', () => {
-      this.$router.push({name: 'login'})
+      this.$router.push({ name: 'login' })
     })
   }
 }

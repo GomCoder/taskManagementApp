@@ -72,6 +72,7 @@ export default {
     PageHeader
   },
   methods: {
+    personalBoards,
     openBoard (board) {
       this.$router.push({ name: 'board', params: { boardId: board.id } })
     },

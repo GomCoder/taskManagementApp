@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class SimpleAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-
   @Override
   public void onAuthenticationFailure(HttpServletRequest request,
                                       HttpServletResponse response,

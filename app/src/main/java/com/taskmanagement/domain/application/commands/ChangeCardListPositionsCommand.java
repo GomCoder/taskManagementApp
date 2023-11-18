@@ -5,9 +5,9 @@ import com.taskmanagement.domain.model.cardlist.CardListPosition;
 
 import java.util.List;
 
-public class ChangeCardListPositionsCommand {
-  private BoardId boardId;
-  private List<CardListPosition> cardListPositions;
+public class ChangeCardListPositionsCommand extends UserCommand {
+  private final BoardId boardId;
+  private final List<CardListPosition> cardListPositions;
 
   public ChangeCardListPositionsCommand(BoardId boardId, List<CardListPosition> cardListPositions) {
     this.boardId = boardId;

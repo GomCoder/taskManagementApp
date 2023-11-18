@@ -6,7 +6,6 @@ import com.taskmanagement.utils.JsonUtils;
 import io.jsonwebtoken.JwtException;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -17,8 +16,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class WebSocketRequestDispatcher extends TextWebSocketHandler {
   private static final Logger log = LoggerFactory.getLogger(WebSocketRequestDispatcher.class);
 
-  private TokenManager tokenManager;
-  private ChannelHandlerResolver channelHandlerResolver;
+  private final TokenManager tokenManager;
+  private final ChannelHandlerResolver channelHandlerResolver;
 
   public WebSocketRequestDispatcher(TokenManager tokenManager, ChannelHandlerResolver channelHandlerResolver) {
     this.tokenManager = tokenManager;

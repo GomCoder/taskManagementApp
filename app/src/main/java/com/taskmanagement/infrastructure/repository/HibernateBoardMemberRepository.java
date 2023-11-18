@@ -30,7 +30,7 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
 
   @Override
   public void add(BoardId boardId, UserId userId) {
-    String sql = "INSERT IGNORE INTO board_member (board_id, user_id) VALUE (:board_Id, :userId)";
+    String sql = "INSERT IGNORE INTO board_member (board_id, user_id) VALUE (:boardId, :userId)";
     NativeQuery query = getSession().createNativeQuery(sql);
     query.setParameter("boardId", boardId.value());
     query.setParameter("userId", userId.value());

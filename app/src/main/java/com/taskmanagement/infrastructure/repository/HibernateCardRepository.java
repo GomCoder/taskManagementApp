@@ -2,6 +2,7 @@ package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.card.Card;
+import com.taskmanagement.domain.model.card.CardId;
 import com.taskmanagement.domain.model.card.CardPosition;
 import com.taskmanagement.domain.model.card.CardRepository;
 import org.hibernate.query.NativeQuery;
@@ -48,5 +49,10 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
         return cardPositions.size();
       }
     });
+  }
+
+  @Override
+  public Card findById(CardId cardId) {
+    return getSession().find(Card.class, cardId.value());
   }
 }

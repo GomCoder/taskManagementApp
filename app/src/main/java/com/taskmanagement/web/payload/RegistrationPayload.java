@@ -3,7 +3,7 @@ package com.taskmanagement.web.payload;
  * Form 데이터 검증에 사용하는 클래스
  */
 
-import com.taskmanagement.domain.application.commands.RegistrationCommand;
+import com.taskmanagement.domain.application.commands.RegisterCommand;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -32,8 +32,9 @@ public class RegistrationPayload {
   @NotNull
   private String password;
 
-  public RegistrationCommand toCommand() {
-    return new RegistrationCommand(this.username,
+  public RegisterCommand toCommand() {
+    return new RegisterCommand(
+      this.username,
       this.emailAddress,
       this.firstName,
       this.lastName,

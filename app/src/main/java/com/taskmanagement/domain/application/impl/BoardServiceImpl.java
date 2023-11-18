@@ -1,6 +1,7 @@
 package com.taskmanagement.domain.application.impl;
 
 import com.taskmanagement.domain.application.BoardService;
+import com.taskmanagement.domain.application.commands.AddBoardMemberCommand;
 import com.taskmanagement.domain.application.commands.CreateBoardCommand;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.board.*;
@@ -21,6 +22,7 @@ public class BoardServiceImpl implements BoardService {
   private final BoardRepository boardRepository;
   private final BoardManagement boardManagement;
   private final BoardMemberRepository boardMemberRepository;
+
   private final UserFinder userFinder;
   private final DomainEventPublisher domainEventPublisher;
 
@@ -57,15 +59,16 @@ public class BoardServiceImpl implements BoardService {
                                               command.getName(),
                                               command.getDescription(),
                                               command.getTeamId());
-    domainEventPublisher.publish(new BoardCreatedEvent(this, board));
+    domainEventPublisher.publish(new BoardCreatedEvent(board, command));
+    System.out.println(board.getCreatedDate());
     return board;
   }
 
   @Override
-  public User addMember(BoardId boardId, String usernameOrEmailAddress) throws UserNotFoundException {
-    User user = userFinder.find(usernameOrEmailAddress);
-    boardMemberRepository.add(boardId, user.getId());
-    domainEventPublisher.publish(new BoardMemberAddedEvent(this, boardId, user));
+  public User addMember(AddBoardMemberCommand command) throws UserNotFoundException {
+    User user = userFinder.find(command.getUsernameOrEmailAddress());
+    boardMemberRepository.add(command.getBoardId(), user.getId());
+    domainEventPublisher.publish(new BoardMemberAddedEvent(command.getBoardId(), user, command));
     return user;
   }
 }

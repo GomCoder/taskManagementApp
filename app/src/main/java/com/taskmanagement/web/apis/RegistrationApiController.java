@@ -1,6 +1,7 @@
 package com.taskmanagement.web.apis;
 
 import com.taskmanagement.domain.application.UserService;
+import com.taskmanagement.domain.application.commands.RegisterCommand;
 import com.taskmanagement.domain.model.user.EmailAddressExistsException;
 import com.taskmanagement.domain.model.user.RegistrationException;
 import com.taskmanagement.domain.model.user.UsernameExistsException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -26,7 +28,7 @@ import javax.validation.Valid;
  * - 실패: RegistrationException 예외 처리, 관련 메시지와 HTTP 400 응답을 반환
  */
 @Controller
-public class RegistrationApiController {
+public class RegistrationApiController extends AbstractBaseController {
   //사용자를 등록할 때 활용할 register API 제공
   private final UserService service;
 
@@ -41,9 +43,12 @@ public class RegistrationApiController {
    * @return ResponseEntity의 인스턴스 반환 -> Spring MVC가 HTTP 응답을 생성하는 데 사용함
    */
   @PostMapping("/api/registrations")
-  public ResponseEntity<ApiResult> register(@Valid @RequestBody RegistrationPayload payload) {
+  public ResponseEntity<ApiResult> register(@Valid @RequestBody RegistrationPayload payload,
+                                            HttpServletRequest request) {
     try {
-      service.register(payload.toCommand());
+      RegisterCommand command = payload.toCommand();
+      addTriggeredBy(command, request);
+      service.register(command);
       return Result.created();
     } catch(RegistrationException e) {
       String errorMessage = "Registration failed";

@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public class SimpleUser implements UserDetails {
 
+  private static final long serialVersionUID = 5942822323848085766L;
   private final UserId userId;
   private final String username;
   private final String password;

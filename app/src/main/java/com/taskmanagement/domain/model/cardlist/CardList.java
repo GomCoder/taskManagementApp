@@ -12,6 +12,7 @@ import java.util.Objects;
 @Table(name = "card_list")
 public class CardList extends AbstractBaseEntity {
 
+  private static final long serialVersionUID = -4078718811767299992L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

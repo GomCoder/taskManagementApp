@@ -11,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "board")
 public class Board extends AbstractBaseEntity {
+  private static final long serialVersionUID = 4415381804106519493L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

@@ -1,7 +1,7 @@
 package com.taskmanagement.domain.application.impl;
 
 import com.taskmanagement.domain.application.UserService;
-import com.taskmanagement.domain.application.commands.RegistrationCommand;
+import com.taskmanagement.domain.application.commands.RegisterCommand;
 import com.taskmanagement.domain.common.mail.MessageVariable;
 import com.taskmanagement.domain.model.user.*;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
@@ -22,10 +22,12 @@ public class UserServiceImpl implements UserService {
   private final RegistrationManagement registrationManagement;
   private final DomainEventPublisher domainEventPublisher;
   private final MailManager mailManager;
-
   private final UserRepository userRepository;
 
-  public UserServiceImpl(RegistrationManagement registrationManagement, DomainEventPublisher domainEventPublisher, MailManager mailManager, UserRepository userRepository) {
+  public UserServiceImpl(RegistrationManagement registrationManagement,
+                         DomainEventPublisher domainEventPublisher,
+                         MailManager mailManager,
+                         UserRepository userRepository) {
     this.registrationManagement = registrationManagement;
     this.domainEventPublisher = domainEventPublisher;
     this.mailManager = mailManager;
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService {
    * @throws RegistrationException
    */
   @Override
-  public void register(RegistrationCommand command) throws RegistrationException {
+  public void register(RegisterCommand command) throws RegistrationException {
     Assert.notNull(command, "Parameter `command` must not be null");
     User newUser = registrationManagement.register(
       command.getUsername(),
@@ -69,7 +71,7 @@ public class UserServiceImpl implements UserService {
       command.getPassword());
 
     sendWelcomeMessage(newUser);
-    domainEventPublisher.publish(new UserRegisteredEvent(this, newUser));
+    domainEventPublisher.publish(new UserRegisteredEvent(newUser, command));
   }
   /**
    * 아이디로 사용자 조회하기

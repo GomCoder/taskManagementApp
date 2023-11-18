@@ -1,7 +1,5 @@
 package com.taskmanagement.web.socket;
 
-
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -17,7 +15,7 @@ public class ChannelHandlerResolver {
   private static final Logger log = LoggerFactory.getLogger(ChannelHandlerResolver.class);
   private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
   private final Map<String, ChannelHandlerInvoker> invokers = new HashMap<>();
-  private ApplicationContext applicationContext;
+  private final ApplicationContext applicationContext;
 
   public ChannelHandlerResolver(ApplicationContext applicationContext) {
     this.applicationContext = applicationContext;

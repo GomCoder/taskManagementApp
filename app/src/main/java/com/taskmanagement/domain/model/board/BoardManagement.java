@@ -2,14 +2,13 @@ package com.taskmanagement.domain.model.board;
 
 import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.user.UserId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BoardManagement {
 
-  private BoardRepository boardRepository;
-  private BoardMemberRepository boardMemberRepository;
+  private final BoardRepository boardRepository;
+  private final BoardMemberRepository boardMemberRepository;
 
   public BoardManagement(BoardRepository boardRepository, BoardMemberRepository boardMemberRepository) {
     this.boardRepository = boardRepository;

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MyDataResult {
-
   public static ResponseEntity<ApiResult> build(User user,
                                                 List<Team> teams,
                                                 List<Board> boards,

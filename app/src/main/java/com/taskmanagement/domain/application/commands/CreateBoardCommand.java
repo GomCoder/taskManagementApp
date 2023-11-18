@@ -1,23 +1,16 @@
 package com.taskmanagement.domain.application.commands;
 
 import com.taskmanagement.domain.model.team.TeamId;
-import com.taskmanagement.domain.model.user.UserId;
 
-public class CreateBoardCommand {
-  private UserId userId;
-  private String name;
-  private String description;
-  private TeamId teamId;
+public class CreateBoardCommand extends UserCommand {
+  private final String name;
+  private final String description;
+  private final TeamId teamId;
 
-  public CreateBoardCommand(UserId userId, String name, String description, TeamId teamId) {
-    this.userId = userId;
+  public CreateBoardCommand(String name, String description, TeamId teamId) {
     this.name = name;
     this.description = description;
     this.teamId = teamId;
-  }
-
-  public UserId getUserId() {
-    return userId;
   }
 
   public String getName() {

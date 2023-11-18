@@ -17,8 +17,8 @@ public class ChannelHandlerInvoker {
 
   private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-  private String channelPattern;
-  private Object handler;
+  private final String channelPattern;
+  private final Object handler;
   private final Map<String, Method> actionMethods = new HashMap<>();
 
   public ChannelHandlerInvoker(Object handler) {

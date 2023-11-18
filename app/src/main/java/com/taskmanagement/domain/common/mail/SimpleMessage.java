@@ -1,18 +1,20 @@
 package com.taskmanagement.domain.common.mail;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class SimpleMessage implements Message {
-  private String to;
-  private String subject;
-  private String body;
-  private String form;
+public class SimpleMessage implements Message, Serializable {
+  private static final long serialVersionUID = 6863568190260530040L;
+  private final String to;
+  private final String subject;
+  private final String body;
+  private final String from;
 
-  public SimpleMessage(String to, String subject, String body, String form) {
+  public SimpleMessage(String to, String subject, String body, String from) {
     this.to = to;
     this.subject = subject;
     this.body = body;
-    this.form = form;
+    this.from = from;
   }
 
   public String getTo() {
@@ -28,7 +30,7 @@ public class SimpleMessage implements Message {
   }
 
   public String getFrom() {
-    return form;
+    return from;
   }
 
   @Override

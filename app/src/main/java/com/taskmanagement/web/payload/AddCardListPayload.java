@@ -2,15 +2,14 @@ package com.taskmanagement.web.payload;
 
 import com.taskmanagement.domain.application.commands.AddCardListCommand;
 import com.taskmanagement.domain.model.board.BoardId;
-import com.taskmanagement.domain.model.user.UserId;
 
 public class AddCardListPayload {
   private long boardId;
   private String name;
   private int position;
 
-  public AddCardListCommand toCommand(UserId userId) {
-    return new AddCardListCommand(new BoardId(boardId), userId, name, position);
+  public AddCardListCommand toCommand() {
+    return new AddCardListCommand(new BoardId(boardId), name, position);
   }
 
   public void setName(String name) {

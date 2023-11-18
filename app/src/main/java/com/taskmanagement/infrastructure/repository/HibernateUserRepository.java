@@ -15,7 +15,6 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
   @Autowired
   public HibernateUserRepository(EntityManager entityManager) {
     super(entityManager);
-    //this.entityManager = entityManager;
   }
 
   @Override

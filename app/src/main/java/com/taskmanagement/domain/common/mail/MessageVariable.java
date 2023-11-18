@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class MessageVariable {
 
-  private String key;
-  private Object value;
+  private final String key;
+  private final Object value;
 
   private MessageVariable(String key, Object value) {
     this.key = key;

@@ -16,8 +16,8 @@ import java.util.List;
 @Service
 @Transactional
 public class CardListServiceImpl implements CardListService {
-  private CardListRepository cardListRepository;
-  private DomainEventPublisher domainEventPublisher;
+  private final CardListRepository cardListRepository;
+  private final DomainEventPublisher domainEventPublisher;
 
   public CardListServiceImpl(CardListRepository cardListRepository,
                              DomainEventPublisher domainEventPublisher) {
@@ -37,7 +37,8 @@ public class CardListServiceImpl implements CardListService {
                                         command.getName(),
                                         command.getPosition());
     cardListRepository.save(cardList);
-    domainEventPublisher.publish(new CardListAddedEvent(this, cardList));
+    domainEventPublisher.publish(new CardListAddedEvent(cardList, command));
+    System.out.println(cardList.getCreatedDate());
     return cardList;
   }
 

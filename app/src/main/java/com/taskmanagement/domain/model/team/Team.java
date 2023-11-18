@@ -11,6 +11,7 @@ import java.util.Objects;
 @Table(name = "team")
 public class Team extends AbstractBaseEntity {
 
+  private static final long serialVersionUID = 3707787289893654889L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

@@ -1,9 +1,8 @@
 package com.taskmanagement.web.apis;
 
 import com.taskmanagement.domain.application.TeamService;
-import com.taskmanagement.domain.common.security.CurrentUser;
+import com.taskmanagement.domain.application.commands.CreateTeamCommand;
 import com.taskmanagement.domain.model.team.Team;
-import com.taskmanagement.domain.model.user.SimpleUser;
 import com.taskmanagement.web.payload.CreateTeamPayload;
 import com.taskmanagement.web.results.ApiResult;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.taskmanagement.web.results.CreateTeamResult;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-public class TeamApiController {
+public class TeamApiController extends AbstractBaseController {
   private final TeamService teamService;
 
   public TeamApiController(TeamService teamService) {
@@ -22,8 +23,10 @@ public class TeamApiController {
 
   @PostMapping("/api/teams")
   public ResponseEntity<ApiResult> createTeam(@RequestBody CreateTeamPayload payload,
-                                              @CurrentUser SimpleUser currentUser) {
-    Team team = teamService.createTeam(payload.toCommand(currentUser.getUserId()));
+                                              HttpServletRequest request) {
+    CreateTeamCommand command = payload.toCommand();
+    addTriggeredBy(command, request);
+    Team team = teamService.createTeam(command);
     return CreateTeamResult.build(team);
   }
 }

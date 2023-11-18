@@ -5,10 +5,11 @@ package com.taskmanagement.web.results;
 
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class ApiResult extends HashMap<String, Object> {
-  private static final long serialVersionUID = 877825499039674411L;
+public class ApiResult extends HashMap<String, Object> implements Serializable {
+  private static final long serialVersionUID = 8265262107209069775L;
   private static final String MESSAGE_KEY = "message";
   private static final String ERROR_CODE_KEY = "errorReferenceCode";
 
@@ -58,7 +59,7 @@ public class ApiResult extends HashMap<String, Object> {
    */
   public ApiResult add(String key, Object value) {
     Assert.hasText(key, "Parameter `key` must not be blank");
-    Assert.notNull(value, "Parameter `value` must not be nul");
+    Assert.notNull(value, "Parameter `value` must not be null");
 
     this.put(key, value);
     return this;

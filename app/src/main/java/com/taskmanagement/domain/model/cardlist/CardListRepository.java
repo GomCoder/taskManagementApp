@@ -21,4 +21,11 @@ public interface CardListRepository {
    * @param cardListPositions
    */
   void changePositions(List<CardListPosition> cardListPositions);
+
+  /**
+   * Id로 카드 리스트 찾기
+   * @param cardListId
+   * @return
+   */
+  CardList findById(CardListId cardListId);
 }

@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name="board_member")
 public class BoardMember extends AbstractBaseEntity {
+  private static final long serialVersionUID = 8690292222341387382L;
   @EmbeddedId
   private BoardMemberId id;
 

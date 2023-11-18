@@ -15,7 +15,7 @@ module.exports =
         target: 'http://localhost:8080'
       },
       '/local-file/*': {
-        target: 'http:localhost:8080'
+        target: 'http://localhost:8080'
       }
     }
   },
@@ -25,7 +25,7 @@ module.exports =
       style: [
         'bootstrap/dist/css/bootstrap.min.css',
         'blueimp-file-upload/css/jquery.fileupload.css',
-        'notify/lib/noty.css',
+        'noty/lib/noty.css',
         'noty/lib/themes/relax.css'
       ]
     }
