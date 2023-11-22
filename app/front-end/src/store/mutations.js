@@ -23,6 +23,7 @@ export default {
    */
   addTeam (state, team) {
     state.teams.push(team)
+    console.log('Add Team(): ', team)
   },
   /**
    * 새로 생성된 보드를 추가하는 메서드

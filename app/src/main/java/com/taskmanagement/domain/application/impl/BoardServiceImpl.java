@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
                                               command.getDescription(),
                                               command.getTeamId());
     domainEventPublisher.publish(new BoardCreatedEvent(board, command));
-    System.out.println(board.getCreatedDate());
+    System.out.println(board.getTeamId());
     return board;
   }
 

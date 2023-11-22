@@ -33,14 +33,8 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
 
   @Override
   public User findById(UserId userId) {
-    Query<User> query = getSession().createQuery("FROM User WHERE id = :id", User.class);
+    Query<User> query = getSession().createQuery("from User where id = :id", User.class);
     query.setParameter("id", userId.value());
     return query.uniqueResult();
   }
-
-//  @Override
-//  public void save(User user) {
-//    entityManager.persist(user);
-//    entityManager.flush();
-//  }
 }

@@ -16,6 +16,7 @@ public class TeamCreatedEvent extends DomainEvent implements Serializable {
     super(triggeredBy);
     this.teamId = team.getId();
     this.teamName = team.getName();
+    System.out.println("TeamCreatedEvent()생성자 호출: " + this.teamId.value());
   }
 
   public TeamId getTeamId() {

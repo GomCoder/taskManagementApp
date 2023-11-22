@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public class CreateTeamResult {
   public static ResponseEntity<ApiResult> build(Team team) {
+    System.out.println("-------------- CreateTeamResult.build(): " + team.getId().value());
     ApiResult apiResult = ApiResult.blank()
       .add("id", team.getId().value())
       .add("name", team.getName());

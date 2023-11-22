@@ -39,8 +39,6 @@ public class MyDataResult {
       .add("teams", teamResults)
       .add("boards", boardResults)
       .add("settings", settings);
-
-    System.out.println("user:" + userData + "\nteams: " + teamResults + "\nboards: " + boardResults);
     return Result.ok(apiResult);
   }
 

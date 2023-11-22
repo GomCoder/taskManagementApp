@@ -20,9 +20,9 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
   @Override
   public List<User> findMembers(BoardId boardId) {
     String sql =
-      " SELECT u.* FROM user u " +
-        " LEFT JOIN board_member bm ON u.id = bm.user_id " +
-        " WHERE bm.board_id = :boardId";
+      "select u.* from user u " +
+        "left join board_member bm on u.id = bm.user_id " +
+        "where bm.board_id = :boardId";
     NativeQuery<User> query = getSession().createNativeQuery(sql, User.class);
     query.setParameter("boardId", boardId.value());
     return query.list();
@@ -30,7 +30,7 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
 
   @Override
   public void add(BoardId boardId, UserId userId) {
-    String sql = "INSERT IGNORE INTO board_member (board_id, user_id) VALUE (:boardId, :userId)";
+    String sql = "insert ignore into board_member (board_id, user_id) value (:boardId, :userId)";
     NativeQuery query = getSession().createNativeQuery(sql);
     query.setParameter("boardId", boardId.value());
     query.setParameter("userId", userId.value());

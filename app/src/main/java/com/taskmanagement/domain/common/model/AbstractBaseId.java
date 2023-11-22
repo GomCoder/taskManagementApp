@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class AbstractBaseId implements Serializable {
   private static final long serialVersionUID = 4565262348938261741L;
-  private long id;
+  private final long id;
   public AbstractBaseId(long id) {
     this.id = id;
   }

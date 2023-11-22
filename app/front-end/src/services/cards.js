@@ -18,21 +18,6 @@ export default {
     })
   },
   /**
-   * 카드 위치 변경
-   * @param positionChanges
-   * @returns {Promise<unknown>}
-   */
-  changePositions (positionChanges) {
-    return new Promise((resolve, reject) => {
-      axios.post('/cards/positions', positionChanges).then(({ data }) => {
-        resolve(data)
-        console.log('changePositions(): ' + positionChanges)
-      }).catch(error => {
-        reject(errorParser.parse(error))
-      })
-    })
-  },
-  /**
    * 카드 가져오기
    * @param cardId
    * @returns {Promise<unknown>}
@@ -74,6 +59,21 @@ export default {
       axios.put('/cards/' + cardId + '/description', { description }).then(({ data }) => {
         resolve(data)
         console.log('changeCardDescription(): ' + cardId)
+      }).catch(error => {
+        reject(errorParser.parse(error))
+      })
+    })
+  },
+  /**
+   * 카드 위치 변경
+   * @param positionChanges
+   * @returns {Promise<unknown>}
+   */
+  changePositions (positionChanges) {
+    return new Promise((resolve, reject) => {
+      axios.post('/cards/positions', positionChanges).then(({ data }) => {
+        resolve(data)
+        console.log('changePositions(): ' + positionChanges)
       }).catch(error => {
         reject(errorParser.parse(error))
       })

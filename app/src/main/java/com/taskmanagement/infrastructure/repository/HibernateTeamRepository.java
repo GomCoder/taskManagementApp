@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+
 import java.util.List;
 
 @Repository
@@ -22,11 +23,11 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
   @Override
   public List<Team> findTeamsByUserId(UserId userId) {
     String sql =
-      " SELECT t.* FROM team t WHERE t.user_id = :userId " +
-        " UNION " +
+      "select t.* from team t where t.user_id = :userId " +
+        " union " +
         " ( " +
-        "   SELECT t.* FROM team t, board b, board_member bm " +
-        "   WHERE t.id = b.team_id AND bm.board_id AND bm.user_id = :userId " +
+        "   select t.* from team t, board b, board_member bm " +
+        "   where t.id = b.team_id and bm.board_id and bm.user_id = :userId " +
         " ) ";
     NativeQuery<Team> query = getSession().createNativeQuery(sql, Team.class);
     query.setParameter("userId", userId.value());
@@ -35,7 +36,7 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
 
   @Override
   public Team findById(TeamId teamId) {
-    Query<Team> query = getSession().createQuery("FROM Team WHERE id = :id", Team.class);
+    Query<Team> query = getSession().createQuery("from Team where id = :id", Team.class);
     query.setParameter("id", teamId.value());
     return query.uniqueResult();
   }

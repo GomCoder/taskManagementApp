@@ -19,7 +19,7 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
   @Override
   public List<Attachment> findAttachments(CardId cardId) {
     System.out.println("HibernateAttachmentRepository.findAttachments(): " +  cardId.value());
-    String sql = "SELECT a.* FROM attachment a WHERE a.card_id = :cardId ORDER BY id DESC";
+    String sql = "select a.* from attachment a where a.card_id = :cardId order by id desc";
     NativeQuery<Attachment> query = getSession().createNativeQuery(sql, Attachment.class);
     query.setParameter("cardId", cardId.value());
     return query.list();

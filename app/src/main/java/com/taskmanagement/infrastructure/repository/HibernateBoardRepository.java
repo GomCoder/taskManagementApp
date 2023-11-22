@@ -19,7 +19,7 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
 
   @Override
   public List<Board> findBoardsByMembership(UserId userId) {
-    String sql = "SELECT b.* FROM board b LEFT JOIN board_member bm ON b.id = bm.board_id WHERE bm.user_id = :userId";
+    String sql = "select b.* from board b left join board_member bm on b.id = bm.board_id where bm.user_id = :userId";
     NativeQuery<Board> query = getSession().createNativeQuery(sql, Board.class);
     query.setParameter("userId", userId.value());
     return query.list();

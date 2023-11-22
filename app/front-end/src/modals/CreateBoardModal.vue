@@ -5,7 +5,7 @@
         <div class="modal-content">
           <!-- 모달 창 헤더 -->
           <div class="modal-header">
-            <h5 class="modal-title">Crate Board</h5>
+            <h5 class="modal-title">Create Board</h5>
             <button type="button" class="close" @click="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -79,6 +79,7 @@ export default {
         name: this.board.name,
         description: this.board.description
       }
+      console.log('saveBoard()', board.teamId)
       boardService.create(board).then((createdBoard) => {
         this.$store.dispatch('addBoard', createdBoard)
         this.$emit('created', createdBoard.id)

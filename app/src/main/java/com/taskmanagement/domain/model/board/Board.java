@@ -5,13 +5,15 @@ import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.user.UserId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "board")
-public class Board extends AbstractBaseEntity {
-  private static final long serialVersionUID = 4415381804106519493L;
+public class Board extends AbstractBaseEntity implements Serializable {
+
+  private static final long serialVersionUID = -9094176174605019000L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -45,6 +47,7 @@ public class Board extends AbstractBaseEntity {
     board.teamId = teamId.isValid() ? teamId.value() :  null;
     board.archived = false;
     board.createdDate = new Date();
+    System.out.println("Board create(): " + board.getTeamId().value());
     return board;
   }
 

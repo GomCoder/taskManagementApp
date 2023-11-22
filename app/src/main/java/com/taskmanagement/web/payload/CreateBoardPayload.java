@@ -9,6 +9,7 @@ public class CreateBoardPayload {
   private long teamId;
 
   public CreateBoardCommand toCommand() {
+    System.out.println("CreateBoardCommand(): " + name + " / " + description + " / " + new TeamId(teamId).value());
     return new CreateBoardCommand(name, description, new TeamId(teamId));
   }
 

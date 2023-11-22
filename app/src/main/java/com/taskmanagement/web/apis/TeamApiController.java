@@ -26,6 +26,7 @@ public class TeamApiController extends AbstractBaseController {
                                               HttpServletRequest request) {
     CreateTeamCommand command = payload.toCommand();
     addTriggeredBy(command, request);
+
     Team team = teamService.createTeam(command);
     return CreateTeamResult.build(team);
   }

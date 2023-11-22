@@ -9,8 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name="board_member")
-public class BoardMember extends AbstractBaseEntity {
-  private static final long serialVersionUID = 8690292222341387382L;
+public class BoardMember extends AbstractBaseEntity implements Serializable{
+
+  private static final long serialVersionUID = 5216418968800302101L;
   @EmbeddedId
   private BoardMemberId id;
 
@@ -49,7 +50,7 @@ public class BoardMember extends AbstractBaseEntity {
   }
 
   @Embeddable
-  public static class BoardMemberId implements Serializable{
+  public static class BoardMemberId implements Serializable {
 
     private static final long serialVersionUID = -5739169913659318896L;
     @Column(name = "board_id")

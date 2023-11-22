@@ -77,6 +77,7 @@ public class BoardApiController extends AbstractBaseController {
 
     List<CardList> cardLists = cardListService.findByBoardId(boardId);
     List<Card> cards = cardService.findByBoardId(boardId);
+
     return BoardResult.build(team, board, members, cardLists, cards, fileUrlCreator);
   }
 

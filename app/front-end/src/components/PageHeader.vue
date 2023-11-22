@@ -49,6 +49,8 @@ import 'bootstrap/dist/js/bootstrap.min'
 import { mapGetters } from 'vuex'
 import meService from '@/services/me'
 import notify from '@/utils/notify'
+// eslint-disable-next-line no-unused-vars
+import { personalBoards, teamBoards } from '@/store/getters'
 
 export default {
   name: 'PageHeader',

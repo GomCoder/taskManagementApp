@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 public class HibernateCardRepository extends HibernateSupport<Card> implements CardRepository {
-  private JdbcTemplate jdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
 
   HibernateCardRepository(EntityManager entityManager, JdbcTemplate jdbcTemplate) {
     super(entityManager);
@@ -25,8 +25,13 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
   }
 
   @Override
+  public Card findById(CardId cardId) {
+    return getSession().find(Card.class, cardId.value());
+  }
+
+  @Override
   public List<Card> findByBoardId(BoardId boardId) {
-    String sql = "SELECT c.* FROM card c LEFT JOIN card_list c1 ON c.card_list_id = c1.id WHERE c1.board_id = :boardId";
+    String sql = "select c.* from card c left join card_list c1 on c.card_list_id = c1.id where c1.board_id = :boardId";
     NativeQuery<Card> query = getSession().createNativeQuery(sql, Card.class);
     query.setParameter("boardId", boardId.value());
     return query.list();
@@ -34,7 +39,7 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
 
   @Override
   public void changePositions(final List<CardPosition> cardPositions) {
-    String sql = " UPDATE card SET card_list_id = ? , `position` = ?  WHERE id = ?";
+    String sql = " update card set card_list_id = ? , `position` = ?  where id = ?";
     jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
       @Override
       public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -51,8 +56,5 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
     });
   }
 
-  @Override
-  public Card findById(CardId cardId) {
-    return getSession().find(Card.class, cardId.value());
-  }
+
 }

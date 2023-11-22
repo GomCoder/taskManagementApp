@@ -24,12 +24,13 @@
         </div>
         <div class="board-body">
           <draggable v-model="cardLists" class="list-container" @end="onCardListDragEnded"
-          :options="{handle: '.list-header', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}">
+          :options ="{handle:'.list-header', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}">
             <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
               <div class="list">
                 <div class="list-header">{{ cardList.name }}</div>
                 <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
-                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
+                :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0,
+                scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
                   <div class="card-item" v-for="card in cardList.cards" v-bind:key="card.id" @click="openCard(card)">
                     <div class="cover-image" v-if="card.coverImage"><img :src="card.coverImage" alt="커버 이미지"/></div>
                     <div class="card-title">{{ card.title }}</div>
@@ -213,7 +214,7 @@ export default {
 
           data.members.forEach(member => {
             this.members.push({
-              id: member.userId,
+              id: member.id,
               name: member.name,
               shortName: member.shortName
             })
@@ -362,22 +363,21 @@ export default {
     },
     onCardDragEnded (event) {
       console.log('[BoardPage] Card drag ended', event)
-      const fromListId = event.from.dataset.cardListId
-      const toListId = event.to.dataset.cardListId
+      // Get the card list that have card orders changed
+      const fromListId = event.from.dataset.listId
+      const toListId = event.to.dataset.listId
       const changedListIds = [fromListId]
-
       if (fromListId !== toListId) {
         changedListIds.push(toListId)
       }
+
       const positionChanges = {
         boardId: this.board.id,
         cardPositions: []
       }
 
       changedListIds.forEach(cardListId => {
-        const cardList = this.cardLists.filter(cardList => {
-          return cardList.id === parseInt(cardListId)
-        })[0]
+        const cardList = this.cardLists.filter(cardList => { return cardList.id === parseInt(cardListId) })[0]
 
         cardList.cards.forEach((card, index) => {
           positionChanges.cardPositions.push({
@@ -387,6 +387,7 @@ export default {
           })
         })
       })
+
       cardService.changePositions(positionChanges).catch(error => {
         notify.error(error.message)
       })

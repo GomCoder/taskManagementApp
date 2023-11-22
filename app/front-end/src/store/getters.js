@@ -32,8 +32,9 @@ export const teamBoards = state => {
     teams.push({
       id: team.id,
       name: team.name,
-      board: state.boards.filter(board => board.teamId === team.id)
+      boards: state.boards.filter(board => board.teamId === team.id)
     })
   })
+  console.log('teamBoards: ', teams)
   return teams
 }

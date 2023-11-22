@@ -9,7 +9,7 @@ import java.security.Key;
 import io.jsonwebtoken.security.Keys;
 @Component
 public class TokenManager {
-  private Key secretKey;
+  private final Key secretKey;
 
   public TokenManager(@Value("${app.token-secret-key}") String secretKey) {
     this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
@@ -33,6 +33,6 @@ public class TokenManager {
    */
   public UserId verifyJwt(String jws) {
     String userIdValue = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jws).getBody().getSubject();
-    return new UserId(Long.valueOf(userIdValue));
+    return new UserId(Long.parseLong(userIdValue));
   }
 }

@@ -2,37 +2,35 @@
   <div>
     <PageHeader />
     <div class="boards-container">
-      <!-- Personal Board 출력 부분 -->
       <div class="boards-section">
         <h2 class="section-title">{{ $t('homePage.personalBoards') }}</h2>
         <div class="boards d-flex align-content-start flex-wrap">
-          <div class="board list-inline-item" v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)">
+          <div class="board list-inline-item" v-for="board in personalBoards"
+               v-bind:key="board.id" @click="openBoard(board)">
             <h3>{{ board.name }}</h3>
             <p>{{ board.description }}</p>
           </div>
-          <!-- 개인 보드 추가 하기 -->
           <div class="board add list-inline-item" @click="createBoard()">
             <font-awesome-icon icon="plus" />
             <div>{{ $t('homePage.createNewBoard') }}</div>
           </div>
         </div>
       </div>
-      <!-- Team Board 출력 부분 -->
       <div class="boards-section" v-for="team in teamBoards" v-bind:key="team.id">
         <h2 class="section-title">{{ team.name }}</h2>
         <div class="boards d-flex align-content-start flex-wrap">
-          <div class="board list-inline-item" v-for="board in team.boards" v-bind:key="board.id" @click="openBoard(board)">
+          <div class="board list-inline-item" v-for="board in team.boards"
+               v-bind:key="board.id" @click="openBoard(board)">
             <h3>{{ board.name }}</h3>
             <p>{{ board.description }}</p>
           </div>
-          <!-- 팀 보드 추가 하기 -->
           <div class="board add list-inline-item" @click="createBoard(team)">
             <font-awesome-icon icon="plus" />
             <div>{{ $t('homePage.createNewBoard') }}</div>
           </div>
         </div>
       </div>
-      <!-- 팀 생성하기 -->
+
       <div class="create-team-wrapper">
         <button class="btn btn-link" @click="createTeam()">+ {{ $t('homePage.createNewTeam') }}</button>
       </div>
@@ -72,6 +70,7 @@ export default {
     PageHeader
   },
   methods: {
+    teamBoards,
     personalBoards,
     openBoard (board) {
       this.$router.push({ name: 'board', params: { boardId: board.id } })
@@ -81,8 +80,9 @@ export default {
      * @param team
      */
     createBoard (team) {
-      this.selectTeamId = team ? team.id : 0
+      this.selectedTeamId = team ? team.id : 0
       $('#createBoardModal').modal('show')
+      console.log('this.selectTeamId', team.id)
     },
     createTeam () {
       $('#createTeamModal').modal('show')

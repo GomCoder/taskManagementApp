@@ -42,7 +42,7 @@
                   <li class="media" v-for="attachment in cardAttachments" v-bind:key="attachment.id">
                     <div class="mr-3">
                       <div class="preview thumbnail" v-if="attachment.previewUrl">
-                        <img :src="attachment.previewUrl" />
+                        <img :src="attachment.previewUrl" alt="미리보기 URL"/>
                       </div>
                       <div class="preview file-type" v-if="!attachment.previewUrl">
                         {{ attachment.fileType }}
@@ -74,7 +74,7 @@
               </h5>
               <div class="wrapper-body">
                 <div class="activity" v-for="activity in cardActivities" v-bind:key="activity.id">
-                  <div><strong>{{ activity.user.name }}</strong> <span class="when">{{ activity.when }} ago</span></div>
+                  <div><strong>{{ activity.user.name }}</strong> <span class="when">{{ activity.when }} ago</span></div><!-- -->
                   <div class="detail" :class="activity.type">{{ activity.actionDetail }}</div>
                 </div>
               </div>
@@ -175,7 +175,7 @@ export default {
           actionDetail = 'Changed card Title'
         }
         cardActivities.push({
-          user: userById[activity.userId],
+          user: userById[activity.user],
           type: activity.type,
           actionDetail: actionDetail,
           when: formatDistance(new Date(activity.createdDate), now),

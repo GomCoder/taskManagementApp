@@ -18,7 +18,7 @@ public class HibernateActivityRepository extends HibernateSupport<Activity> impl
 
   @Override
   public List<Activity> findCardActivities(CardId cardId) {
-    String sql = "SELECT a.* FROM activity a WHERE a.card_id = :cardId ORDER BY id DESC";
+    String sql = "select a.* from activity a where a.card_id = :cardId order by id desc";
     NativeQuery<Activity> query = getSession().createNativeQuery(sql, Activity.class);
     query.setParameter("cardId", cardId.value());
     return query.list();

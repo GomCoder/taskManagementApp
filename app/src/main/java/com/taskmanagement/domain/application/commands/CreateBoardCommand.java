@@ -11,6 +11,7 @@ public class CreateBoardCommand extends UserCommand {
     this.name = name;
     this.description = description;
     this.teamId = teamId;
+    System.out.println("CreateBoardCommand()생성자 호출: " + this.name + ", " + this.description + ", " + this.teamId);
   }
 
   public String getName() {

@@ -4,7 +4,7 @@ import errorParser from '@/utils/error-parser'
 export default {
   /**
    * 팀 생성하기
-   * @param detail: 팀 세부사항
+   * @param detail 팀 세부사항
    * @returns {Promise<unknown>}
    */
   create (detail) {

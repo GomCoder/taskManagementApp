@@ -5,7 +5,11 @@ import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.user.User;
 import com.taskmanagement.domain.model.user.UserId;
 
-public class BoardMemberAddedEvent extends BoardDomainEvent {
+import java.io.Serializable;
+
+public class BoardMemberAddedEvent extends BoardDomainEvent implements Serializable {
+
+  private static final long serialVersionUID = 30207636470193332L;
   private final UserId memberUserId;
   private final String memberName;
 
