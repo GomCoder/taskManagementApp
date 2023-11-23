@@ -105,6 +105,8 @@ public class CardApiController extends AbstractBaseController {
                                                  @RequestParam("file") MultipartFile file,
                                                  HttpServletRequest request) {
     System.out.println("POST: addAttachment() 호출");
+    System.out.println("Attachment API- addAttachment() 호출: " + cardId);
+    System.out.println("Attachment API- addAttachment() 호출: " + file.getName());
     AddCardAttachmentCommand command = new AddCardAttachmentCommand(cardId, file);
     addTriggeredBy(command, request);
 
@@ -118,5 +120,19 @@ public class CardApiController extends AbstractBaseController {
     System.out.println("GET: getAttachments() 호출");
     List<Attachment> attachments = cardService.getAttachments(new CardId(cardId));
     return AttachmentResults.build(attachments, fileUrlCreator);
+  }
+
+  @DeleteMapping("/api/cards/{cardId}/attachments")
+  public ResponseEntity<ApiResult> deleteAttachments(@PathVariable long cardId) {
+    System.out.println("GET: deleteAttachments() 호출");
+    cardService.deleteAttachments(new CardId(cardId));
+    return Result.ok();
+  }
+
+  @DeleteMapping("/api/cards/{cardId}")
+  public ResponseEntity<ApiResult> deleteCard(@PathVariable long cardId) {
+    System.out.println("DELETE: deleteCard() 호출");
+    cardService.deleteCard(new CardId(cardId));
+    return Result.ok();
   }
 }

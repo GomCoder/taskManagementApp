@@ -39,6 +39,7 @@
       :teamId="selectedTeamId"
       @created="onBoardCreated" />
     <CreateTeamModal />
+    <PageFooter />
   </div>
 </template>
 
@@ -50,6 +51,7 @@ import CreateTeamModal from '@/modals/CreateTeamModal.vue'
 import { mapGetters } from 'vuex'
 // eslint-disable-next-line no-unused-vars
 import { personalBoards, teamBoards } from '@/store/getters'
+import PageFooter from '@/components/PageFooter.vue'
 
 export default {
   name: 'HomePage',
@@ -65,6 +67,7 @@ export default {
     ])
   },
   components: {
+    PageFooter,
     CreateTeamModal,
     CreateBoardModal,
     PageHeader

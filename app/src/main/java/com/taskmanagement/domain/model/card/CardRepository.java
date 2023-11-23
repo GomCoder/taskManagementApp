@@ -28,4 +28,6 @@ public interface CardRepository {
    * @return
    */
   Card findById(CardId cardId);
+
+  void deleteCard(CardId cardId);
 }

@@ -4,7 +4,7 @@ import errorParser from '@/utils/error-parser'
 export default {
   /**
    * 새로운 카드 추가
-   * @param detail
+   * @param detail 카드 추가 사항
    * @returns {Promise<unknown>}
    */
   add (detail) {
@@ -18,8 +18,23 @@ export default {
     })
   },
   /**
+   * 카드 삭제하기
+   * @param cardId 카드 아이디
+   * @returns {Promise<unknown>}
+   */
+  deleteCard (cardId) {
+    return new Promise((resolve, reject) => {
+      axios.delete('/cards/' + cardId).then(({ data }) => {
+        resolve(data)
+        console.log('deleteCard(): ' + cardId)
+      }).catch(error => {
+        reject(errorParser.parse(error))
+      })
+    })
+  },
+  /**
    * 카드 가져오기
-   * @param cardId
+   * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
   getCard (cardId) {
@@ -34,8 +49,8 @@ export default {
   },
   /**
    * 카드 제목 수정
-   * @param cardId
-   * @param title
+   * @param cardId 카드 아이디
+   * @param title 카드 제목
    * @returns {Promise<unknown>}
    */
   changeCardTitle (cardId, title) {
@@ -50,8 +65,8 @@ export default {
   },
   /**
    * 카드 설명 수정
-   * @param cardId
-   * @param description
+   * @param cardId 카드 아이디
+   * @param description 카드 설명
    * @returns {Promise<unknown>}
    */
   changeCardDescription (cardId, description) {
@@ -66,7 +81,7 @@ export default {
   },
   /**
    * 카드 위치 변경
-   * @param positionChanges
+   * @param positionChanges 카드 변경된 위치
    * @returns {Promise<unknown>}
    */
   changePositions (positionChanges) {
@@ -81,8 +96,8 @@ export default {
   },
   /**
    * 카드에 댓글 추가하기
-   * @param cardId
-   * @param comment
+   * @param cardId 카드 아이디
+   * @param comment 댓글 내용
    * @returns {Promise<unknown>}
    */
   addCardComment (cardId, comment) {
@@ -97,7 +112,7 @@ export default {
   },
   /**
    * 카드의 활동 기록 가져오기
-   * @param cardId
+   * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
   getCardActivities (cardId) {
@@ -110,9 +125,29 @@ export default {
       })
     })
   },
+  /**
+   * 카드에 첨부파일 추가하기
+   * @param cardId 카드 아이디
+   * @returns {Promise<unknown>}
+   */
   getCardAttachments (cardId) {
     return new Promise((resolve, reject) => {
       axios.get('/cards/' + cardId + '/attachments').then(({ data }) => {
+        resolve(data)
+        console.log('getCardAttachments(): ' + cardId)
+      }).catch(error => {
+        reject(errorParser.parse(error))
+      })
+    })
+  },
+  /**
+   * 카드의 첨부파일 삭제하기
+   * @param cardId
+   * @returns {Promise<unknown>}
+   */
+  deleteCardAttachments (cardId) {
+    return new Promise((resolve, reject) => {
+      axios.delete('/cards/' + cardId + '/attachments').then(({ data }) => {
         resolve(data)
         console.log('getCardAttachments(): ' + cardId)
       }).catch(error => {

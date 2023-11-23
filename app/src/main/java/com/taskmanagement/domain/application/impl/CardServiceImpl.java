@@ -135,13 +135,22 @@ public class CardServiceImpl implements CardService {
     }
 
     domainEventPublisher.publish(new CardAttachmentAddedEvent(card, attachment, command));
-    System.out.println(attachment.getCreatedDate());
+    System.out.println("attachment.getFilePath(): " + attachment.getFilePath());
     return attachment;
+  }
+
+  @Override
+  public void deleteAttachments(CardId cardId) {
+    attachmentRepository.deleteAttachments(cardId);
   }
 
   private Card findCard(CardId cardId) {
     Card card = cardRepository.findById(cardId);
     Assert.notNull(card, "Card of id " + card + " must exist");
     return card;
+  }
+
+  public void deleteCard(CardId cardId){
+    cardRepository.deleteCard(cardId);
   }
 }

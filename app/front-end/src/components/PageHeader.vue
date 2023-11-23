@@ -13,10 +13,11 @@
         <div class="dropdown-menu" aria-labelledby="boardsMenu">
           <div v-show="!hasBoards" class="dropdown-item">{{ $t('header.boardsMenu.noBoard') }}</div>
           <div v-show="hasBoards">
-            <h6 class="dropdown-header" v-show="personalBoards.length">{{ $t('header.boardsMenu.personalBoards')}}</h6>
+            <h6 class="dropdown-header" v-show="personalBoards.length" style="color: #377EF6; font-weight: bold;">{{ $t('header.boardsMenu.personalBoards')}}</h6>
             <button v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)" class="dropdown-item" type="button">{{ board.name }}</button>
+            <hr>
             <div v-for="team in teamBoards" v-bind:key="'t' + team.id">
-              <h6 class="dropdown-header">{{ team.name }}</h6>
+              <h6 class="dropdown-header" style="color: #377EF6; font-weight: bold;">{{ team.name }}</h6>
               <button v-for="board in team.boards" v-bind:key="board.id" @click="openBoard(board)" class="dropdown-item" type="button">{{ board.name }}</button>
             </div>
           </div>
@@ -50,7 +51,7 @@ import { mapGetters } from 'vuex'
 import meService from '@/services/me'
 import notify from '@/utils/notify'
 // eslint-disable-next-line no-unused-vars
-import { personalBoards, teamBoards } from '@/store/getters'
+import { hasBoards, personalBoards, teamBoards } from '@/store/getters'
 
 export default {
   name: 'PageHeader',
@@ -68,6 +69,8 @@ export default {
     }
   },
   methods: {
+    hasBoards,
+    personalBoards,
     goHome () {
       this.$router.push({ name: 'home' })
     },

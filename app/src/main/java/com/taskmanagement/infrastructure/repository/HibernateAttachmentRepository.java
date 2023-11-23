@@ -24,4 +24,14 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
     query.setParameter("cardId", cardId.value());
     return query.list();
   }
+
+  @Override
+  public void deleteAttachments(CardId cardId) {
+    System.out.println("HibernateAttachmentRepository.deleteAttachments(): " +  cardId.value());
+    String sql = "delete from attachment where card_id = :cardId";
+    NativeQuery<Attachment> query = getSession().createNativeQuery(sql, Attachment.class);
+    query.setParameter("cardId", cardId.value());
+    query.executeUpdate();
+  }
+
 }

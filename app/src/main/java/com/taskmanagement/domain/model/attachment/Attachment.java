@@ -23,7 +23,7 @@ public class Attachment extends AbstractBaseEntity {
   private long userId;
   @Column(name="file_name")
   private String fileName;
-  @Column(name =" file_path")
+  @Column(name ="file_path")
   private String filePath;
   @Column(name="file_type")
   private String fileType;

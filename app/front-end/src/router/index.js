@@ -4,6 +4,7 @@ import LoginPage from '@/views/LoginPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import HomePage from '@/views/HomePage.vue'
 import BoardPage from '@/views/BoardPage.vue'
+import AboutPage from '@/views/AboutPage.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     path: '/card/:cardId/:cardTitle',
     name: 'card',
     component: BoardPage
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: AboutPage
   }
 ]
 

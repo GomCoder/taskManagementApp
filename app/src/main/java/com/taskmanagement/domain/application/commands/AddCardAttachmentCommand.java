@@ -10,6 +10,7 @@ public class AddCardAttachmentCommand extends UserCommand {
   public AddCardAttachmentCommand(long cardId, MultipartFile file) {
     this.cardId = new CardId(cardId);
     this.file = file;
+    System.out.println("AddCardAttachmentCommand() 호출: " + this.cardId.value() + " / " + this.file.getOriginalFilename());
   }
 
   public CardId getCardId() {

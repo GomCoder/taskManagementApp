@@ -76,4 +76,8 @@ public interface CardService {
    * @return 파일 첨부
    */
   Attachment addAttachment(AddCardAttachmentCommand command);
+
+  void deleteAttachments(CardId cardId);
+
+  void deleteCard(CardId cardId);
 }

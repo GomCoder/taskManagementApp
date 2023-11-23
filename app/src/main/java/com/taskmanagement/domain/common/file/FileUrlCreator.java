@@ -24,7 +24,7 @@ public class FileUrlCreator {
     }
 
     if (isLocalStorage) {
-      return "/local-file" + fileRelativePath;
+      return "/local-file/" + fileRelativePath;
     }
     return cdnUrl + "/" + fileRelativePath;
   }

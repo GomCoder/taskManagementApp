@@ -22,6 +22,15 @@ public class AttachmentManagement {
   private ThumbnailCreator thumbnailCreator;
   private AttachmentRepository  attachmentRepository;
 
+  public AttachmentManagement(FileStorageResolver fileStorageResolver,
+                              ThumbnailCreator thumbnailCreator,
+                              AttachmentRepository attachmentRepository) {
+    this.fileStorageResolver = fileStorageResolver;
+    this.thumbnailCreator = thumbnailCreator;
+    this.attachmentRepository = attachmentRepository;
+  }
+
+
   public Attachment save(CardId cardId, MultipartFile file, UserId userId) {
     FileStorage fileStorage = fileStorageResolver.resolve();
 
@@ -52,7 +61,7 @@ public class AttachmentManagement {
     try {
       Files.delete(tempImageFile.getFile().toPath());
     } catch(IOException e) {
-      log.error("Failed ro delete temp file `" + tempImageFile.getFile().getAbsolutePath() + "`" + e);
+      log.error("Failed or delete temp file `" + tempImageFile.getFile().getAbsolutePath() + "`" + e);
     }
     return tempImageFile.getFileRelativePath();
   }

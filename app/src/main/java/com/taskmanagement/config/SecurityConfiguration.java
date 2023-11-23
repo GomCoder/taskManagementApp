@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 
 
 /**
@@ -39,10 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
         .authorizeRequests()
         .antMatchers(PUBLIC).permitAll()
+        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
         .anyRequest().authenticated()
       .and()
         .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-      .addFilterAfter(apiRequestExceptionTranslationFilter(), ExceptionTranslationFilter.class)
+        .addFilterAfter(apiRequestExceptionTranslationFilter(), ExceptionTranslationFilter.class)
         .formLogin()
         .loginPage("/login")
       .and()

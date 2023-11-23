@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@WebServlet("/local-file/")
+@WebServlet("/local-file/*")
 public class LocalFileServlet extends HttpServlet implements Serializable {
   private static final Logger log = LoggerFactory.getLogger(LocalFileServlet.class);
   private static final long serialVersionUID = -4863045687710667973L;

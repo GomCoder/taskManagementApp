@@ -6,7 +6,7 @@
           <font-awesome-icon icon="window-maximize" class="card-title-icon" />
           <h4 class="modal-title">
             <textarea id="cardTitle" class="auto-size" v-model="title" @keydown.enter.prevent="changeCardTitle"></textarea>
-            <div class="meta-card-list">in list {{ cardList.name }}</div>
+            <div class="meta-card-list">in list <b style="color: #377EF6">{{ cardList.name }}</b></div>
           </h4>
           <button type="button" class="close" @click="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -33,7 +33,7 @@
                 <div class="description" v-show="description && !editingDescription" v-html="descriptionHtml"></div>
               </div>
             </div>
-            <!-- Attachments -->
+            <!-- 파일 첨부 -->
             <div class="wrapper attachments-wrapper" v-show="attachments.length || uploadingCount">
               <h5><font-awesome-icon icon="paperclip" class="icon"/> <span>Attachments</span></h5>
               <div class="wrapper-body">
@@ -42,7 +42,7 @@
                   <li class="media" v-for="attachment in cardAttachments" v-bind:key="attachment.id">
                     <div class="mr-3">
                       <div class="preview thumbnail" v-if="attachment.previewUrl">
-                        <img :src="attachment.previewUrl" alt="미리보기 URL"/>
+                        <img :src="attachment.previewUrl" alt="썸네일 이미지"/>
                       </div>
                       <div class="preview file-type" v-if="!attachment.previewUrl">
                         {{ attachment.fileType }}
@@ -51,6 +51,8 @@
                     <div class="media-body">
                       <h6 class="mt-0 mb-1"><a :href="attachment.fileUrl" target="_blank">{{ attachment.fileName }}</a></h6>
                       <p class="when">Added {{ when(attachment.createdDate) }} ago</p>
+                      <!-- 첨부 파일 삭제 버튼-->
+                      <button type="button" class="btn btn-outline-danger btn-sm" style="float: right" @click="deleteAttachments">Delete</button>
                     </div>
                   </li>
                 </ul>
@@ -84,7 +86,7 @@
             <h5>Add to Card</h5>
             <div class="control"><font-awesome-icon icon="user" class="icon" /> Members</div>
             <div class="control">
-              <uploader
+              <Uploader
                 id="cardAttachment"
                 :url="attachmentUploadUrl"
                 icon="paperclip"
@@ -92,10 +94,14 @@
                 @uploading="onUploadingAttachment"
                 @progress="onUploadingProgressUpdated"
                 @failed="onAttachmentUploadFailed"
-                @uploaded="onAttachmentUploaded"/>
+                @uploaded="onAttachmentUploaded"
+              />
             </div>
             <h5 class="actions">Actions</h5>
             <div class="control"><font-awesome-icon icon="archive"  class="icon" /> Archive</div>
+            <hr>
+            <!-- 카드 지우기 버튼 -->
+            <div class="control" @click="deleteCard" v-bind:key="cardId"><font-awesome-icon icon="trash"  class="icon" />Card Delete</div>
           </div>
         </div>
       </div>
@@ -197,6 +203,7 @@ export default {
       })
     },
     attachmentUploadUrl () {
+      console.log('attachmentUploadUrl(): ', this.card.id)
       return this.card.id ? '/api/cards/' + this.card.id + '/attachments' : ''
     }
   },
@@ -291,6 +298,26 @@ export default {
     loadAttachments () {
       cardService.getCardAttachments(this.cardId).then(({ attachments }) => {
         this.attachments = attachments
+      }).catch(error => {
+        notify.error(error.message)
+      })
+    },
+    /**
+     * 첨부파일 삭제하기
+     */
+    deleteAttachments () {
+      cardService.deleteCardAttachments(this.cardId).then(({ attachments }) => {
+        this.attachments = attachments
+      }).catch(error => {
+        notify.error(error.message)
+      })
+    },
+    /**
+     * 카드 삭제하기
+     */
+    deleteCard (cardId) {
+      cardService.deleteCard(this.cardId).then(({ cardId }) => {
+        this.cardId = cardId
       }).catch(error => {
         notify.error(error.message)
       })

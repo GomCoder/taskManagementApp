@@ -12,7 +12,7 @@
             <span v-if="!board.personal">{{ team.name }}</span>
             <span v-if="board.personal">Personal</span>
           </div>
-          <div class="board-header-divider"></div>
+          <div class="board-header-divider" />
           <div class="board-members board-header-item">
             <div class="member" v-for="member in members" v-bind:key="member.id">
               <span>{{ member.shortName }}</span>
@@ -20,6 +20,7 @@
             <div class="member add-member-toggle" @click="openAddMember()">
               <span><font-awesome-icon icon="user-plus" /></span>
             </div>
+            <div class="board-header-divider" />
           </div>
         </div>
         <div class="board-body">
@@ -27,7 +28,10 @@
           :options ="{handle:'.list-header', animation: 0, scrollSensitivity: 100, touchStartThreshold: 20}">
             <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
               <div class="list">
-                <div class="list-header">{{ cardList.name }}</div>
+                <div class="list-header">{{ cardList.name }}
+                  <!-- 리스트 삭제 버튼 -->
+                  <div class="control" style="float: right" ><font-awesome-icon icon="trash" class="icon" /></div>
+                </div>
                 <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
                 :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0,
                 scrollSensitivity: 100, touchStartThreshold: 20}" v-bind:data-list-id="cardList.id">
@@ -73,6 +77,7 @@
     :members="members"
     @coverImageChanged = "updateCardCoverImage"
   />
+  <PageFooter />
 </div>
 </template>
 
@@ -87,6 +92,7 @@ import notify from '@/utils/notify'
 import boardService from '@/services/boards'
 import cardListService from '@/services/card-lists'
 import cardService from '@/services/cards'
+import PageFooter from '@/components/PageFooter.vue'
 
 export default {
   name: 'BoardPage',
@@ -115,6 +121,7 @@ export default {
     }
   },
   components: {
+    PageFooter,
     CardModal,
     PageHeader,
     AddMemberModal,

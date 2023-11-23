@@ -14,9 +14,11 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class AbstractBaseFileStorage implements FileStorage {
+
   private static final Logger log = LoggerFactory.getLogger(AbstractBaseFileStorage.class);
 
   protected TempFile saveMultipartFileToLocalTempFolder(String rootTempPath, String folder, MultipartFile multipartFile) {
+
     Path storagePath = Paths.get(rootTempPath, folder).toAbsolutePath().normalize();
 
     try {
@@ -27,6 +29,9 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
 
     String finalFileName = generateFileName(multipartFile);
     Path targetLocation = storagePath.resolve(finalFileName);
+
+    log.debug("storagePath: {}", storagePath);
+    log.debug("targetLocation: {}", targetLocation);
 
     try {
       Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
