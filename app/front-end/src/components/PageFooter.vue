@@ -24,6 +24,7 @@ export default {
   line-height: 40px;
   border-top: 1px solid #ddd;
   margin-top: 50px;
+  padding: 9px 10px 8px;
   .list-inline-item {
     margin-right: 10px;
   }

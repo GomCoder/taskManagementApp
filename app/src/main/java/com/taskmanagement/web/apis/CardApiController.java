@@ -5,6 +5,7 @@ import com.taskmanagement.domain.application.commands.*;
 import com.taskmanagement.domain.common.file.FileUrlCreator;
 import com.taskmanagement.domain.model.activity.Activity;
 import com.taskmanagement.domain.model.attachment.Attachment;
+import com.taskmanagement.domain.model.attachment.AttachmentId;
 import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.card.CardId;
 import com.taskmanagement.web.payload.*;
@@ -122,13 +123,11 @@ public class CardApiController extends AbstractBaseController {
     return AttachmentResults.build(attachments, fileUrlCreator);
   }
 
-  @DeleteMapping("/api/cards/{cardId}/attachments")
-  public ResponseEntity<ApiResult> deleteAttachments(@PathVariable long cardId) {
-    System.out.println("GET: deleteAttachments() 호출");
-    cardService.deleteAttachments(new CardId(cardId));
-    return Result.ok();
-  }
-
+  /**
+   * 카드 삭제 API
+   * @param cardId
+   * @return
+   */
   @DeleteMapping("/api/cards/{cardId}")
   public ResponseEntity<ApiResult> deleteCard(@PathVariable long cardId) {
     System.out.println("DELETE: deleteCard() 호출");

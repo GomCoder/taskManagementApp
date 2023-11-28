@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,14 +20,14 @@ import java.util.Set;
 @Component
 public class ThumbnailCreator {
   private final static Logger log = LoggerFactory.getLogger(ThumbnailCreator.class);
-  private final static Set<String> SUPPORTED_EXTENTIONS = new HashSet<>();
+  private final static Set<String> SUPPORTED_EXTENSIONS = new HashSet<>();
   private final static int MAX_WIDTH = 300;
   private final static int MAX_HEIGHT = 300;
 
   static {
-    SUPPORTED_EXTENTIONS.add("png");
-    SUPPORTED_EXTENTIONS.add("jpg");
-    SUPPORTED_EXTENTIONS.add("jpeg");
+    SUPPORTED_EXTENSIONS.add("png");
+    SUPPORTED_EXTENSIONS.add("jpg");
+    SUPPORTED_EXTENSIONS.add("jpeg");
   }
 
   private final ImageProcessor imageProcessor;
@@ -37,15 +38,15 @@ public class ThumbnailCreator {
 
   /**
    * 썸네일 이미지 파일 저장소 생성
-   * @param fileStorage
-   * @param tempImageFile
+   * @param fileStorage 파일 저장소
+   * @param tempImageFile 임시 이미지 저장 경로
    */
   public void create(FileStorage fileStorage, TempFile tempImageFile) {
-    Assert.isTrue(tempImageFile.getFile().exists(), "Image file `" + tempImageFile.getFile().getAbsolutePath() + "` must exist");
+    Assert.isTrue(tempImageFile.getFile().exists(), "Image file `" +
+      tempImageFile.getFile().getAbsolutePath() + "` must exist");
 
     String ext = FilenameUtils.getExtension(tempImageFile.getFile().getName());
-
-    if (!SUPPORTED_EXTENTIONS.contains(ext)) {
+    if (!SUPPORTED_EXTENSIONS.contains(ext)) {
       throw new ThumbnailCreationException("Not supported image format for creating thumbnail");
     }
 
@@ -53,7 +54,6 @@ public class ThumbnailCreator {
 
     try {
       String sourceFilePath = tempImageFile.getFile().getAbsolutePath();
-
       if (!sourceFilePath.endsWith("." + ext)) {
         throw new IllegalArgumentException("Image file's ext doesn't match the one in file descriptor");
       }
@@ -62,14 +62,16 @@ public class ThumbnailCreator {
       imageProcessor.resize(sourceFilePath, tempThumbnailFilePath, resizeTo);
 
       fileStorage.saveTempFile(TempFile.create(tempImageFile.tempRootPath(), Paths.get(tempThumbnailFilePath)));
+      // Delete temp thumbnail file
       Files.delete(Paths.get(tempThumbnailFilePath));
-    } catch(Exception e) {
+    } catch (Exception e) {
       log.error("Failed to create thumbnail for file `" + tempImageFile.getFile().getAbsolutePath() + "`", e);
       throw new ThumbnailCreationException("Creating thumbnail failed", e);
     }
   }
 
   private Size getTargetSize(String imageFilePath) throws IOException {
+    System.out.println("ThumbnailCreator.getTargetSize() 호출...");
     Size actualSize = imageProcessor.getSize(imageFilePath);
 
     if (actualSize.getWidth() <= MAX_WIDTH && actualSize.getHeight() <= MAX_HEIGHT) {

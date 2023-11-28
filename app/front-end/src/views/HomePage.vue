@@ -117,7 +117,7 @@ export default {
         width: 270px;
         height: 110px;
         border-radius: 5px;
-        background-color: #377ef6;
+        background-color: #002752;
         color: #fff;
         padding: 15px;
         margin-right: 10px;

@@ -3,6 +3,7 @@ package com.taskmanagement.domain.application;
 import com.taskmanagement.domain.application.commands.*;
 import com.taskmanagement.domain.model.activity.Activity;
 import com.taskmanagement.domain.model.attachment.Attachment;
+import com.taskmanagement.domain.model.attachment.AttachmentId;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.card.CardId;
@@ -77,7 +78,6 @@ public interface CardService {
    */
   Attachment addAttachment(AddCardAttachmentCommand command);
 
-  void deleteAttachments(CardId cardId);
 
   void deleteCard(CardId cardId);
 }

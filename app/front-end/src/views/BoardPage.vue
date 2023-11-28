@@ -29,8 +29,6 @@
             <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
               <div class="list">
                 <div class="list-header">{{ cardList.name }}
-                  <!-- 리스트 삭제 버튼 -->
-                  <div class="control" style="float: right" ><font-awesome-icon icon="trash" class="icon" /></div>
                 </div>
                 <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
                 :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0,

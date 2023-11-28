@@ -18,51 +18,66 @@ import java.nio.file.Files;
 public class AttachmentManagement {
   private final static Logger log = LoggerFactory.getLogger(AttachmentManagement.class);
 
-  private FileStorageResolver fileStorageResolver;
-  private ThumbnailCreator thumbnailCreator;
-  private AttachmentRepository  attachmentRepository;
+  private final FileStorageResolver fileStorageResolver;
+  //private final ThumbnailCreator thumbnailCreator;
+  private final AttachmentRepository  attachmentRepository;
+
+//  public AttachmentManagement(FileStorageResolver fileStorageResolver,
+//                              ThumbnailCreator thumbnailCreator,
+//                              AttachmentRepository attachmentRepository) {
+//    this.fileStorageResolver = fileStorageResolver;
+//    //this.thumbnailCreator = thumbnailCreator;
+//    this.attachmentRepository = attachmentRepository;
+//  }
 
   public AttachmentManagement(FileStorageResolver fileStorageResolver,
-                              ThumbnailCreator thumbnailCreator,
                               AttachmentRepository attachmentRepository) {
     this.fileStorageResolver = fileStorageResolver;
-    this.thumbnailCreator = thumbnailCreator;
     this.attachmentRepository = attachmentRepository;
   }
 
-
   public Attachment save(CardId cardId, MultipartFile file, UserId userId) {
+    System.out.println("AttachmentManagement.save() 호출...");
     FileStorage fileStorage = fileStorageResolver.resolve();
 
     String filePath;
     String folder = "attachments";
     boolean thumbnailCreated = false;
 
-    if (ImageUtils.isImage(file.getContentType())) {
-      filePath = saveImage(fileStorage, folder, file);
+//    if (ImageUtils.isImage(file.getContentType())) {
+//      filePath = saveImage(fileStorage, folder, file);
+//
+//      thumbnailCreated = true;
+//    } else {
+//      filePath = fileStorage.saveUploaded(folder, file);
+//    }
 
-      thumbnailCreated = true;
-    } else {
-      filePath = fileStorage.saveUploaded(folder, file);
-    }
+    filePath = fileStorage.saveUploaded(folder, file);
 
     Attachment attachment = Attachment.create(cardId, userId, file.getOriginalFilename(), filePath, thumbnailCreated);
     attachmentRepository.save(attachment);
     return attachment;
   }
 
-  private String saveImage(FileStorage fileStorage, String folder, MultipartFile file) {
-
-    TempFile tempImageFile = fileStorage.saveAsTempFile(folder, file);
-
-    fileStorage.saveTempFile(tempImageFile);
-    thumbnailCreator.create(fileStorage, tempImageFile);
-
-    try {
-      Files.delete(tempImageFile.getFile().toPath());
-    } catch(IOException e) {
-      log.error("Failed or delete temp file `" + tempImageFile.getFile().getAbsolutePath() + "`" + e);
-    }
-    return tempImageFile.getFileRelativePath();
-  }
+  /**
+   * 이미지 저장하기
+   * @param fileStorage 파일 저장소
+   * @param folder 저장 폴더
+   * @param file 파일
+   * @return 임시 저장소 파일경로
+   */
+//  private String saveImage(FileStorage fileStorage, String folder, MultipartFile file) {
+//    System.out.println("AttachmentManagement.saveImage() 호출...");
+//    TempFile tempImageFile = fileStorage.saveAsTempFile(folder, file);
+//
+//    fileStorage.saveTempFile(tempImageFile);
+//    thumbnailCreator.create(fileStorage, tempImageFile);
+//
+//    try {
+//      Files.delete(tempImageFile.getFile().toPath());
+//    } catch(IOException e) {
+//      log.error("Failed or delete temp file `" + tempImageFile.getFile().getAbsolutePath() + "`" + e);
+//    }
+//    return tempImageFile.getFileRelativePath();
+//  }
 }

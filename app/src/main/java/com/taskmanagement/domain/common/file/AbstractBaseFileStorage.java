@@ -18,7 +18,7 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
   private static final Logger log = LoggerFactory.getLogger(AbstractBaseFileStorage.class);
 
   protected TempFile saveMultipartFileToLocalTempFolder(String rootTempPath, String folder, MultipartFile multipartFile) {
-
+    System.out.println("AbstractBaseFileStorage.saveMultipartFileToLocalTempFolder() 호출...");
     Path storagePath = Paths.get(rootTempPath, folder).toAbsolutePath().normalize();
 
     try {
@@ -35,7 +35,8 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
 
     try {
       Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-      log.debug("Multipart file `{}` saved locally `{}", multipartFile.getOriginalFilename(), targetLocation);
+      System.out.println("Files.copy 실행...");
+      log.debug("Multipart file `{}` saved locally `{}`", multipartFile.getOriginalFilename(), targetLocation);
     } catch (IOException e) {
       throw new FileStorageException("Failed to save multipart file to `" + targetLocation.toString() + "`", e);
     }
@@ -43,7 +44,9 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
   }
 
   protected String generateFileName(MultipartFile multipartFile) {
+    System.out.println("AbstractBaseFileStorage.generateFileName() 호출...");
     String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+    System.out.println("fileName: " + fileName);
 
     if (fileName.contains("..")) {
       throw new FileStorageException("Invalid file name `" + fileName + "`");

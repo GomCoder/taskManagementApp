@@ -29,5 +29,5 @@ public interface CardRepository {
    */
   Card findById(CardId cardId);
 
-  void deleteCard(CardId cardId);
+  Card deleteCard(CardId cardId);
 }

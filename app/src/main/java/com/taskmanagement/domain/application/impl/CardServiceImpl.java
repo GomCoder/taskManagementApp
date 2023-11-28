@@ -7,6 +7,7 @@ import com.taskmanagement.domain.model.activity.Activity;
 import com.taskmanagement.domain.model.activity.ActivityRepository;
 import com.taskmanagement.domain.model.activity.CardActivities;
 import com.taskmanagement.domain.model.attachment.Attachment;
+import com.taskmanagement.domain.model.attachment.AttachmentId;
 import com.taskmanagement.domain.model.attachment.AttachmentManagement;
 import com.taskmanagement.domain.model.attachment.AttachmentRepository;
 import com.taskmanagement.domain.model.attachment.event.CardAttachmentAddedEvent;
@@ -137,11 +138,6 @@ public class CardServiceImpl implements CardService {
     domainEventPublisher.publish(new CardAttachmentAddedEvent(card, attachment, command));
     System.out.println("attachment.getFilePath(): " + attachment.getFilePath());
     return attachment;
-  }
-
-  @Override
-  public void deleteAttachments(CardId cardId) {
-    attachmentRepository.deleteAttachments(cardId);
   }
 
   private Card findCard(CardId cardId) {

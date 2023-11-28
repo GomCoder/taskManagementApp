@@ -12,8 +12,6 @@ public interface AttachmentRepository {
    */
   List<Attachment> findAttachments(CardId cardId);
 
-  void deleteAttachments(CardId cardId);
-
   /**
    * 활동 이력 저장하기
    * @param attachment

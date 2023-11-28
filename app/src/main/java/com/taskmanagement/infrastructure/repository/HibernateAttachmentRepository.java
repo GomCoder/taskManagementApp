@@ -1,10 +1,10 @@
 package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.attachment.Attachment;
+import com.taskmanagement.domain.model.attachment.AttachmentId;
 import com.taskmanagement.domain.model.attachment.AttachmentRepository;
 import com.taskmanagement.domain.model.card.CardId;
 import org.hibernate.query.NativeQuery;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,14 +24,4 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
     query.setParameter("cardId", cardId.value());
     return query.list();
   }
-
-  @Override
-  public void deleteAttachments(CardId cardId) {
-    System.out.println("HibernateAttachmentRepository.deleteAttachments(): " +  cardId.value());
-    String sql = "delete from attachment where card_id = :cardId";
-    NativeQuery<Attachment> query = getSession().createNativeQuery(sql, Attachment.class);
-    query.setParameter("cardId", cardId.value());
-    query.executeUpdate();
-  }
-
 }

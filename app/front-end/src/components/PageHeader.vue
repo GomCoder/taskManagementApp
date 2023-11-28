@@ -95,20 +95,23 @@ export default {
   flex: none;
   padding: 9px 10px 8px;
   border-bottom: 1px solid #eee;
+
   .logo {
     color: #444;
     height: 25px;
     width: 115px;
     margin-top: 2px;
     cursor: pointer;
+    position: relative;
     .home-icon {
+      margin-top: 3px;
       font-size: 20px;
       vertical-align: middle;
+      position: absolute;
     }
     img {
-      margin-left: 5px;
-      margin-top: 6px;
       width: 80px;
+      margin-left: 30px;
     }
   }
   .boards-menu-toggle {

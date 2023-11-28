@@ -20,6 +20,9 @@ public class AttachmentResult {
     if (attachment.isThumbnailCreated()) {
       apiResult.add("previewUrl", ImageUtils.getThumbnailVersion(fileUrl));
     }
+
+    System.out.println("AttachmentResult.build(): " + apiResult);
+
     return Result.ok(apiResult);
   }
 }

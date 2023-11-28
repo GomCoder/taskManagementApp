@@ -1,6 +1,5 @@
 package com.taskmanagement.infrastructure.repository;
 
-import com.taskmanagement.domain.model.attachment.Attachment;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.card.CardId;
@@ -31,12 +30,13 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
   }
 
   @Override
-  public void deleteCard(CardId cardId) {
+  public Card deleteCard(CardId cardId) {
     System.out.println("HibernateAttachmentRepository.deleteAttachments(): " +  cardId.value());
     String sql = "delete from card where id = :cardId";
     NativeQuery<Card> query = getSession().createNativeQuery(sql, Card.class);
     query.setParameter("cardId", cardId.value());
     query.executeUpdate();
+    return getSession().find(Card.class, cardId.value());
   }
 
   @Override

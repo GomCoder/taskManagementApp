@@ -41,18 +41,16 @@
                 <ul class="list-unstyled">
                   <li class="media" v-for="attachment in cardAttachments" v-bind:key="attachment.id">
                     <div class="mr-3">
-                      <div class="preview thumbnail" v-if="attachment.previewUrl">
-                        <img :src="attachment.previewUrl" alt="썸네일 이미지"/>
-                      </div>
-                      <div class="preview file-type" v-if="!attachment.previewUrl">
-                        {{ attachment.fileType }}
-                      </div>
+<!--                      <div class="preview thumbnail" v-if="attachment.previewUrl">-->
+<!--                        <img :src="attachment.previewUrl" alt="썸네일 이미지"/>-->
+<!--                      </div>-->
+<!--                      <div class="preview file-type" v-if="!attachment.previewUrl">-->
+<!--                        {{ attachment.fileType }}-->
+<!--                      </div>-->
                     </div>
                     <div class="media-body">
                       <h6 class="mt-0 mb-1"><a :href="attachment.fileUrl" target="_blank">{{ attachment.fileName }}</a></h6>
                       <p class="when">Added {{ when(attachment.createdDate) }} ago</p>
-                      <!-- 첨부 파일 삭제 버튼-->
-                      <button type="button" class="btn btn-outline-danger btn-sm" style="float: right" @click="deleteAttachments">Delete</button>
                     </div>
                   </li>
                 </ul>
@@ -76,7 +74,7 @@
               </h5>
               <div class="wrapper-body">
                 <div class="activity" v-for="activity in cardActivities" v-bind:key="activity.id">
-                  <div><strong>{{ activity.user.name }}</strong> <span class="when">{{ activity.when }} ago</span></div><!-- -->
+                  <div><strong>{{ activity.user.name }}</strong> <span class="when">{{ activity.when }} ago</span></div>
                   <div class="detail" :class="activity.type">{{ activity.actionDetail }}</div>
                 </div>
               </div>
@@ -303,21 +301,12 @@ export default {
       })
     },
     /**
-     * 첨부파일 삭제하기
-     */
-    deleteAttachments () {
-      cardService.deleteCardAttachments(this.cardId).then(({ attachments }) => {
-        this.attachments = attachments
-      }).catch(error => {
-        notify.error(error.message)
-      })
-    },
-    /**
      * 카드 삭제하기
      */
     deleteCard (cardId) {
       cardService.deleteCard(this.cardId).then(({ cardId }) => {
         this.cardId = cardId
+        this.$router.push({ name: 'board', params: { boardId: this.boardId } })
       }).catch(error => {
         notify.error(error.message)
       })
@@ -534,24 +523,24 @@ export default {
               }
             }
 
-            .preview {
-              width: 145px;
-              height: 90px;
-              background: #e4e4e4;
-
-              img {
-                max-width: 145px;
-                max-height: 90px;
-              }
-            }
-
-            .preview.file-type {
-              text-align: center;
-              border: 1px solid #eee;
-              line-height: 90px;
-              font-size: 1.5rem;
-              overflow: hidden;
-            }
+            //.preview {
+            //  width: 145px;
+            //  height: 90px;
+            //  background: #e4e4e4;
+            //
+            //  img {
+            //    max-width: 145px;
+            //    max-height: 90px;
+            //  }
+            //}
+            //
+            //.preview.file-type {
+            //  text-align: center;
+            //  border: 1px solid #eee;
+            //  line-height: 90px;
+            //  font-size: 1.5rem;
+            //  overflow: hidden;
+            //}
 
             .when {
               color: #999;

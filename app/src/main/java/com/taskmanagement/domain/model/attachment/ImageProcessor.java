@@ -1,33 +1,33 @@
 package com.taskmanagement.domain.model.attachment;
 
-
 import com.taskmanagement.utils.Size;
+import io.jsonwebtoken.lang.Assert;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 import org.im4java.core.ImageCommand;
 import org.im4java.process.ArrayListOutputConsumer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.Assert;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.IOException;
 import java.util.List;
 
-
 @Component
 public class ImageProcessor {
+
   private final String commandSearchPath;
 
-  public ImageProcessor(@Value("${app.image.command-search-path") String commandSearchPath) {
+  public ImageProcessor(@Value("${app.image.command-search-path}") String commandSearchPath) {
     this.commandSearchPath = commandSearchPath;
   }
 
   public void resize(String sourceFilePath, String targetFilePath, Size resizeTo) throws Exception {
-    Assert.isTrue(resizeTo.getHeight() > 0, "Resize height must be greater than 0");
-    Assert.isTrue(resizeTo.getWidth() > 0, "Resize width must be greater than 0");
+    System.out.println("ImageProcessor.resize() 호출...");
+    Assert.isTrue(resizeTo.getHeight() > 0, "Resize must height be getter than 0");
+    Assert.isTrue(resizeTo.getWidth() > 0, "Resize width must be getter than 0");
 
-    ConvertCmd cmd = new ConvertCmd();
+    ConvertCmd cmd = new ConvertCmd(true);
     cmd.setSearchPath(commandSearchPath);
     IMOperation op = new IMOperation();
     op.addImage(sourceFilePath);
@@ -38,9 +38,10 @@ public class ImageProcessor {
   }
 
   public Size getSize(String imagePath) throws IOException {
+    System.out.println("ImageProcessor.getSize() 호출...");
     try {
       ImageCommand cmd = new ImageCommand();
-      cmd.setCommand("gm", "identify");
+      cmd.setCommand("gm", "identity");
       cmd.setSearchPath(commandSearchPath);
 
       ArrayListOutputConsumer outputConsumer = new ArrayListOutputConsumer();
@@ -53,12 +54,14 @@ public class ImageProcessor {
 
       List<String> cmdOutput = outputConsumer.getOutput();
       String result = cmdOutput.get(0);
-      Assert.hasText(result, "Result of command `gm identify` must not be blank");
+      Assert.hasText(result, "Result of command `gm identity` must not be blank");
 
       String[] dimensions = result.split(",");
       return new Size(NumberUtils.toInt(dimensions[0]), NumberUtils.toInt(dimensions[1]));
-    } catch (Exception e) {
+
+    } catch(Exception e) {
       throw new IOException("Failed to get image's height/width", e);
     }
   }
+
 }
