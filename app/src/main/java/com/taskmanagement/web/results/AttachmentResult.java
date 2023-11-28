@@ -13,7 +13,7 @@ public class AttachmentResult {
       .add("id", attachment.getId().value())
       .add("fileName", attachment.getFileName())
       .add("fileType", attachment.getFileType())
-      .add("fileUrl", fileUrl)
+      .add("fileUrl", attachment.getFilePath())
       .add("userId", attachment.getUserId().value())
       .add("createdDate", attachment.getCreatedDate().getTime());
 

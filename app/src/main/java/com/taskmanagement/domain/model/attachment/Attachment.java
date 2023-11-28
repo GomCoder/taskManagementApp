@@ -52,6 +52,42 @@ public class Attachment extends AbstractBaseEntity {
     return new AttachmentId(Id);
   }
 
+  public void setId(Long id) {
+    Id = id;
+  }
+
+  public void setCardId(long cardId) {
+    this.cardId = cardId;
+  }
+
+  public void setUserId(long userId) {
+    this.userId = userId;
+  }
+
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
+  }
+
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
+
+  public void setFileType(String fileType) {
+    this.fileType = fileType;
+  }
+
+  public void setThumbnailCreated(boolean thumbnailCreated) {
+    this.thumbnailCreated = thumbnailCreated;
+  }
+
+  public void setArchived(boolean archived) {
+    this.archived = archived;
+  }
+
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
+
   public CardId getCardId() {
     return new CardId(cardId);
   }

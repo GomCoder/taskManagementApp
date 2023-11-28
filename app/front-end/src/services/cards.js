@@ -145,9 +145,9 @@ export default {
    * @param cardId
    * @returns {Promise<unknown>}
    */
-  deleteCardAttachments (cardId, attachmentId) {
+  deleteCardAttachment (cardId, attachmentId) {
     return new Promise((resolve, reject) => {
-      axios.delete('/cards/' + cardId + '/attachments' + attachmentId).then(({ data }) => {
+      axios.delete('/cards/' + cardId + '/attachments/' + attachmentId).then(({ data }) => {
         resolve(data)
         console.log('deleteCardAttachments(): ' + cardId)
       }).catch(error => {

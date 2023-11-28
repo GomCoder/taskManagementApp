@@ -146,14 +146,17 @@ DROP TABLE IF EXISTS `TaskManagement`.`card` ;
 
 CREATE TABLE IF NOT EXISTS `TaskManagement`.`card` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `board_id` INT(11) NOT NULL DEFAULT 0,
   `card_list_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `position` INT(11) NOT NULL,
+  `cover_image` VARCHAR(255) NULL DEFAULT NULL,
   `archived` TINYINT(1) NOT NULL,
   `created_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
+  INDEX `fk_board_id_idx` (`board_id` ASC),
   INDEX `fk_card_list_id_idx` (`card_list_id` ASC),
   INDEX `fk_user_id_idx` (`user_id` ASC),
   CONSTRAINT `fk_card_card_list_card_list_id`
@@ -165,6 +168,11 @@ CREATE TABLE IF NOT EXISTS `TaskManagement`.`card` (
     FOREIGN KEY (`user_id`)
     REFERENCES `TaskManagement`.`user` (`id`)
     ON DELETE RESTRICT
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_card_board_board_id`
+    FOREIGN KEY (`board_id`)
+    REFERENCES `TaskManagement`.`board` (`id`)
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -203,7 +211,8 @@ CREATE TABLE IF NOT EXISTS `TaskManagement`.`attachment` (
   `user_id` INT(11) NOT NULL,
   `file_name` VARCHAR(255) NOT NULL,
   `file_path` VARCHAR(255) NOT NULL,
-  `file_type` INT(11) NOT NULL,
+  `file_type` VARCHAR(32) NOT NULL DEFAULT ''  COMMENT '',
+  `thumbnail_created` TINYINT(1) NOT NULL DEFAULT 0,
   `archived` TINYINT(1) NOT NULL DEFAULT 0,
   `created_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
@@ -231,9 +240,10 @@ CREATE TABLE IF NOT EXISTS `TaskManagement`.`activity` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `card_id` INT(11) NULL,
-  `board_id` INT(11) NOT NULL,
-  `type` TINYINT(1) NOT NULL DEFAULT 0,
+  `board_id` INT(11) NULL COMMENT '',
+  `type` INT(11) NOT NULL COMMENT '',
   `detail` JSON NOT NULL,
+  `ip_address` VARCHAR(64),
   `created_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_id_idx` (`user_id` ASC),
@@ -255,34 +265,6 @@ CREATE TABLE IF NOT EXISTS `TaskManagement`.`activity` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
--- Add board_id to table card
-ALTER TABLE `TaskManagement`.`card` ADD COLUMN `board_id` INT(11) NOT NULL DEFAULT 0 AFTER `id`;
-ALTER TABLE `TaskManagement`.`card` ADD INDEX `fk_board_id_idx` (`board_id` ASC);
-
-UPDATE `TaskManagement`.`card` c, `TaskManagement`.`card_list` cl
-SET c.board_id = cl.board_id WHERE c.card_list_id = cl.id;
-
-ALTER TABLE `TaskManagement`.`card` ADD CONSTRAINT `fk_card_board_board_id`
-  FOREIGN KEY (`board_id`)
-  REFERENCES `TaskManagement`.`board` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE NO ACTION;
-
--- Change board_id to be nullable
-ALTER TABLE `TaskManagement`.`activity` CHANGE COLUMN `board_id` `board_id` INT(11) NULL  COMMENT '' AFTER `card_id`;
--- Change type to support integer value other than 0, 1
-ALTER TABLE `TaskManagement`.`activity` CHANGE COLUMN `type` `type` INT(11) NOT NULL COMMENT '' AFTER `board_id`;
--- Add `ip_address` to activity table
-ALTER TABLE `TaskManagement`.`activity` ADD COLUMN `ip_address` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' AFTER `detail`;
-
--- Change file_type to be a varchar
-ALTER TABLE `TaskManagement`.`attachment` CHANGE COLUMN `file_type` `file_type` VARCHAR(32) NOT NULL DEFAULT ''  COMMENT '' AFTER `file_path`;
--- Add thumbnail_created to attachment
-ALTER TABLE `TaskManagement`.`attachment` ADD COLUMN `thumbnail_created` TINYINT(1) NOT NULL DEFAULT 0 AFTER `file_type`;
-
--- Add `cover_image` to `card`
-ALTER TABLE `TaskManagement`.`card` ADD COLUMN `cover_image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL AFTER `position`;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

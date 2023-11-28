@@ -17,6 +17,11 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
   }
 
   @Override
+  public Attachment findById(AttachmentId attachmentId) {
+    return getSession().find(Attachment.class, attachmentId.value());
+  }
+
+  @Override
   public List<Attachment> findAttachments(CardId cardId) {
     System.out.println("HibernateAttachmentRepository.findAttachments(): " +  cardId.value());
     String sql = "select a.* from attachment a where a.card_id = :cardId order by id desc";
@@ -24,4 +29,13 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
     query.setParameter("cardId", cardId.value());
     return query.list();
   }
+
+  @Override
+  public void deleteAttachment(AttachmentId attachmentId) {
+    String sql = "delete from attachment where id = :attachmentId";
+    NativeQuery<Attachment> query = getSession().createNativeQuery(sql, Attachment.class);
+    query.setParameter("attachmentId", attachmentId.value());
+    query.executeUpdate();
+  }
+
 }

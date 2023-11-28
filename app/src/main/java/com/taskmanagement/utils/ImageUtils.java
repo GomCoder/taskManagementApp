@@ -12,7 +12,7 @@ public final class ImageUtils {
     String ext = FilenameUtils.getExtension(imagePath);
     Assert.hasText(ext, "Image `" + imagePath + "` must have extension");
 
-    return FilenameUtils.removeExtension(imagePath) + ".thumbnail." + ext;
+    return FilenameUtils.removeExtension(imagePath) + "_thumbnail." + ext;
   }
 
   public static boolean isImage(String contentType) {

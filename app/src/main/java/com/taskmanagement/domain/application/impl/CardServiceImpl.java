@@ -149,4 +149,22 @@ public class CardServiceImpl implements CardService {
   public void deleteCard(CardId cardId){
     cardRepository.deleteCard(cardId);
   }
+
+  @Override
+  public void deleteAttachment(CardId cardId, AttachmentId attachmentId) {
+    Assert.notNull(cardId, "Parameter 'cardId' must not be null" );
+    Assert.notNull(attachmentId, "Parameter 'attachmentId' must not be null" );
+
+    Card card = findCard(cardId);
+    Attachment attachment = attachmentRepository.findById(attachmentId);
+
+    if (attachment != null) {
+      attachmentRepository.deleteAttachment(attachmentId);
+
+      if(card.hasCoverImage() && card.getCoverImage().equals(attachment.getFilePath())) {
+        card.removeCoverImage();
+        cardRepository.save(card);
+      }
+    }
+  }
 }

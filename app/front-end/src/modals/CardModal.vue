@@ -41,16 +41,17 @@
                 <ul class="list-unstyled">
                   <li class="media" v-for="attachment in cardAttachments" v-bind:key="attachment.id">
                     <div class="mr-3">
-<!--                      <div class="preview thumbnail" v-if="attachment.previewUrl">-->
-<!--                        <img :src="attachment.previewUrl" alt="썸네일 이미지"/>-->
-<!--                      </div>-->
-<!--                      <div class="preview file-type" v-if="!attachment.previewUrl">-->
-<!--                        {{ attachment.fileType }}-->
-<!--                      </div>-->
+                      <div class="preview thumbnail" v-if="attachment.previewUrl">
+                        <img :src="attachment.previewUrl" alt="썸네일 이미지"/>
+                      </div>
+                      <div class="preview file-type" v-if="!attachment.previewUrl">
+                        {{ attachment.fileType }}
+                      </div>
                     </div>
                     <div class="media-body">
                       <h6 class="mt-0 mb-1"><a :href="attachment.fileUrl" target="_blank">{{ attachment.fileName }}</a></h6>
                       <p class="when">Added {{ when(attachment.createdDate) }} ago</p>
+                      <button class="btn btn-link btn-sm btn-delete" @click="deleteAttachment(attachment.id)" style="float: right">Delete</button>
                     </div>
                   </li>
                 </ul>
@@ -201,7 +202,6 @@ export default {
       })
     },
     attachmentUploadUrl () {
-      console.log('attachmentUploadUrl(): ', this.card.id)
       return this.card.id ? '/api/cards/' + this.card.id + '/attachments' : ''
     }
   },
@@ -312,6 +312,17 @@ export default {
       })
     },
     /**
+     * 첨부파일 삭제하기
+     * @param attachmentId
+     */
+    deleteAttachment (attachmentId) {
+      cardService.deleteCardAttachment(this.cardId, attachmentId).then(() => {
+        this.attachments = this.attachments.filter(attachment => attachment.id !== attachmentId)
+      }).catch(error => {
+        notify.error(error.message)
+      })
+    },
+    /**
      * 업로드 횟수 Count
      */
     onUploadingAttachment () {
@@ -340,6 +351,7 @@ export default {
       console.log('onAttachmentUploaded()...')
       this.uploadingCount--
       this.attachments.push(attachment)
+      attachment.previewUrl = attachment.previewUrl.replace(/\\/g, '/')
       if (!this.card.coverImage && attachment.previewUrl) {
         this.$emit('coverImageChanged', {
           cardId: this.card.id,
@@ -523,24 +535,24 @@ export default {
               }
             }
 
-            //.preview {
-            //  width: 145px;
-            //  height: 90px;
-            //  background: #e4e4e4;
-            //
-            //  img {
-            //    max-width: 145px;
-            //    max-height: 90px;
-            //  }
-            //}
-            //
-            //.preview.file-type {
-            //  text-align: center;
-            //  border: 1px solid #eee;
-            //  line-height: 90px;
-            //  font-size: 1.5rem;
-            //  overflow: hidden;
-            //}
+            .preview {
+              width: 145px;
+              height: 90px;
+              background: #e4e4e4;
+
+              img {
+                max-width: 145px;
+                max-height: 90px;
+              }
+            }
+
+            .preview.file-type {
+              text-align: center;
+              border: 1px solid #eee;
+              line-height: 90px;
+              font-size: 1.5rem;
+              overflow: hidden;
+            }
 
             .when {
               color: #999;

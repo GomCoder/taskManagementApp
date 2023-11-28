@@ -107,6 +107,11 @@ public class Card extends AbstractBaseEntity {
     return createdDate;
   }
 
+  public void removeCoverImage() {
+    this.coverImage = null;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -118,6 +123,7 @@ public class Card extends AbstractBaseEntity {
       archived == card.archived &&
       Objects.equals(title, card.title);
   }
+
 
   @Override
   public int hashCode() {

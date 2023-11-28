@@ -1,10 +1,13 @@
 package com.taskmanagement.domain.common.file;
 
+import com.taskmanagement.domain.model.attachment.AttachmentManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,22 +41,24 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
       System.out.println("Files.copy 실행...");
       log.debug("Multipart file `{}` saved locally `{}`", multipartFile.getOriginalFilename(), targetLocation);
     } catch (IOException e) {
+      // 추가: 예외 상세 정보를 로그로 출력
+      log.error("Failed to save multipart file to `" + targetLocation.toString() + "`", e);
       throw new FileStorageException("Failed to save multipart file to `" + targetLocation.toString() + "`", e);
     }
+
     return TempFile.create(rootTempPath, targetLocation);
   }
 
-  protected String generateFileName(MultipartFile multipartFile) {
-    System.out.println("AbstractBaseFileStorage.generateFileName() 호출...");
-    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-    System.out.println("fileName: " + fileName);
+  protected String generateFileName(MultipartFile file) {
+    String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
+    String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
 
-    if (fileName.contains("..")) {
-      throw new FileStorageException("Invalid file name `" + fileName + "`");
-    }
-    String timestamp = String.valueOf(new Date().getTime());
-    String uuid = UUID.randomUUID().toString();
-    String ext = FilenameUtils.getExtension(fileName);
-    return timestamp + "." + uuid + (StringUtils.hasText(ext) ? ("." + ext) : "");
+    // 파일 이름에 공백이나 특수 문자가 있는 경우 언더스코어로 대체
+    originalFileName = originalFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+
+    // 파일 이름에 UUID 추가
+    String fileNameWithUUID = UUID.randomUUID().toString() + "_" + originalFileName;
+
+    return fileNameWithUUID;
   }
 }

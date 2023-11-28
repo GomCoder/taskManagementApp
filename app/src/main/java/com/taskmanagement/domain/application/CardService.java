@@ -80,4 +80,6 @@ public interface CardService {
 
 
   void deleteCard(CardId cardId);
+
+  void deleteAttachment(CardId cardId, AttachmentId attachmentId);
 }

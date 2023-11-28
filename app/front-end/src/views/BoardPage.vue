@@ -451,7 +451,7 @@ export default {
       const card = cardList.cards.find(card => {
         return card.id === change.cardId
       })
-      card.coverImage = change.coverImage
+      card.coverImage = change.coverImage.replace(/\\/g, '/')
     }
   }
 }

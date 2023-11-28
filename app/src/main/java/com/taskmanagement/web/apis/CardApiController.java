@@ -134,4 +134,12 @@ public class CardApiController extends AbstractBaseController {
     cardService.deleteCard(new CardId(cardId));
     return Result.ok();
   }
+
+  @DeleteMapping("/api/cards/{cardId}/attachments/{attachmentId}")
+  public ResponseEntity<ApiResult> deleteAttachment(@PathVariable long cardId,
+                                                    @PathVariable long attachmentId) {
+    System.out.println("DELETE: deleteAttachment() 호출");
+    cardService.deleteAttachment(new CardId(cardId), new AttachmentId(attachmentId));
+    return Result.ok();
+  }
 }
