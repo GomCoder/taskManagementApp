@@ -45,20 +45,18 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
       log.error("Failed to save multipart file to `" + targetLocation.toString() + "`", e);
       throw new FileStorageException("Failed to save multipart file to `" + targetLocation.toString() + "`", e);
     }
-
     return TempFile.create(rootTempPath, targetLocation);
   }
 
   protected String generateFileName(MultipartFile file) {
-    String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
-    String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+   if (fileName.contains("..")) {
+     throw new FileStorageException("Invalid file name `" + fileName + "`");
+   }
 
-    // 파일 이름에 공백이나 특수 문자가 있는 경우 언더스코어로 대체
-    originalFileName = originalFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-
-    // 파일 이름에 UUID 추가
-    String fileNameWithUUID = UUID.randomUUID().toString() + "_" + originalFileName;
-
-    return fileNameWithUUID;
+   String timestamp = String.valueOf(new Date().getTime());
+   String uuid = UUID.randomUUID().toString();
+   String ext = FilenameUtils.getExtension(fileName);
+   return timestamp + "." + uuid + (StringUtils.hasText(ext) ? ("." + ext) : "");
   }
 }

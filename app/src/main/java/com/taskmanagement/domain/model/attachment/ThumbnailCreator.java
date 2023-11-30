@@ -9,13 +9,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -58,20 +55,21 @@ public class ThumbnailCreator {
       log.debug("파일 `{}`에 대한 썸네일 생성 중", tempImageFile.getFile().getName());
 
       String sourceFilePath = tempImageFile.getFile().getAbsolutePath();
-      String tempThumbnailFilePath = ImageUtils.getThumbnailVersion(sourceFilePath);
+      String tempThumbnailFileImagePath = ImageUtils.getThumbnailVersion(sourceFilePath);
+      Path tempThumbnailFilePath = Paths.get(tempThumbnailFileImagePath);
 
-      try (InputStream inputStream = new FileInputStream(sourceFilePath);
-           OutputStream outputStream = new FileOutputStream(tempThumbnailFilePath)) {
+      try (InputStream inputStream = Files.newInputStream(Paths.get(sourceFilePath));
+           OutputStream outputStream = Files.newOutputStream((tempThumbnailFilePath))) {
         Thumbnails.of(inputStream)
           .size(MAX_WIDTH, MAX_HEIGHT)
           .outputQuality(0.7)
           .toOutputStream(outputStream);
 
-        fileStorage.saveTempFile(TempFile.create(tempImageFile.getRootTempPath(), Paths.get(tempThumbnailFilePath)));
+        fileStorage.saveTempFile(TempFile.create(tempImageFile.getRootTempPath(), tempThumbnailFilePath));
       }
 
       // 임시 썸네일 파일 삭제
-      Files.delete(Paths.get(tempThumbnailFilePath));
+      Files.delete(tempThumbnailFilePath);
     } catch (Exception e) {
       log.error("파일 `" + tempImageFile.getFile().getAbsolutePath() + "`에 대한 썸네일 생성 실패", e);
       throw new ThumbnailCreationException("썸네일 생성 실패", e);

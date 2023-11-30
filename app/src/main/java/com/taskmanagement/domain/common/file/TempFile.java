@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class TempFile {
-  private String rootTempPath;
-  private String fileRelativePath;
+  private final String rootTempPath;
+  private final String fileRelativePath;
 
   private TempFile(String rootTempPath, String fileRelativePath) {
     this.rootTempPath = rootTempPath;

@@ -358,6 +358,7 @@ export default {
           cardListId: this.cardList.id,
           coverImage: attachment.previewUrl
         })
+        console.log('attachment.previewUrl -> ' + attachment.previewUrl)
       }
     },
     /**
