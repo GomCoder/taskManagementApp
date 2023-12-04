@@ -33,10 +33,15 @@ public class CardApiController extends AbstractBaseController {
     this.fileUrlCreator = fileUrlCreator;
   }
 
+  /**
+   * 카드 추가 API
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping("/api/cards")
   public ResponseEntity<ApiResult> addCard(@RequestBody AddCardPayload payload,
                                            HttpServletRequest request) {
-    System.out.println("POST: addCard() 호출");
     AddCardCommand command = payload.toCommand();
     addTriggeredBy(command, request);
 
@@ -45,69 +50,105 @@ public class CardApiController extends AbstractBaseController {
     return AddCardResult.build(card);
   }
 
+  /**
+   * 카드 위치 변경 API
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping("/api/cards/positions")
   public ResponseEntity<ApiResult> changeCardPositions(@RequestBody ChangeCardPositionsPayload payload,
                                                        HttpServletRequest request) {
-    System.out.println("POST: changeCardPositions() 호출");
     ChangeCardPositionsCommand command = payload.toCommand();
     addTriggeredBy(command, request);
     cardService.changePositions(command);
     return Result.ok();
   }
 
+  /**
+   * 카드 조회 API
+   * @param cardId
+   * @return
+   */
   @GetMapping("/api/cards/{cardId}")
   public ResponseEntity<ApiResult> getCard(@PathVariable long cardId) {
-    System.out.println("GET: getCard() 호출");
     Card card = cardService.findById(new CardId(cardId));
     return CardResult.build(card);
   }
 
+  /**
+   * 카드 제목 수정 API
+   * @param cardId
+   * @param payload
+   * @param request
+   * @return
+   */
   @PutMapping("/api/cards/{cardId}/title")
   public ResponseEntity<ApiResult> changeTitle(@PathVariable long cardId,
                                                @RequestBody ChangeCardTitlePayload payload,
                                                HttpServletRequest request) {
-    System.out.println("PUT: changeTitle() 호출");
     ChangeCardTitleCommand command = payload.toCommand(cardId);
     addTriggeredBy(command, request);
     cardService.changeCardTitle(command);
     return Result.ok();
   }
+
+  /**
+   * 카드 설명 수정 API
+   * @param cardId
+   * @param payload
+   * @param request
+   * @return
+   */
   @PutMapping("/api/cards/{cardId}/description")
   public ResponseEntity<ApiResult> changeDescription(@PathVariable long cardId,
                                                      @RequestBody ChangeCardDescriptionPayload payload,
                                                      HttpServletRequest request) {
-    System.out.println("PUT: changeDescription() 호출");
     ChangeCardDescriptionCommand command = payload.toCommand(cardId);
     addTriggeredBy(command, request);
     cardService.changeCardDescription(command);
     return Result.ok();
   }
 
+  /**
+   * 카드 댓글 추가 API
+   * @param cardId
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping("/api/cards/{cardId}/comments")
   public ResponseEntity<ApiResult> addCardComment(@PathVariable long cardId,
                                                   @RequestBody AddCardCommentPayload payload,
                                                   HttpServletRequest request) {
-    System.out.println("POST: addCardComment() 호출");
     AddCardCommentCommand command = payload.toCommand(new CardId(cardId));
     addTriggeredBy(command, request);
     Activity activity = cardService.addComment(command);
     return CommentActivityResult.build(activity);
   }
 
+  /**
+   * 카드 활동 이력 조회 API
+   * @param cardId
+   * @return
+   */
   @GetMapping("/api/cards/{cardId}/activities")
   public ResponseEntity<ApiResult> getCardActivities(@PathVariable long cardId) {
-    System.out.println("GET: getCardActivities() 호출");
     List<Activity> activities = cardService.findCardActivities(new CardId(cardId));
     return CardActivitiesResult.build(activities);
   }
 
+  /**
+   * 카드에 첨부파일 추가 API
+   * @param cardId
+   * @param file
+   * @param request
+   * @return
+   */
   @PostMapping("/api/cards/{cardId}/attachments")
   public ResponseEntity<ApiResult> addAttachment(@PathVariable long cardId,
                                                  @RequestParam("file") MultipartFile file,
                                                  HttpServletRequest request) {
-    System.out.println("POST: addAttachment() 호출");
-    System.out.println("Attachment API- addAttachment() 호출: " + cardId);
-    System.out.println("Attachment API- addAttachment() 호출: " + file.getName());
     AddCardAttachmentCommand command = new AddCardAttachmentCommand(cardId, file);
     addTriggeredBy(command, request);
 
@@ -116,9 +157,13 @@ public class CardApiController extends AbstractBaseController {
   }
 
 
+  /**
+   * 카드  첨부파일 조회 API
+   * @param cardId
+   * @return
+   */
   @GetMapping("/api/cards/{cardId}/attachments")
   public ResponseEntity<ApiResult> getAttachments(@PathVariable long cardId) {
-    System.out.println("GET: getAttachments() 호출");
     List<Attachment> attachments = cardService.getAttachments(new CardId(cardId));
     return AttachmentResults.build(attachments, fileUrlCreator);
   }
@@ -126,20 +171,32 @@ public class CardApiController extends AbstractBaseController {
   /**
    * 카드 삭제 API
    * @param cardId
+   * @param request
    * @return
    */
   @DeleteMapping("/api/cards/{cardId}")
-  public ResponseEntity<ApiResult> deleteCard(@PathVariable long cardId) {
-    System.out.println("DELETE: deleteCard() 호출");
-    cardService.deleteCard(new CardId(cardId));
+  public ResponseEntity<ApiResult> deleteCard(@PathVariable long cardId,
+                                              HttpServletRequest request) {
+    DeleteCardCommand command = new DeleteCardCommand(new CardId(cardId));
+    addTriggeredBy(command, request);
+
+    cardService.deleteCard(command);
     return Result.ok();
   }
 
+  /**
+   * 카드 첨부파일 삭제 API
+   * @param cardId
+   * @param attachmentId
+   * @return
+   */
   @DeleteMapping("/api/cards/{cardId}/attachments/{attachmentId}")
-  public ResponseEntity<ApiResult> deleteAttachment(@PathVariable long cardId,
-                                                    @PathVariable long attachmentId) {
-    System.out.println("DELETE: deleteAttachment() 호출");
-    cardService.deleteAttachment(new CardId(cardId), new AttachmentId(attachmentId));
+  public ResponseEntity<ApiResult> removeAttachment(@PathVariable long cardId,
+                                                    @PathVariable long attachmentId,
+                                                    HttpServletRequest request) {
+    RemoveCardAttachmentCommand command = new RemoveCardAttachmentCommand(cardId, attachmentId);
+    addTriggeredBy(command, request);
+    cardService.removeAttachment(new CardId(cardId), new AttachmentId(attachmentId));
     return Result.ok();
   }
 }

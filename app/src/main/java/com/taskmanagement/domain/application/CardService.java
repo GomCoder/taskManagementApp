@@ -79,7 +79,7 @@ public interface CardService {
   Attachment addAttachment(AddCardAttachmentCommand command);
 
 
-  void deleteCard(CardId cardId);
+  void deleteCard(DeleteCardCommand command);
 
-  void deleteAttachment(CardId cardId, AttachmentId attachmentId);
+  void removeAttachment(CardId cardId, AttachmentId attachmentId);
 }

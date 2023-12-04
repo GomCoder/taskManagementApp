@@ -1,7 +1,5 @@
 FROM openjdk:8-jre-alpine
 
-RUN ln -s /usr/bin/img /usr/bin/local/img
-
 ADD app.jar /opt/taskManagementApp/app.jar
 ADD application-docker.properties /config/application-docker.properties
 

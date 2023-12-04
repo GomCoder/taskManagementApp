@@ -6,16 +6,21 @@ import com.taskmanagement.domain.application.CardService;
 import com.taskmanagement.domain.application.TeamService;
 import com.taskmanagement.domain.application.commands.AddBoardMemberCommand;
 import com.taskmanagement.domain.application.commands.CreateBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteCardCommand;
 import com.taskmanagement.domain.common.file.FileUrlCreator;
 import com.taskmanagement.domain.model.board.Board;
 import com.taskmanagement.domain.model.board.BoardId;
+import com.taskmanagement.domain.model.board.BoardNotFoundException;
 import com.taskmanagement.domain.model.card.Card;
+import com.taskmanagement.domain.model.card.CardId;
 import com.taskmanagement.domain.model.cardlist.CardList;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.user.User;
 import com.taskmanagement.domain.model.user.UserNotFoundException;
 import com.taskmanagement.web.payload.AddBoardMemberPayload;
 import com.taskmanagement.web.payload.CreateBoardPayload;
+import com.taskmanagement.web.payload.DeleteBoardPayload;
 import com.taskmanagement.web.results.ApiResult;
 import com.taskmanagement.web.results.BoardResult;
 import com.taskmanagement.web.results.Result;
@@ -105,5 +110,14 @@ public class BoardApiController extends AbstractBaseController {
     } catch (UserNotFoundException e) {
       return Result.failure("No user found");
     }
+  }
+
+  @DeleteMapping("/api/boards/{boardId}")
+  public ResponseEntity<ApiResult> deleteBoard(@PathVariable long boardId,
+                                               HttpServletRequest request) {
+    DeleteBoardCommand command = new DeleteBoardCommand(new BoardId(boardId));
+    addTriggeredBy(command, request);
+    boardService.deleteBoard(command);
+    return Result.ok();
   }
 }

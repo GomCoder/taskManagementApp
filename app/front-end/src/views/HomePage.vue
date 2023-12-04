@@ -9,6 +9,9 @@
                v-bind:key="board.id" @click="openBoard(board)">
             <h3>{{ board.name }}</h3>
             <p>{{ board.description }}</p>
+            <div style="float: right" @click="deleteBoard(board.id)">
+              <font-awesome-icon icon="minus" />
+            </div>
           </div>
           <div class="board add list-inline-item" @click="createBoard()">
             <font-awesome-icon icon="plus" />
@@ -23,6 +26,9 @@
                v-bind:key="board.id" @click="openBoard(board)">
             <h3>{{ board.name }}</h3>
             <p>{{ board.description }}</p>
+            <div style="float: right" @click="deleteBoard(board.id)">
+              <font-awesome-icon icon="minus" />
+            </div>
           </div>
           <div class="board add list-inline-item" @click="createBoard(team)">
             <font-awesome-icon icon="plus" />
@@ -49,9 +55,12 @@ import PageHeader from '@/components/PageHeader.vue'
 import CreateBoardModal from '@/modals/CreateBoardModal.vue'
 import CreateTeamModal from '@/modals/CreateTeamModal.vue'
 import { mapGetters } from 'vuex'
+
 // eslint-disable-next-line no-unused-vars
 import { personalBoards, teamBoards } from '@/store/getters'
 import PageFooter from '@/components/PageFooter.vue'
+import boardService from '@/services/boards'
+import notify from '@/utils/notify'
 
 export default {
   name: 'HomePage',
@@ -96,6 +105,19 @@ export default {
      */
     onBoardCreated (boardId) {
       this.$router.push({ name: 'board', params: { boardId: boardId } })
+    },
+    /**
+     * 보드 삭제
+     * @param board
+     */
+    deleteBoard (boardId) {
+      boardService.deleteBoard(boardId).then(({ boardId }) => {
+        this.boardId = boardId
+        this.$router.go()
+      }).catch(error => {
+        notify.error(error.message)
+      })
+      this.$router.go()
     }
   }
 }

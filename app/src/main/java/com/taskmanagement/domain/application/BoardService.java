@@ -2,6 +2,7 @@ package com.taskmanagement.domain.application;
 
 import com.taskmanagement.domain.application.commands.AddBoardMemberCommand;
 import com.taskmanagement.domain.application.commands.CreateBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteBoardCommand;
 import com.taskmanagement.domain.model.board.Board;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.user.User;
@@ -43,4 +44,6 @@ public interface BoardService {
    * @throws UserNotFoundException 사용자를 찾지 못한 예외 발생
    */
   User addMember(AddBoardMemberCommand command) throws UserNotFoundException;
+
+  void deleteBoard(DeleteBoardCommand command);
 }

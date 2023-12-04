@@ -146,12 +146,12 @@ public class CardServiceImpl implements CardService {
     return card;
   }
 
-  public void deleteCard(CardId cardId){
-    cardRepository.deleteCard(cardId);
+  public void deleteCard(DeleteCardCommand command){
+    cardRepository.deleteCard(command.getCardId());
   }
 
   @Override
-  public void deleteAttachment(CardId cardId, AttachmentId attachmentId) {
+  public void removeAttachment(CardId cardId, AttachmentId attachmentId) {
     Assert.notNull(cardId, "Parameter 'cardId' must not be null" );
     Assert.notNull(attachmentId, "Parameter 'attachmentId' must not be null" );
 

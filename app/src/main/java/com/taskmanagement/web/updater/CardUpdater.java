@@ -23,6 +23,5 @@ public class CardUpdater {
     update.put("card", cardData);
 
     SubscriptionHub.send("/board/" + boardId.value(), JsonUtils.toJson(update));
-
   }
 }

@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REPO = "taskManagementApp/taskManagement.mysql"
         DOCKER_CREDENTIAL = "dockerhub"
-        JENKINS_AT_STAGING = "jenkins@staging.taskagile.com"
+        JENKINS_AT_STAGING = "jenkins@staging.taskManagementApp.com"
     }
 
     stages {
@@ -38,16 +38,5 @@ pipeline {
             }
         }
 
-    }
-
-    post {
-        always {
-            emailext (
-                subject: "[Jenkins] ${env.JOB_NAME} Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                body: "${currentBuild.currentResult}\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nGit commit: ${env.GIT_COMMIT}\nMore detail at: ${env.BUILD_URL}"
-            )
-            sh "docker rmi -f ${DOCKER_REPO}:${env.GIT_COMMIT}"
-        }
     }
 }

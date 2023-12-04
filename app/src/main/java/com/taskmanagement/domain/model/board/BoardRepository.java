@@ -24,4 +24,6 @@ public interface BoardRepository {
    * @param board
    */
   void save(Board board);
+
+  Board deleteBoard(BoardId boardId);
 }

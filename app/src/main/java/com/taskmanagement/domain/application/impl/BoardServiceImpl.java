@@ -3,6 +3,7 @@ package com.taskmanagement.domain.application.impl;
 import com.taskmanagement.domain.application.BoardService;
 import com.taskmanagement.domain.application.commands.AddBoardMemberCommand;
 import com.taskmanagement.domain.application.commands.CreateBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteBoardCommand;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.board.*;
 import com.taskmanagement.domain.model.board.events.BoardCreatedEvent;
@@ -70,5 +71,10 @@ public class BoardServiceImpl implements BoardService {
     boardMemberRepository.add(command.getBoardId(), user.getId());
     domainEventPublisher.publish(new BoardMemberAddedEvent(command.getBoardId(), user, command));
     return user;
+  }
+
+  @Override
+  public void deleteBoard(DeleteBoardCommand command) {
+    boardRepository.deleteBoard(command.getBoardId());
   }
 }
