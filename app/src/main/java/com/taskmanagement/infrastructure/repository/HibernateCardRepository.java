@@ -65,6 +65,4 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
       }
     });
   }
-
-
 }

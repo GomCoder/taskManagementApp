@@ -1,6 +1,7 @@
 package com.taskmanagement.infrastructure.repository;
 
 import com.taskmanagement.domain.model.board.BoardId;
+import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.cardlist.CardList;
 import com.taskmanagement.domain.model.cardlist.CardListId;
 import com.taskmanagement.domain.model.cardlist.CardListPosition;
@@ -54,5 +55,13 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
   @Override
   public CardList findById(CardListId cardListId) {
     return getSession().find(CardList.class, cardListId.value());
+  }
+
+  @Override
+  public void deleteCardList(CardListId cardListId) {
+    String sql = "delete from card_list where id = :cardListId";
+    NativeQuery<CardList> query = getSession().createNativeQuery(sql);
+    query.setParameter("cardListId", cardListId.value());
+    query.executeUpdate();
   }
 }

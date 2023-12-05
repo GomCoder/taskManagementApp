@@ -28,4 +28,6 @@ public interface CardListRepository {
    * @return
    */
   CardList findById(CardListId cardListId);
+
+  void deleteCardList(CardListId cardListId);
 }

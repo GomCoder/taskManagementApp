@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 인증 관련 필터 설정
+ */
 public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter {
   private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 

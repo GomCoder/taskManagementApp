@@ -2,6 +2,7 @@ package com.taskmanagement.domain.application;
 
 import com.taskmanagement.domain.application.commands.AddCardListCommand;
 import com.taskmanagement.domain.application.commands.ChangeCardListPositionsCommand;
+import com.taskmanagement.domain.application.commands.DeleteCardListCommand;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.cardlist.CardList;
 
@@ -27,4 +28,6 @@ public interface CardListService {
    * @param command 카드 위치 변경 명령
    */
   void changePositions(ChangeCardListPositionsCommand command);
+
+  void deleteCardList(DeleteCardListCommand command);
 }

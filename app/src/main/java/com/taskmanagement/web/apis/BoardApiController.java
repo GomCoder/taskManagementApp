@@ -52,6 +52,12 @@ public class BoardApiController extends AbstractBaseController {
     this.fileUrlCreator = fileUrlCreator;
   }
 
+  /**
+   * 보드 생성 API
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping("/api/boards")
   public ResponseEntity<ApiResult> createBoard(@RequestBody CreateBoardPayload payload,
                                                HttpServletRequest request) {
@@ -62,6 +68,11 @@ public class BoardApiController extends AbstractBaseController {
     return CreateBoardResult.build(board);
   }
 
+  /**
+   * 보드 조회 API
+   * @param rawBoardId
+   * @return
+   */
   @GetMapping("/api/boards/{boardId}")
   public ResponseEntity<ApiResult> getBoard(@PathVariable("boardId") long rawBoardId) {
     System.out.println("GET: getBoard() 호출");
@@ -86,6 +97,13 @@ public class BoardApiController extends AbstractBaseController {
     return BoardResult.build(team, board, members, cardLists, cards, fileUrlCreator);
   }
 
+  /**
+   * 보드에 멤버 추가 API
+   * @param rawBoardId
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping(value="/api/boards/{boardId}/members")
   public ResponseEntity<ApiResult> addMember(@PathVariable("boardId") long rawBoardId,
                                              @RequestBody AddBoardMemberPayload payload,
@@ -112,6 +130,12 @@ public class BoardApiController extends AbstractBaseController {
     }
   }
 
+  /**
+   * 보드 삭제 API
+   * @param boardId
+   * @param request
+   * @return
+   */
   @DeleteMapping("/api/boards/{boardId}")
   public ResponseEntity<ApiResult> deleteBoard(@PathVariable long boardId,
                                                HttpServletRequest request) {

@@ -29,5 +29,20 @@ export default {
         reject(errorParser.parse(error))
       })
     })
+  },
+
+  /**
+   * 카드 리스트 삭제
+   * @param cardListId
+   * @returns {Promise<unknown>}
+   */
+  deleteCardList (cardListId) {
+    return new Promise((resolve, reject) => {
+      axios.delete('/card-lists/' + cardListId).then(({ data }) => {
+        resolve(data)
+      }).catch((error) => {
+        reject(errorParser.parse(error))
+      })
+    })
   }
 }

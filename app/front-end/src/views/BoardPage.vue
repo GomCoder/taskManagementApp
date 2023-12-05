@@ -29,6 +29,9 @@
             <div class="list-wrapper" v-for="cardList in cardLists" v-bind:key="cardList.id">
               <div class="list">
                 <div class="list-header">{{ cardList.name }}
+                  <div style="float: right" @click="deleteCardList(cardList.id)">
+                    <font-awesome-icon icon="minus" />
+                  </div>
                 </div>
                 <draggable class="cards" v-model="cardList.cards" @end="onCardDragEnded"
                 :options="{draggable: '.card-item', group: 'cards', ghostClass: 'ghost-card', animation: 0,
@@ -368,7 +371,6 @@ export default {
     },
     onCardDragEnded (event) {
       console.log('[BoardPage] Card drag ended', event)
-      // Get the card list that have card orders changed
       const fromListId = event.from.dataset.listId
       const toListId = event.to.dataset.listId
       const changedListIds = [fromListId]
@@ -452,6 +454,20 @@ export default {
         return card.id === change.cardId
       })
       card.coverImage = change.coverImage.replace(/\\/g, '/')
+    },
+    deleteCardList (cardListId) {
+      console.log('cardListId: ' + cardListId)
+      cardListService.deleteCardList(cardListId)
+        .then(() => {
+          const index = this.cardLists.findIndex(cardList => cardList.id === cardListId)
+          if (index !== -1) {
+            this.cardLists.splice(index, 1)
+          }
+          this.loadBoard(this.board.id)
+        })
+        .catch(error => {
+          notify.error(error.message)
+        })
     }
   }
 }

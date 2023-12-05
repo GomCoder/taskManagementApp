@@ -21,6 +21,12 @@ public class TeamApiController extends AbstractBaseController {
     this.teamService = teamService;
   }
 
+  /**
+   * 팀 생성 API
+   * @param payload
+   * @param request
+   * @return
+   */
   @PostMapping("/api/teams")
   public ResponseEntity<ApiResult> createTeam(@RequestBody CreateTeamPayload payload,
                                               HttpServletRequest request) {

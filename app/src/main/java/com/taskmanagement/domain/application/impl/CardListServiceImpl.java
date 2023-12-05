@@ -3,6 +3,7 @@ package com.taskmanagement.domain.application.impl;
 import com.taskmanagement.domain.application.CardListService;
 import com.taskmanagement.domain.application.commands.AddCardListCommand;
 import com.taskmanagement.domain.application.commands.ChangeCardListPositionsCommand;
+import com.taskmanagement.domain.application.commands.DeleteCardListCommand;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.cardlist.CardList;
@@ -45,5 +46,10 @@ public class CardListServiceImpl implements CardListService {
   @Override
   public void changePositions(ChangeCardListPositionsCommand command) {
     cardListRepository.changePositions(command.getCardListPositions());
+  }
+
+  @Override
+  public void deleteCardList(DeleteCardListCommand command) {
+    cardListRepository.deleteCardList(command.getCardListId());
   }
 }

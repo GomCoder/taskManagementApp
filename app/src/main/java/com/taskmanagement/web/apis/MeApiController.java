@@ -38,6 +38,11 @@ public class MeApiController {
     this.tokenManager = tokenManager;
   }
 
+  /**
+   * 현재 사용자 정보 조회 API
+   * @param currentUser
+   * @return
+   */
   @GetMapping("/api/me")
   public ResponseEntity<ApiResult> getMyData(@CurrentUser SimpleUser currentUser) {
     User user = userService.findById(currentUser.getUserId());
