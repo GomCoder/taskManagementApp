@@ -1,0 +1,29 @@
+package com.taskmanagement.domain.model.user;
+
+
+import org.springframework.stereotype.Component;
+
+/**
+ * 사용자 이름과 이메일로 사용자 조회
+ */
+@Component
+public class UserFinder {
+  private final UserRepository userRepository;
+
+  public UserFinder(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  public User find(String usernameOrEmailAddress) throws UserNotFoundException {
+    User user;
+    if(usernameOrEmailAddress.contains("@")) {
+      user = userRepository.findByEmailAddress(usernameOrEmailAddress);
+    } else {
+      user = userRepository.findByUsername(usernameOrEmailAddress);
+    }
+    if(user == null) {
+      throw new UserNotFoundException();
+    }
+    return user;
+  }
+}
