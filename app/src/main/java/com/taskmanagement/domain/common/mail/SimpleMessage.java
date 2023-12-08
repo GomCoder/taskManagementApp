@@ -3,6 +3,9 @@ package com.taskmanagement.domain.common.mail;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * 메시지 정보 생성
+ */
 public class SimpleMessage implements Message, Serializable {
   private static final long serialVersionUID = 6863568190260530040L;
   private final String to;

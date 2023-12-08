@@ -6,6 +6,9 @@ import com.taskmanagement.domain.model.card.CardPosition;
 
 import java.util.List;
 
+/**
+ * 카드 위치 변경에 전송되는 데이터
+ */
 public class ChangeCardPositionsPayload {
   private long boardId;
   private List<CardPosition> cardPositions;

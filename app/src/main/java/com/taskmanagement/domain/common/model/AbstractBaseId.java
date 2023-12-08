@@ -3,6 +3,9 @@ package com.taskmanagement.domain.common.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * 추상 기본 아이디
+ */
 public abstract class AbstractBaseId implements Serializable {
   private static final long serialVersionUID = 4565262348938261741L;
   private final long id;

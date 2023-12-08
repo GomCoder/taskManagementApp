@@ -1,13 +1,12 @@
 package com.taskmanagement.web.results;
-/**
- * API의 결과를 생성하는 클래스
- */
 
 import org.springframework.util.Assert;
-
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * API의 결과
+ */
 public class ApiResult extends HashMap<String, Object> implements Serializable {
   private static final long serialVersionUID = 8265262107209069775L;
   private static final String MESSAGE_KEY = "message";

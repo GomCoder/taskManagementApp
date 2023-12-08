@@ -1,7 +1,5 @@
 package com.taskmanagement.domain.common.security;
-/*
-  API 요청, 접근 거부에 대한 예외처리
- */
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.web.filter.GenericFilterBean;
@@ -13,7 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
+  API 요청, 접근 거부에 대한 예외처리 핸들러
+ */
 public class ApiRequestAccessDeniedExceptionTranslationFilter extends GenericFilterBean {
 
   private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();

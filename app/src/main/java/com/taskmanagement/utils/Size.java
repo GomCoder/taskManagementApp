@@ -2,6 +2,9 @@ package com.taskmanagement.utils;
 
 import java.util.Objects;
 
+/**
+ * 이미지 사이즈 설정
+ */
 public class Size {
   private final int width;
   private final int height;

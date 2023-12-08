@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 카드 업데이터 컴포넌트
+ */
 @Component
 public class CardUpdater {
   public void onCardAdded(BoardId boardId, Card card) {

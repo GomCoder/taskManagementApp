@@ -21,7 +21,7 @@
     <commons-io.version>2.6</commons-io.version>
     <p6spy.version>3.7.0</p6spy.version>
 	</properties>
-
+  <!-- 프로젝트에 사용될 의존성 추가-->
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -168,7 +168,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
+  <!-- 프로젝트 빌드 프로세스 설정-->
   <build>
     <plugins>
       <plugin>

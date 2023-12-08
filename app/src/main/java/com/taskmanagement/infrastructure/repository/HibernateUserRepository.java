@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 
+/**
+ * 사용자 Hibernate 레포지토리
+ */
 @Repository
 public class HibernateUserRepository extends HibernateSupport<User> implements UserRepository {
 
@@ -17,6 +20,9 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
     super(entityManager);
   }
 
+  /**
+   * 사용자 이름으로 사용자 조회
+   */
   @Override
   public User findByUsername(String username) {
     Query<User> query = getSession().createQuery("from User where username = :username", User.class);
@@ -24,6 +30,9 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
     return query.uniqueResult();
   }
 
+  /**
+   * 이메일 주소로 사용자 조회
+   */
   @Override
   public User findByEmailAddress(String emailAddress) {
     Query<User> query = getSession().createQuery("from User where emailAddress = :emailAddress", User.class);
@@ -31,6 +40,9 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
     return query.uniqueResult();
   }
 
+  /**
+   * 사용자 아이디로 사용자 조회
+   */
   @Override
   public User findById(UserId userId) {
     Query<User> query = getSession().createQuery("from User where id = :id", User.class);

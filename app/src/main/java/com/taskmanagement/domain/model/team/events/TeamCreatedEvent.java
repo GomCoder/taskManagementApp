@@ -7,6 +7,9 @@ import com.taskmanagement.domain.model.team.TeamId;
 
 import java.io.Serializable;
 
+/**
+ * 팀 생성 이벤트
+ */
 public class TeamCreatedEvent extends DomainEvent implements Serializable {
   private static final long serialVersionUID = 3709781468895119505L;
   private final TeamId teamId;

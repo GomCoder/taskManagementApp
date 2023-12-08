@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * 보드 멤버 엔터티
+ */
 @Entity
 @Table(name="board_member")
 public class BoardMember extends AbstractBaseEntity implements Serializable{

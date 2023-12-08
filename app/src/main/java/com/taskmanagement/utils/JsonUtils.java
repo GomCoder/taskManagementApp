@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Writer;
+
+/**
+ * JSON 정보 Mapper 유틸리티
+ */
 public final class JsonUtils {
 
   private static final Logger log = LoggerFactory.getLogger(JsonUtils.class);

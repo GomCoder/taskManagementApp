@@ -3,6 +3,9 @@ package com.taskmanagement.domain.model.user;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 사용자 이름과 이메일로 사용자 조회
+ */
 @Component
 public class UserFinder {
   private final UserRepository userRepository;

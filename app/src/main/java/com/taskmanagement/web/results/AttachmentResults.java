@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 복수의 첨부파일 처리에 대한 결과
+ */
 public class AttachmentResults {
 
   public static ResponseEntity<ApiResult> build(List<Attachment> attachments, FileUrlCreator fileUrlCreator) {

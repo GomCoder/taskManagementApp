@@ -11,6 +11,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 활동 이력 엔터티
+ */
 @Entity
 @Table(name="activity")
 public class Activity extends AbstractBaseEntity {

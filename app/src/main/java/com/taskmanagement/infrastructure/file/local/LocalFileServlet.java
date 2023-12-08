@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * 로컬 파일 저장 서블릿
+ */
 @WebServlet("/local-file/*")
 public class LocalFileServlet extends HttpServlet implements Serializable {
   private static final Logger log = LoggerFactory.getLogger(LocalFileServlet.class);
@@ -28,6 +31,9 @@ public class LocalFileServlet extends HttpServlet implements Serializable {
     this.environment = environment;
   }
 
+  /**
+   * 첨부파일 업로드 요청을 받아 파일 경로 생성
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     if (environment.acceptsProfiles("production", "staging")) {
@@ -51,6 +57,5 @@ public class LocalFileServlet extends HttpServlet implements Serializable {
     response.setContentType(request.getServletContext().getMimeType(pathInfo));
     response.setHeader("Cache-Control", "public, max-age=31536000");
     Files.copy(Paths.get(localRootPath, pathInfo), response.getOutputStream());
-
   }
 }

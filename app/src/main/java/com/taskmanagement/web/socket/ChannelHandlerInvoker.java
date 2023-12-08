@@ -12,6 +12,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 채널 핸들러 Invoker
+ */
 public class ChannelHandlerInvoker {
   private static final Logger log = LoggerFactory.getLogger(ChannelHandlerInvoker.class);
 

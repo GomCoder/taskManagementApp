@@ -1,12 +1,13 @@
 package com.taskmanagement.web.results;
-/**
- * 서버의 응답에 사용하는 클래스
- */
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 
+/**
+ * 서버의 응답에 사용하는 클래스
+ */
 public final class Result {
   private Result() {}
 

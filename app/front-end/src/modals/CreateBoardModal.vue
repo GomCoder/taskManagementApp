@@ -1,3 +1,4 @@
+<!-- 보드 생성 모달창 UI -->
 <template>
   <form @submit.prevent="saveBoard">
     <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="createBoardModal">

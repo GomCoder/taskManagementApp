@@ -4,6 +4,9 @@ import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.user.UserId;
 import org.springframework.stereotype.Component;
 
+/**
+ * 보드 관리 컴포넌트
+ */
 @Component
 public class BoardManagement {
 

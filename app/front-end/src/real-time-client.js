@@ -2,6 +2,7 @@ import Vue from 'vue'
 import SockJS from 'sockjs-client'
 import globalBus from '@/event-bus'
 
+// 실시간 통신을 위한 설정
 class RealTimeClient {
   // 생성자
   constructor () {

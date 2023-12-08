@@ -1,3 +1,4 @@
+<!-- 카드 모달창 UI -->
 <template>
   <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="cardModal">
     <div class="modal-dialog" role="document">

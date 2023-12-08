@@ -7,6 +7,9 @@ import com.taskmanagement.domain.model.user.UserId;
 
 import java.io.Serializable;
 
+/**
+ * 보드에 멤버 추가 이벤트
+ */
 public class BoardMemberAddedEvent extends BoardDomainEvent implements Serializable {
 
   private static final long serialVersionUID = 30207636470193332L;

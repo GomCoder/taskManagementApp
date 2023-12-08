@@ -4,7 +4,7 @@ import eventBus from '@/event-bus'
 
 export default {
   /**
-   * 현재 사용자의 이름, 보드, 팀 조회
+   * 현재 사용자의 이름, 보드, 팀 조회를 위한 GET 요청
    * @returns {Promise<unknown>}
    */
   getMyData () {
@@ -18,7 +18,7 @@ export default {
     })
   },
   /**
-   * 로그아웃
+   * 로그아웃을 위한 POST 요청
    * @returns {Promise<unknown>}
    */
   signOut () {

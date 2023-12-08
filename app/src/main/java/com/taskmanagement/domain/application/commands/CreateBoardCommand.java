@@ -2,6 +2,9 @@ package com.taskmanagement.domain.application.commands;
 
 import com.taskmanagement.domain.model.team.TeamId;
 
+/**
+ * 보드 생성 커멘드 클래스
+ */
 public class CreateBoardCommand extends UserCommand {
   private final String name;
   private final String description;

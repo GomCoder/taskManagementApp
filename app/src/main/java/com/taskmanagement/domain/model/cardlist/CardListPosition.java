@@ -1,5 +1,8 @@
 package com.taskmanagement.domain.model.cardlist;
 
+/**
+ * 카드 리스트 위치
+ */
 public class CardListPosition {
   private long cardListId;
   private int position;

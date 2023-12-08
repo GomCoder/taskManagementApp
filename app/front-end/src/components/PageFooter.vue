@@ -1,9 +1,4 @@
-<script>
-export default {
-  name: 'PageFooter'
-}
-</script>
-
+<!-- 페이지 Footer UI-->
 <template>
   <footer class="footer">
     <span class="copyright">&copy; 한양사이버대학교 응용소프트웨어공학과 김동원</span>
@@ -11,10 +6,16 @@ export default {
       <li class="list-inline-item"><router-link to="/about">{{ $t("pageFooter.about") }}</router-link></li>
       <li class="list-inline-item"><a href="#">{{ $t("pageFooter.termOfService") }}</a></li>
       <li class="list-inline-item"><a href="#">{{ $t("pageFooter.privacyPolicy") }}</a></li>
-      <li class="list-inline-item"><a href="https://github.com/taskagile/vuejs.spring-boot.mysql" target="_blank">GitHub</a></li>
+      <li class="list-inline-item"><a href="#" target="_blank">GitHub</a></li>
     </ul>
   </footer>
 </template>
+
+<script>
+export default {
+  name: 'PageFooter'
+}
+</script>
 
 <style lang="scss" scoped>
 .footer {

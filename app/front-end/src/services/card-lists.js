@@ -3,7 +3,7 @@ import errorParser from '@/utils/error-parser'
 
 export default {
   /**
-   * 새로운 카드 리스트 추가
+   * 새로운 카드 리스트 추가 POST 요청
    * @param detail
    * @returns {Promise<unknown>}
    */
@@ -17,7 +17,7 @@ export default {
     })
   },
   /**
-   * 카드 위치 변경
+   * 카드 위치 변경 POST 요청
    * @param positionChanges
    * @returns {Promise<unknown>}
    */
@@ -32,7 +32,7 @@ export default {
   },
 
   /**
-   * 카드 리스트 삭제
+   * 카드 리스트 삭제 DELETE 요청
    * @param cardListId
    * @returns {Promise<unknown>}
    */

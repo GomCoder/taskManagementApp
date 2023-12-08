@@ -4,6 +4,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * 임시 파일 저장
+ */
 public class TempFile {
   private final String rootTempPath;
   private final String fileRelativePath;

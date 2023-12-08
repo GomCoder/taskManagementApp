@@ -3,6 +3,9 @@ package com.taskmanagement.utils;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * 접속한 IP주소 
+ */
 public class IpAddress implements Serializable {
   private static final long serialVersionUID = 5581605778499278428L;
   private final String value;

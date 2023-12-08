@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.card.Card;
 
 import java.io.Serializable;
 
+/**
+ * 카드 설명 변경 이벤트
+ */
 public class CardDescriptionChangedEvent extends CardDomainEvent implements Serializable {
   private static final long serialVersionUID = 5907104789563362338L;
   private final String newDescription;

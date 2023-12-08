@@ -1,11 +1,11 @@
 package com.taskmanagement.domain.model.activity;
-/**
- * 활동 이력 Type
- */
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 활동 이력 Type
+ */
 public enum ActivityType {
   UNKNOWN(""),
   Add_BOARD("add-board"),

@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 팀 엔터티
+ */
 @Entity
 @Table(name = "team")
 public class Team extends AbstractBaseEntity implements Serializable {

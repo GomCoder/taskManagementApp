@@ -7,6 +7,9 @@ import io.jsonwebtoken.lang.Assert;
 
 import java.util.Objects;
 
+/**
+ * 사용자 정보 가져오는 커멘드 클래스
+ */
 public abstract class UserCommand implements TriggeredBy {
   private UserId userId;
   private IpAddress ipAddress;

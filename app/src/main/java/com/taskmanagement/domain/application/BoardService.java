@@ -11,6 +11,9 @@ import com.taskmanagement.domain.model.user.UserNotFoundException;
 
 import java.util.List;
 
+/**
+ * 보드 서비스 - 보드 정보, 보드 조회, 보드 멤버, 보드 생성, 보드 멤버 추가, 보드 삭제 기능
+ */
 public interface BoardService {
   /**
    * 사용자가 작성하거나 가입한 보드를 포함하여 사용자가 구성원인 보드를 찾는다.
@@ -45,5 +48,8 @@ public interface BoardService {
    */
   User addMember(AddBoardMemberCommand command) throws UserNotFoundException;
 
+  /**
+   * 보드 삭제하기
+   */
   void deleteBoard(DeleteBoardCommand command);
 }

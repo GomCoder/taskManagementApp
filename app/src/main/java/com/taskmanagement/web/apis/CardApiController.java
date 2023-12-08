@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 카드 API 컨트롤러
+ */
 @Controller
 public class CardApiController extends AbstractBaseController {
   private final CardService cardService;

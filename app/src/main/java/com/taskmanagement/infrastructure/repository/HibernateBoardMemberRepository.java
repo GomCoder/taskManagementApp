@@ -11,12 +11,18 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * 보드 멤버 Hiberante 레포지토리 
+ */
 @Repository
 public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember> implements BoardMemberRepository {
   HibernateBoardMemberRepository(EntityManager entityManager) {
     super(entityManager);
   }
 
+  /**
+   * 보드 아이디로 멤버 조회
+   */
   @Override
   public List<User> findMembers(BoardId boardId) {
     String sql =
@@ -28,6 +34,9 @@ public class HibernateBoardMemberRepository extends HibernateSupport<BoardMember
     return query.list();
   }
 
+  /**
+   * 보드 추가
+   */
   @Override
   public void add(BoardId boardId, UserId userId) {
     String sql = "insert ignore into board_member (board_id, user_id) value (:boardId, :userId)";

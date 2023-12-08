@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
+/**
+ * 사용자 정보 생성
+ */
 public class SimpleUser implements UserDetails {
 
   private static final long serialVersionUID = 5942822323848085766L;

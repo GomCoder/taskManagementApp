@@ -3,7 +3,7 @@ import errorParser from '@/utils/error-parser'
 
 export default {
   /**
-   * 팀 생성하기
+   * 팀 생성하기 POST 요청
    * @param detail 팀 세부사항
    * @returns {Promise<unknown>}
    */

@@ -1,3 +1,4 @@
+<!--보드 페이지 UI-->
 <template>
 <div class="page" v-show="board.id">
   <PageHeader />

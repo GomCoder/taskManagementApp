@@ -8,6 +8,9 @@ import com.taskmanagement.domain.model.cardlist.CardList;
 
 import java.util.List;
 
+/**
+ * 카드 리스트 서비스 - 보드의 카드 리스트 조회, 카드 리스트 추가, 카드 리스트 위치 변경, 카드 리스트 삭제
+ */
 public interface CardListService {
   /**
    * 보드의 카드 리스트 찾기
@@ -29,5 +32,8 @@ public interface CardListService {
    */
   void changePositions(ChangeCardListPositionsCommand command);
 
+  /*
+   * 카드 리스트 삭제하기
+   */
   void deleteCardList(DeleteCardListCommand command);
 }

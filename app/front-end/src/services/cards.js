@@ -3,7 +3,7 @@ import errorParser from '@/utils/error-parser'
 
 export default {
   /**
-   * 새로운 카드 추가
+   * 새로운 카드 추가 POST 요청
    * @param detail 카드 추가 사항
    * @returns {Promise<unknown>}
    */
@@ -18,7 +18,7 @@ export default {
     })
   },
   /**
-   * 카드 삭제하기
+   * 카드 삭제하기 DELETE 요청
    * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
@@ -33,7 +33,7 @@ export default {
     })
   },
   /**
-   * 카드 가져오기
+   * 카드 가져오기 GET 요청
    * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
@@ -48,7 +48,7 @@ export default {
     })
   },
   /**
-   * 카드 제목 수정
+   * 카드 제목 수정 PUT 요청
    * @param cardId 카드 아이디
    * @param title 카드 제목
    * @returns {Promise<unknown>}
@@ -64,7 +64,7 @@ export default {
     })
   },
   /**
-   * 카드 설명 수정
+   * 카드 설명 수정 PUT 요청
    * @param cardId 카드 아이디
    * @param description 카드 설명
    * @returns {Promise<unknown>}
@@ -80,7 +80,7 @@ export default {
     })
   },
   /**
-   * 카드 위치 변경
+   * 카드 위치 변경 POST 요청
    * @param positionChanges 카드 변경된 위치
    * @returns {Promise<unknown>}
    */
@@ -95,7 +95,7 @@ export default {
     })
   },
   /**
-   * 카드에 댓글 추가하기
+   * 카드에 댓글 추가하기 POST 요청
    * @param cardId 카드 아이디
    * @param comment 댓글 내용
    * @returns {Promise<unknown>}
@@ -111,7 +111,7 @@ export default {
     })
   },
   /**
-   * 카드의 활동 기록 가져오기
+   * 카드의 활동 기록 가져오기 GET 요청
    * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
@@ -126,7 +126,7 @@ export default {
     })
   },
   /**
-   * 카드에 첨부파일 추가하기
+   * 카드에 첨부파일 추가하기 GET 요청
    * @param cardId 카드 아이디
    * @returns {Promise<unknown>}
    */
@@ -141,7 +141,7 @@ export default {
     })
   },
   /**
-   * 카드의 첨부파일 삭제하기
+   * 카드의 첨부파일 삭제하기 DELETE 요청
    * @param cardId
    * @returns {Promise<unknown>}
    */

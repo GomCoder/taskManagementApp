@@ -15,6 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * 카드 Hibernate 레포지토리
+ */
 @Repository
 public class HibernateCardRepository extends HibernateSupport<Card> implements CardRepository {
   private final JdbcTemplate jdbcTemplate;
@@ -24,11 +27,17 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
     this.jdbcTemplate = jdbcTemplate;
   }
 
+  /**
+   * 카드 아이디로 카드 조회
+   */
   @Override
   public Card findById(CardId cardId) {
     return getSession().find(Card.class, cardId.value());
   }
 
+  /**
+   * 카드 삭제하기
+   */
   @Override
   public Card deleteCard(CardId cardId) {
     System.out.println("HibernateAttachmentRepository.deleteAttachments(): " +  cardId.value());
@@ -39,6 +48,9 @@ public class HibernateCardRepository extends HibernateSupport<Card> implements C
     return getSession().find(Card.class, cardId.value());
   }
 
+  /**
+   * 보드 아이디로 카드 조회
+   */
   @Override
   public List<Card> findByBoardId(BoardId boardId) {
     String sql = "select c.* from card c left join card_list c1 on c.card_list_id = c1.id where c1.board_id = :boardId";

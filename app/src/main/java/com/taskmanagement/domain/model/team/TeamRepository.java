@@ -4,9 +4,12 @@ import com.taskmanagement.domain.model.user.UserId;
 
 import java.util.List;
 
+/**
+ * 팀 레포지토리 - 사용자 아이디로 팀 조회, 팀 아이디로 팀 조회, 팀 저장
+ */
 public interface TeamRepository {
   /**
-   * 만든 사용자에 의해 생성된 보드 조회
+   * 만든 사용자에 의해 생성된 팀 조회
    * @param userId
    * @return
    */

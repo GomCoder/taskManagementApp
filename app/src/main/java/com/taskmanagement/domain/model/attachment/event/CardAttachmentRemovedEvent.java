@@ -8,6 +8,9 @@ import com.taskmanagement.domain.model.card.events.CardDomainEvent;
 
 import java.io.Serializable;
 
+/**
+ * 카드 첨부파일 삭제 이벤트
+ */
 public class CardAttachmentRemovedEvent extends CardDomainEvent implements Serializable {
   private static final long serialVersionUID = -6160887431580734456L;
   private final String cardTitle;

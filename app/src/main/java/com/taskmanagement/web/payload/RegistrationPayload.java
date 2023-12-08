@@ -9,6 +9,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * 회원 가입에 전송되는 데이터
+ */
 public class RegistrationPayload {
 
   @Size(min = 2, max = 50, message = "Username must be between 2 and 50 characters")

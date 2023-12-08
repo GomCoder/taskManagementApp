@@ -7,6 +7,9 @@ import com.taskmanagement.domain.model.cardlist.CardListId;
 
 import java.io.Serializable;
 
+/**
+ * 카드 리스트 추가 이벤트
+ */
 public class CardListAddedEvent extends BoardDomainEvent implements Serializable {
   private static final long serialVersionUID = 8414088332493939423L;
   private final CardListId cardListId;

@@ -15,6 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+/**
+ * 첨부파일 관리 컴포넌트 
+ */
 @Component
 public class AttachmentManagement {
   private final static Logger log = LoggerFactory.getLogger(AttachmentManagement.class);

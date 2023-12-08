@@ -2,6 +2,9 @@ package com.taskmanagement.domain.model.card;
 
 import com.taskmanagement.domain.model.cardlist.CardListId;
 
+/**
+ * 카드의 위치 정보
+ */
 public class CardPosition {
   private long cardListId;
   private long cardId;

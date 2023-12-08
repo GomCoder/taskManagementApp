@@ -2,6 +2,9 @@ package com.taskmanagement.domain.application.commands;
 
 import com.taskmanagement.domain.model.cardlist.CardListId;
 
+/**
+ * 카드를 추가하는 커멘드 클래스
+ */
 public class AddCardCommand extends UserCommand{
   private final CardListId cardListId;
 

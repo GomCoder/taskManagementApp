@@ -3,6 +3,9 @@ package com.taskmanagement.domain.common.file;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * 파일 저장 url 생성
+ */
 @Component
 public class FileUrlCreator {
   private final boolean isLocalStorage;

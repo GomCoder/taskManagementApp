@@ -4,6 +4,9 @@ import io.jsonwebtoken.lang.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 요청 처리에 대한 접속 주소 처리
+ */
 public final class RequestUtils {
 
   private RequestUtils() {

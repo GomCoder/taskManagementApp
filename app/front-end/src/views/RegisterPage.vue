@@ -1,3 +1,4 @@
+<!-- 회원 가입 페이지 UI -->
 <template>
   <div class="container public">
     <div class="row justify-content-center">

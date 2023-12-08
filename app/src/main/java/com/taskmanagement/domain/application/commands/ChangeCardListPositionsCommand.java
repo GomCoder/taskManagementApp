@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.cardlist.CardListPosition;
 
 import java.util.List;
 
+/**
+ * 카드 리스트 위치 변경에 대한 커멘트 클래스
+ */
 public class ChangeCardListPositionsCommand extends UserCommand {
   private final BoardId boardId;
   private final List<CardListPosition> cardListPositions;

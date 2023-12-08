@@ -11,6 +11,9 @@ import io.jsonwebtoken.security.Keys;
 public class TokenManager {
   private final Key secretKey;
 
+  /**
+   * base64로 암호화
+   */
   public TokenManager(@Value("${app.token-secret-key}") String secretKey) {
     this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
   }

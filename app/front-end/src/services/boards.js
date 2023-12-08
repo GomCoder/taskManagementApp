@@ -3,7 +3,7 @@ import errorParser from '@/utils/error-parser'
 
 export default {
   /**
-   * 보드 생성하기
+   * 보드 생성하기 POST 요청
    * @param detail
    * @returns {Promise<unknown>}
    */
@@ -17,7 +17,7 @@ export default {
     })
   },
   /**
-   * 보드에 맴버 추가하기
+   * 보드에 맴버 추가하기 POST 요청
    * @param boardId
    * @param usernameOrEmailAddress
    * @returns {Promise<unknown>}
@@ -32,7 +32,7 @@ export default {
     })
   },
   /**
-   * 보드 가져오기
+   * 보드 가져오기 GET 요청
    * @param boardId
    * @returns {Promise<unknown>}
    */
@@ -46,7 +46,7 @@ export default {
     })
   },
   /**
-   * 보드 삭제하기
+   * 보드 삭제하기 DELETE 요청
    * @param boardId
    * @returns {Promise<unknown>}
    */

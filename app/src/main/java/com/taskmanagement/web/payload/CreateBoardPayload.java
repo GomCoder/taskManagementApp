@@ -3,6 +3,9 @@ package com.taskmanagement.web.payload;
 import com.taskmanagement.domain.application.commands.CreateBoardCommand;
 import com.taskmanagement.domain.model.team.TeamId;
 
+/**
+ * 보드 생성에 전송되는 데이터
+ */
 public class CreateBoardPayload {
   private String name;
   private String description;

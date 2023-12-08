@@ -1,11 +1,5 @@
 package com.taskmanagement.config;
 
-/**
- * 원본 소스에서는 AWS S3에 파일 업로드 하는 방법과 Local에서 파일 업로드 하는 방법 2가지 구현 방법을 사용하고 있는데
- * 일단은 Local에서 파일 업로드 하는 부분만 구현하였음
- * AWS S3에 파일 업로드 구현은 https://github.com/taskagile/vuejs.spring-boot.mysql/commit/7cf27f2a8b76b388635077f3863ac9d8351fe154 참고할 것
- */
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 애플리케이션 프로퍼티 설정
+ */
 @Configuration
 @ConfigurationProperties(prefix = "app")
 @Validated

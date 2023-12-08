@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 보드 처리에 대한 결과
+ */
 public class BoardResult {
   public static ResponseEntity<ApiResult> build(Team team,
                                                 Board board,

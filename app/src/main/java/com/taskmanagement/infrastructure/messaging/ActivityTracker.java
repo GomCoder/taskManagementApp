@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * 활동 이력 추적 - RabbitMQ 사용
+ */
 @Component
 public class ActivityTracker {
   private final static Logger log = LoggerFactory.getLogger(ActivityTracker.class);

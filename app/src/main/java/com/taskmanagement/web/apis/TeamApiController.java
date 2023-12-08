@@ -13,6 +13,9 @@ import com.taskmanagement.web.results.CreateTeamResult;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 팀 API 컨트롤러
+ */
 @Controller
 public class TeamApiController extends AbstractBaseController {
   private final TeamService teamService;

@@ -9,6 +9,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 추상 기본 컨트롤러
+ */
 public abstract class AbstractBaseController {
   void addTriggeredBy(UserCommand command, HttpServletRequest request) {
     Assert.notNull(request.getUserPrincipal(), "User principal must be present in the request");

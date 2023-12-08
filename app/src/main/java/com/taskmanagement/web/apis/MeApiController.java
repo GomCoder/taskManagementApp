@@ -18,6 +18,9 @@ import com.taskmanagement.web.results.MyDataResult;
 
 import java.util.List;
 
+/**
+ * 사용자 정보, 실시간처리, 토큰 생성 API 컨트롤러
+ */
 @Controller
 public class MeApiController {
   private final String realTimeServerUrl;

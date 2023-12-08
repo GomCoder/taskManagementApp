@@ -4,6 +4,9 @@ import com.taskmanagement.domain.model.card.CardId;
 
 import java.util.List;
 
+/**
+ * 활동 이력 레포지토리 - 활동 이력 저장, 카드 활동 이력 조회
+ */
 public interface ActivityRepository {
   /**
    * 활동 이력 저장하기

@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 사용자 데이터 처리 결과
+ */
 public class MyDataResult {
   public static ResponseEntity<ApiResult> build(User user,
                                                 List<Team> teams,

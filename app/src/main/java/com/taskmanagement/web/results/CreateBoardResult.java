@@ -3,6 +3,9 @@ package com.taskmanagement.web.results;
 import com.taskmanagement.domain.model.board.Board;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 보드 생성처리에 대한 결과
+ */
 public class CreateBoardResult {
   public static ResponseEntity<ApiResult> build(Board board) {
     System.out.println("-------------- CreateBoardResult.build(): " + board.getTeamId().value());

@@ -10,6 +10,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+/**
+ * AMQP 도메인이벤트 발생 
+ */
 @Component
 public class AmqpDomainEventPublisher implements DomainEventPublisher {
   private static final Logger log = LoggerFactory.getLogger(AmqpDomainEventPublisher.class);

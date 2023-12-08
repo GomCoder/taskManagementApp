@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 사용자 인증 실패 핸들러
+ */
 public class SimpleAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
   @Override

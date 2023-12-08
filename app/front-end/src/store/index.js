@@ -7,6 +7,7 @@ import createLogger from 'vuex/dist/logger'
 
 Vue.use(Vuex)
 
+// 전역으로 사용할 변수들 설정
 const state = {
   user: {
     name: null,

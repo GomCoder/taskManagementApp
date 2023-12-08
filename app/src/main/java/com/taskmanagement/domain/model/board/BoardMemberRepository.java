@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.user.UserId;
 
 import java.util.List;
 
+/**
+ * 보드 멤버 레포지토리 - 보드 아이디로 멤버 조회, 보드 멤버 저장, 보드에 사용자(멤버) 추가
+ */
 public interface BoardMemberRepository {
   /**
    * 보드로 멤버 찾기

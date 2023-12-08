@@ -5,6 +5,9 @@
 
 module.exports =
 {
+  /**
+   * 서버 포트에 대한 설정
+   */
   devServer: {
     port: 3000,
     proxy: {
@@ -19,6 +22,9 @@ module.exports =
       }
     }
   },
+  /**
+   * 웹팩을 이용하여 CSS 사용을 위한 설정
+   */
   configureWebpack: {
     entry: {
       app: './src/main.js',

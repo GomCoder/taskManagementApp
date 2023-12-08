@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 로그아웃 성공 핸들러
+ */
 public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
 
   @Override

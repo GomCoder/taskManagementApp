@@ -1,3 +1,4 @@
+<!-- 첨부파일 업로드 UI -->
 <template>
   <div class="fileinput-button">
     <font-awesome-icon :icon="icon" class="icon" v-if="icon"/>{{ label }}

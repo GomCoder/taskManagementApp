@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
+
 public abstract class HibernateSupport<T> {
   private final EntityManager entityManager;
   @Autowired

@@ -1,4 +1,4 @@
-
+<!-- 멤버 추가 모달창 UI -->
 <template>
   <form @submit.prevent="addMember">
     <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="addMemberModal">

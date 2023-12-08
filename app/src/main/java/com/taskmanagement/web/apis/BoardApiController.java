@@ -32,6 +32,9 @@ import com.taskmanagement.web.results.CreateBoardResult;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 보드 API 컨트롤러
+ */
 @Controller
 public class BoardApiController extends AbstractBaseController {
   private final BoardService boardService;

@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 이미지의 경우 썸네일 생성 컴포넌트
+ */
 @Component
 public class ThumbnailCreator {
   private final static Logger log = LoggerFactory.getLogger(ThumbnailCreator.class);

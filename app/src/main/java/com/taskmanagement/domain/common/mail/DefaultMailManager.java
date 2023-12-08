@@ -12,6 +12,9 @@ import org.springframework.util.Assert;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 이메일 전송 매니저
+ */
 @Component
 public class DefaultMailManager implements MailManager {
 

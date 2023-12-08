@@ -6,6 +6,9 @@ import com.taskmanagement.domain.model.user.User;
 
 import java.io.Serializable;
 
+/**
+ * 사용자 회원 가입 이벤트
+ */
 public class UserRegisteredEvent extends DomainEvent implements Serializable {
   private static final long serialVersionUID = 5127684683045027895L;
 

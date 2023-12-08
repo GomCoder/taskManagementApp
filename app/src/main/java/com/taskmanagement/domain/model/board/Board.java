@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 보드 엔터티
+ */
 @Entity
 @Table(name = "board")
 public class Board extends AbstractBaseEntity implements Serializable {

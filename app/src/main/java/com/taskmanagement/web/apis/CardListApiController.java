@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 카드 리스트 API 컨트롤러
+ */
 @Controller
 public class CardListApiController extends AbstractBaseController {
   private final CardListService cardListService;

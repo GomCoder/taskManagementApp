@@ -13,12 +13,18 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * 보드 Hibernate 레포지토리
+ */
 @Repository
 public class HibernateBoardRepository extends HibernateSupport<Board> implements BoardRepository {
   HibernateBoardRepository(EntityManager entityManager) {
     super(entityManager);
   }
 
+  /**
+   * 사용자 아이디로 보드에 속한 멤버 조회
+   */
   @Override
   public List<Board> findBoardsByMembership(UserId userId) {
     String sql = "select b.* from board b left join board_member bm on b.id = bm.board_id where bm.user_id = :userId";
@@ -27,6 +33,9 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
     return query.list();
   }
 
+  /**
+   * 보드 아이디로 보드 조회
+   */
   @Override
   public Board findById(BoardId boardId) {
     Query<Board> query = getSession().createQuery("from Board where id = :id", Board.class);
@@ -34,23 +43,28 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
     return query.uniqueResult();
   }
 
+  /**
+   * 보드 삭제
+   */
   @Override
   public Board deleteBoard(BoardId boardId) {
     Assert.notNull(boardId, "Parameter 'boardId' must not be null" );
     Session session = getSession();
 
-    // Fetch the board to be deleted
     Board board = findById(boardId);
 
-    // Check if the board exists
     if (board != null) {
-      // Delete associated records in board_member table
+      /**
+       * 보드에 멤버가 존재하는 경우 -> 보드 멤버를 삭제
+       */
       String deleteBoardMemberSql = "delete from board_member where board_id = :boardId";
       NativeQuery<?> deleteBoardMemberQuery = session.createNativeQuery(deleteBoardMemberSql);
       deleteBoardMemberQuery.setParameter("boardId", boardId.value());
       deleteBoardMemberQuery.executeUpdate();
 
-      // Delete the board
+      /**
+       * 보드 삭제 수행
+       */
       String deleteBoardSql = "delete from board where id = :boardId";
       NativeQuery<?> deleteBoardQuery = session.createNativeQuery(deleteBoardSql);
       deleteBoardQuery.setParameter("boardId", boardId.value());

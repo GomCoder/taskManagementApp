@@ -5,6 +5,9 @@ import  com.taskmanagement.domain.model.board.Board;
 
 import java.io.Serializable;
 
+/**
+ * 보드 생성 이벤트
+ */
 public class BoardCreatedEvent extends BoardDomainEvent implements Serializable {
   private static final long serialVersionUID = -2382719359002912153L;
   private final String boardName;

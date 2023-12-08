@@ -8,6 +8,9 @@ import AboutPage from '@/views/AboutPage.vue'
 
 Vue.use(VueRouter)
 
+/**
+ * 각 페이지 경로 설정
+ */
 const routes = [
   {
     path: '/',

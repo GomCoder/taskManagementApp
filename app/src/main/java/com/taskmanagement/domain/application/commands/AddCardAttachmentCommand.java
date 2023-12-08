@@ -3,6 +3,9 @@ package com.taskmanagement.domain.application.commands;
 import com.taskmanagement.domain.model.card.CardId;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 카드에 첨부파일을 추가하는 커멘트 클래스
+ */
 public class AddCardAttachmentCommand extends UserCommand {
   private final CardId cardId;
   private final MultipartFile file;

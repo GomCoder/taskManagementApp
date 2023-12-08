@@ -11,6 +11,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 카드 엔터티
+ */
 @Entity
 @Table(name = "card")
 public class Card extends AbstractBaseEntity {

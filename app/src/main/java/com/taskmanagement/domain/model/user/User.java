@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 사용자 엔터티
+ */
 @Entity
 @Table(name = "user")
 public class User extends AbstractBaseEntity {

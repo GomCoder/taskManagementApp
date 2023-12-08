@@ -5,6 +5,9 @@ import com.taskmanagement.utils.JsonUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 활동 이력 상세 정보 저장
+ */
 public class ActivityDetail {
   private final Map<String, Object> detail = new HashMap<>();
 

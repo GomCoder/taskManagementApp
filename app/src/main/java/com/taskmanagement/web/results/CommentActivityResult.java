@@ -3,6 +3,9 @@ package com.taskmanagement.web.results;
 import com.taskmanagement.domain.model.activity.Activity;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 댓글에 활동 이력 결과 추가 
+ */
 public class CommentActivityResult {
   public static ResponseEntity<ApiResult> build(Activity activity) {
     ApiResult apiResult = ApiResult.blank()

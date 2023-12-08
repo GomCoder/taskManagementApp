@@ -3,6 +3,9 @@ package com.taskmanagement.utils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.Assert;
 
+/**
+ * 이미지 경로 생성 유틸리티
+ */
 public final class ImageUtils {
   private ImageUtils() {}
 

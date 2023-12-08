@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * 팀 서비스 구현
+ */
 @Service
 @Transactional
 public class TeamServiceImpl implements TeamService {
@@ -24,17 +27,25 @@ public class TeamServiceImpl implements TeamService {
     this.domainEventPublisher = domainEventPublisher;
   }
 
-
+  /**
+   * 사용자 아이디로 팀 정보 조회
+   */
   @Override
   public List<Team> findTeamsByUserId(UserId userId) {
     return teamRepository.findTeamsByUserId((userId));
   }
 
+  /**
+   * 팀 아이디로 팀 정보 조회 
+   */
   @Override
   public Team findById(TeamId teamId) {
     return teamRepository.findById(teamId);
   }
 
+  /**
+   * 팀 생성
+   */
   @Override
   public Team createTeam(CreateTeamCommand command) {
     Team team = Team.create(command.getName(), command.getUserId());

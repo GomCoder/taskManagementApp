@@ -7,6 +7,9 @@ import com.taskmanagement.domain.model.user.UserId;
 
 import java.util.List;
 
+/**
+ * 팀 서비스 - 사용자 아이디로 팀 조회, 팀 아이디로 팀 조회, 새로운 팀 생성 
+ */
 public interface TeamService {
   /**
    * 사용자가 만든 팀 찾기

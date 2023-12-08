@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.card.Card;
 
 import java.io.Serializable;
 
+/**
+ * 카드 삭제 이벤트
+ */
 public class CardDeletedEvent extends CardDomainEvent implements Serializable {
 
   private static final long serialVersionUID = -3188733301855842887L;

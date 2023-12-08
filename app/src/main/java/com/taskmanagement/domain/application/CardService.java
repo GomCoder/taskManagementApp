@@ -10,6 +10,12 @@ import com.taskmanagement.domain.model.card.CardId;
 
 import java.util.List;
 
+/**
+ * 카드 서비스 - 보드에 속한 카드 조회, 카드 아이디로 카드 조회, 카드의 활동 이력 조회, 
+ *              카드의 첨부파일 조회, 카드 추가, 카드 위치 변경, 카드 제목 변경, 
+ *              카드 설명 변경, 카드에 댓글 추가, 카드에 첨부파일 추가, 카드 삭제, 
+ *              카드에 있는 첨부파일 삭제
+ */
 public interface CardService {
   /**
    * 보드에 속한 모든 카드 찾기
@@ -78,8 +84,13 @@ public interface CardService {
    */
   Attachment addAttachment(AddCardAttachmentCommand command);
 
-
+  /**
+   * 카드 삭제
+   */
   void deleteCard(DeleteCardCommand command);
 
+  /**
+   * 카드에 있는 첨부파일 삭제
+   */
   void removeAttachment(CardId cardId, AttachmentId attachmentId);
 }

@@ -6,7 +6,9 @@ import com.taskmanagement.domain.model.activity.ActivityRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
+/**
+ * 활동 이력 서비스 구현
+ */
 @Service
 @Transactional
 public class ActivityServiceImpl implements ActivityService {

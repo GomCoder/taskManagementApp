@@ -1,4 +1,4 @@
-
+<!-- 페이지 Header UI-->
 <template>
   <div class="page-header d-flex align-content-center">
     <div class="logo" @click="goHome()">

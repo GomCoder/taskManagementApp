@@ -12,6 +12,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * Mailer 사용 컴포넌트
+ */
 @Component
 public class AsyncMailer implements Mailer {
 

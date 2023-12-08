@@ -1,3 +1,4 @@
+<!-- 로고 UI -->
 <template>
   <div class="logo-wrapper">
     <img src="@/images/logo.png" alt="로고 이미지" class="logo">

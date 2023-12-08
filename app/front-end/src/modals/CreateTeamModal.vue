@@ -1,3 +1,4 @@
+<!-- 팀 생성 모달창 UI -->
 <template>
   <form @submit.prevent="saveTeam">
     <div class="modal" tabindex="-1" role="dialog" backdrop="static" id="createTeamModal">

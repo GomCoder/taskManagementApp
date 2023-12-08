@@ -1,7 +1,8 @@
 package com.taskmanagement.domain.model.user;
 
 /**
- * 사용자 레포지토리 인터페이스
+ * 사용자 레포지토리 - 사용자 이름으로 사용자 조회, 이메일 주소로 사용자 조회, 
+ *                    사용자 아이디로 사용자 조회, 사용자 저장
  */
 public interface UserRepository {
 

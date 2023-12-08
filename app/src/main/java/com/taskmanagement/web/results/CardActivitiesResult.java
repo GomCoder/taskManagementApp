@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 카드 활동 이력 처리에 대한 결과
+ */
 public class CardActivitiesResult {
 
   public static ResponseEntity<ApiResult> build(List<Activity> activities) {

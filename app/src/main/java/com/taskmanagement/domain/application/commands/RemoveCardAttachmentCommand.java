@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.attachment.AttachmentManagement;
 import com.taskmanagement.domain.model.card.CardId;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 첨부파일 삭제 커멘드 클래스
+ */
 public class RemoveCardAttachmentCommand extends UserCommand{
   private final CardId cardId;
   private final AttachmentId attachmentId;

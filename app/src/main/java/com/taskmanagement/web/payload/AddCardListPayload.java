@@ -3,6 +3,9 @@ package com.taskmanagement.web.payload;
 import com.taskmanagement.domain.application.commands.AddCardListCommand;
 import com.taskmanagement.domain.model.board.BoardId;
 
+/**
+ * 카드 리스트 추가에 전송되는 데이터
+ */
 public class AddCardListPayload {
   private long boardId;
   private String name;

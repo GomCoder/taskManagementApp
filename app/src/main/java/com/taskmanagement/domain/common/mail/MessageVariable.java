@@ -4,6 +4,9 @@ import org.aspectj.bridge.Message;
 
 import java.util.Objects;
 
+/**
+ * 메시지에 보낼 변수값 저장 후 인스턴스 생성
+ */
 public class MessageVariable {
 
   private final String key;

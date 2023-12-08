@@ -12,6 +12,9 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+/**
+ * 팀 Hibernate 레포지토리 
+ */
 @Repository
 public class HibernateTeamRepository extends HibernateSupport<Team> implements TeamRepository {
 
@@ -19,7 +22,9 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
     super(entityManager);
   }
 
-
+  /**
+   * 사용자 아이디로 팀 조회
+   */
   @Override
   public List<Team> findTeamsByUserId(UserId userId) {
     String sql =
@@ -34,6 +39,9 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
     return query.list();
   }
 
+  /**
+   * 팀 아이디로 팀 조회
+   */
   @Override
   public Team findById(TeamId teamId) {
     Query<Team> query = getSession().createQuery("from Team where id = :id", Team.class);

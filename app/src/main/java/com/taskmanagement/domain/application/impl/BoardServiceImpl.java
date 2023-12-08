@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * 보드 서비스 구현
+ */
 @Service
 @Transactional
 public class BoardServiceImpl implements BoardService {
@@ -39,21 +42,33 @@ public class BoardServiceImpl implements BoardService {
     this.domainEventPublisher = domainEventPublisher;
   }
 
+  /**
+   * 사용자 아이디로 보드 정보 조회
+   */
   @Override
   public List<Board> findBoardsByMembership(UserId userId) {
     return boardRepository.findBoardsByMembership(userId);
   }
 
+  /**
+   * 보드 아이디로 보드 조회
+   */
   @Override
   public Board findById(BoardId boardId) {
     return boardRepository.findById(boardId);
   }
 
+  /**
+   * 보드 아이디로 보드에 속한 멤버 조회
+   */
   @Override
   public List<User> findMembers(BoardId boardId) {
     return boardMemberRepository.findMembers(boardId);
   }
 
+  /**
+   * 보드 생성하기
+   */
   @Override
   public Board createBoard(CreateBoardCommand command) {
     Board board = boardManagement.createBoard(command.getUserId(),
@@ -65,6 +80,9 @@ public class BoardServiceImpl implements BoardService {
     return board;
   }
 
+  /**
+   * 보드에 멤버 추가하기
+   */
   @Override
   public User addMember(AddBoardMemberCommand command) throws UserNotFoundException {
     User user = userFinder.find(command.getUsernameOrEmailAddress());
@@ -73,6 +91,9 @@ public class BoardServiceImpl implements BoardService {
     return user;
   }
 
+  /**
+   * 보드 삭제하기
+   */
   @Override
   public void deleteBoard(DeleteBoardCommand command) {
     boardRepository.deleteBoard(command.getBoardId());

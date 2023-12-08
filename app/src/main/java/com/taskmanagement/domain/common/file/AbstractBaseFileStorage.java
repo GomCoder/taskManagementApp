@@ -16,6 +16,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * 파일 저장을 위한 경로 생성
+ */
 public abstract class AbstractBaseFileStorage implements FileStorage {
 
   private static final Logger log = LoggerFactory.getLogger(AbstractBaseFileStorage.class);

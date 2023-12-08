@@ -16,6 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * 카드 리스트 Hibernate 레포지토리
+ */
 @Repository
 public class HibernateCardListRepository extends HibernateSupport<CardList> implements CardListRepository {
   private final JdbcTemplate jdbcTemplate;
@@ -25,6 +28,9 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
     this.jdbcTemplate = jdbcTemplate;
   }
 
+  /**
+   * 보드 아이디로 카드 리스트 조회
+   */
   @Override
   public List<CardList> findByBoardId(BoardId boardId) {
     String sql = "select cl.* from card_list cl where cl.board_id = :boardId";
@@ -33,6 +39,9 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
     return query.list();
   }
 
+  /**
+   * 카드 리스트의 위치 변경 업데이트
+   */
   @Override
   public void changePositions(final List<CardListPosition> cardListPositions) {
     String sql = " update card_list set `position` = ? where id = ?";
@@ -52,11 +61,17 @@ public class HibernateCardListRepository extends HibernateSupport<CardList> impl
     });
   }
 
+  /**
+   * 카드 리스트 아이디로 카드 리스트 조회
+   */
   @Override
   public CardList findById(CardListId cardListId) {
     return getSession().find(CardList.class, cardListId.value());
   }
 
+  /**
+   * 카드 리스트 삭제
+   */
   @Override
   public void deleteCardList(CardListId cardListId) {
     String sql = "delete from card_list where id = :cardListId";

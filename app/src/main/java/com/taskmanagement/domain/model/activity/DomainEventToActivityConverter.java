@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * 도메인 이벤트 활동 이력에 대한 컨버터 컴포넌트
+ */
 @Component
 public class DomainEventToActivityConverter {
   private static final Logger log = LoggerFactory.getLogger(DomainEventToActivityConverter.class);

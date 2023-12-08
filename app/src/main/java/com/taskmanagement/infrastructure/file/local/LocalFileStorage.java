@@ -17,6 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * 로컬 파일 저장소 생성
+ */
 @Component("localFileStorage")
 public class LocalFileStorage extends AbstractBaseFileStorage {
   private final String rootFolderPath;
@@ -27,11 +30,17 @@ public class LocalFileStorage extends AbstractBaseFileStorage {
     this.rootTempPath = tempPath;
   }
 
+  /**
+   * 임시 파일 폴더에 저장
+   */
   @Override
   public TempFile saveAsTempFile(String folder, MultipartFile multipartFile) {
     return saveMultipartFileToLocalTempFolder(rootTempPath, folder, multipartFile);
   }
 
+  /**
+   * 임시 파일 저장
+   */
   @Override
   public void saveTempFile(TempFile tempFile) {
     Path targetLocation = Paths.get(rootFolderPath + "/" + tempFile.getFileRelativePath());
@@ -43,6 +52,9 @@ public class LocalFileStorage extends AbstractBaseFileStorage {
     }
   }
 
+  /**
+   * 업로드된 파일을 로컬에 저장
+   */
   @Override
   public String saveUploaded(String folder, MultipartFile multipartFile) {
     TempFile locallySavedFile = saveMultipartFileToLocalTempFolder(rootFolderPath, folder, multipartFile);

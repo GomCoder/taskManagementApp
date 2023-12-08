@@ -1,3 +1,4 @@
+<!-- 홈 페이지 UI -->
 <template>
   <div>
     <PageHeader />

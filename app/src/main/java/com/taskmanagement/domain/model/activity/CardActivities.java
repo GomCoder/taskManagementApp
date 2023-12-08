@@ -10,6 +10,9 @@ import com.taskmanagement.domain.model.card.events.CardTitleChangedEvent;
 import com.taskmanagement.domain.model.user.UserId;
 import com.taskmanagement.utils.IpAddress;
 
+/**
+ * 카드 활동 이력
+ */
 public class CardActivities {
   /**
    * 댓글 추가하기

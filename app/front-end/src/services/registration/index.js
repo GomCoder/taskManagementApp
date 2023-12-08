@@ -2,7 +2,7 @@ import axios from 'axios'
 import errorParser from '@/utils/error-parser'
 export default {
   /**
-   * 새로운 사용자 가입 데이터 검증
+   * 새로운 사용자 가입 데이터 검증을 위한 POST 요청
    * @param detail
    * @returns {Promise<unknown>}
    */

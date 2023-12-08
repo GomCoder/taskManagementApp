@@ -3,7 +3,7 @@ import errorParser from '@/utils/error-parser'
 
 export default {
   /**
-   * 사용자 로그인 요청에 대한 인증
+   * 사용자 로그인 요청에 대한 인증 POST 요청
    * @param detail
    * @returns {Promise<unknown>}
    */

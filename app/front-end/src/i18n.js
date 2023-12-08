@@ -4,7 +4,7 @@ import { enUS, zhCN, koKR } from '@/locale'
 
 Vue.use(VueI18n)
 /**
- * VueI18n 옵션 인스턴스 생성
+ * VueI18n 옵션 인스턴스 생성 - 해당 지역에 맞는 언어로 설정
  * @type {VueI18n}
  */
 export const i18n = new VueI18n({

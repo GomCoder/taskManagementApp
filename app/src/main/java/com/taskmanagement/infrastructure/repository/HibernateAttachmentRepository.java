@@ -10,17 +10,26 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * 첨부파일 Hibernate 레포지토리 
+ */
 @Repository
 public class HibernateAttachmentRepository extends HibernateSupport<Attachment> implements AttachmentRepository {
   HibernateAttachmentRepository(EntityManager entityManager) {
     super(entityManager);
   }
 
+  /**
+   * 아이디로 첨부파일 조회
+   */
   @Override
   public Attachment findById(AttachmentId attachmentId) {
     return getSession().find(Attachment.class, attachmentId.value());
   }
 
+  /**
+   * 카드 아이디로 첨부파일 조회
+   */
   @Override
   public List<Attachment> findAttachments(CardId cardId) {
     System.out.println("HibernateAttachmentRepository.findAttachments(): " +  cardId.value());
@@ -29,7 +38,9 @@ public class HibernateAttachmentRepository extends HibernateSupport<Attachment> 
     query.setParameter("cardId", cardId.value());
     return query.list();
   }
-
+  /**
+   * 첨부파일 삭제
+   */
   @Override
   public void deleteAttachment(AttachmentId attachmentId) {
     String sql = "delete from attachment where id = :attachmentId";

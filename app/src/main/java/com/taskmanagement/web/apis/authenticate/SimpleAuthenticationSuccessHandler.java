@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 사용자 인증 성공 핸들러
+ */
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
   @Override

@@ -5,6 +5,9 @@ import com.taskmanagement.domain.model.attachment.Attachment;
 import com.taskmanagement.utils.ImageUtils;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 첨부파일 처리에 대한 결과
+ */
 public class AttachmentResult {
 
   public static ResponseEntity<ApiResult> build(Attachment attachment, FileUrlCreator fileUrlCreator) {
@@ -20,8 +23,6 @@ public class AttachmentResult {
     if (attachment.isThumbnailCreated()) {
       apiResult.add("previewUrl", ImageUtils.getThumbnailVersion(fileUrl));
     }
-
-    System.out.println("AttachmentResult.build(): " + apiResult);
 
     return Result.ok(apiResult);
   }

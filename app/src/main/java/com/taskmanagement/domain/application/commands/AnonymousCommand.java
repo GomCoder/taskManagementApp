@@ -6,6 +6,9 @@ import io.jsonwebtoken.lang.Assert;
 
 import java.util.Objects;
 
+/**
+ * 
+ */
 public  abstract class AnonymousCommand implements TriggeredFrom {
   private IpAddress ipAddress;
 

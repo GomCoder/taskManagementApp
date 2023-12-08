@@ -19,13 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
- * 회원가입 요청을 처리하기 위한 API Handler
- * - Spring MVC는 @Valid 어노테이션이 존재하면 register() 메서드에 데이터를 전달하기 전에
- *   RegistrationPayload의 데이터 검증을 수행하여 데이터가 유효한지 확인함
- * - Handler에서는 RegistrationPayload 인스턴스를 RegistrationCommand 클래스로 변환한 뒤,
- *   RegistrationCommand 클래스의 인스턴스와 함께 Service API를 호출함
- * - 성공: Result.created()를 호출하여 HTTP 201 응답을 반환
- * - 실패: RegistrationException 예외 처리, 관련 메시지와 HTTP 400 응답을 반환
+ * 회원가입 요청 API 컨트롤러
+ *
  */
 @Controller
 public class RegistrationApiController extends AbstractBaseController {

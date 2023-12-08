@@ -3,6 +3,9 @@ package com.taskmanagement.web.results;
 import com.taskmanagement.domain.model.card.Card;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 카드 처리에 대한 결과
+ */
 public class CardResult {
 
   public static ResponseEntity<ApiResult> build(Card card) {
