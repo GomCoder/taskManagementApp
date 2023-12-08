@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REPO = "taskManagementApp/taskManagement.mysql"
+        DOCKER_REPO = "devk/taskManagement"
         DOCKER_CREDENTIAL = "dockerhub"
         JENKINS_AT_STAGING = "jenkins@staging.taskManagementApp.com"
     }
