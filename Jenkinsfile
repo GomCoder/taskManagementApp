@@ -18,7 +18,7 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "cp taskManagementApp/app-0.0.1-SNAPSHOT.jar docker/app.jar"
+                sh "cp taskmanagement/app/0.0.1-SNAPSHOT/app-0.0.1-SNAPSHOT.jar docker/app.jar"
                 sh "docker build -t ${DOCKER_REPO}:${env.GIT_COMMIT} docker/"
             }
         }
