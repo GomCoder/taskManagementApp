@@ -45,5 +45,9 @@ public interface BoardService {
    */
   User addMember(AddBoardMemberCommand command) throws UserNotFoundException;
 
+  /**
+   * 보드 삭제하기
+   * @param command
+   */
   void deleteBoard(DeleteBoardCommand command);
 }

@@ -445,6 +445,8 @@ export default {
     closeCardWindow () {
       console.log('[BoardPage] Close card window ' + this.openedCard.id)
       $('#cardModal').modal('hide')
+      this.$router.push({ name: 'board' })
+      location.reload()
     },
     updateCardCoverImage (change) {
       const cardList = this.cardLists.find(cardList => {

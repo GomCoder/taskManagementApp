@@ -15,5 +15,19 @@ export default {
         reject(errorParser.parse(error))
       })
     })
+  },
+  /**
+   * 팀 삭제하기
+   * @param teamId
+   * @returns {Promise<unknown>}
+   */
+  deleteTeam (teamId) {
+    return new Promise((resolve, reject) => {
+      axios.delete('/teams/' + teamId).then(({ data }) => {
+        resolve(data)
+      }).catch((error) => {
+        reject(errorParser.parse(error))
+      })
+    })
   }
 }

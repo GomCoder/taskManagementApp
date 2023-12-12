@@ -25,5 +25,10 @@ public interface BoardRepository {
    */
   void save(Board board);
 
+  /**
+   * 보드 삭제하기
+   * @param boardId
+   * @return
+   */
   Board deleteBoard(BoardId boardId);
 }

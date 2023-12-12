@@ -20,7 +20,11 @@
         </div>
       </div>
       <div class="boards-section" v-for="team in teamBoards" v-bind:key="team.id">
-        <h2 class="section-title">{{ team.name }}</h2>
+        <h2 class="section-title">{{ team.name }}
+          <div style="float: right" @click="deleteTeam(team.id)">
+            <font-awesome-icon icon="trash" />
+          </div>
+        </h2>
         <div class="boards d-flex align-content-start flex-wrap">
           <div class="board list-inline-item" v-for="board in team.boards"
                v-bind:key="board.id" @click="openBoard(board)">
@@ -60,6 +64,7 @@ import { mapGetters } from 'vuex'
 import { personalBoards, teamBoards } from '@/store/getters'
 import PageFooter from '@/components/PageFooter.vue'
 import boardService from '@/services/boards'
+import teamService from '@/services/teams'
 import notify from '@/utils/notify'
 
 export default {
@@ -117,7 +122,18 @@ export default {
       }).catch(error => {
         notify.error(error.message)
       })
-      this.$router.go()
+    },
+    /**
+     * 팀 삭제
+     * @param board
+     */
+    deleteTeam (teamId) {
+      teamService.deleteTeam(teamId).then(({ teamId }) => {
+        this.teamId = teamId
+        this.$router.go()
+      }).catch(error => {
+        notify.error(error.message)
+      })
     }
   }
 }

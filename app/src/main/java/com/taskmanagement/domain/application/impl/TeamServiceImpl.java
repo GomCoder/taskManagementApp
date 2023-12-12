@@ -2,6 +2,8 @@ package com.taskmanagement.domain.application.impl;
 
 import com.taskmanagement.domain.application.TeamService;
 import com.taskmanagement.domain.application.commands.CreateTeamCommand;
+import com.taskmanagement.domain.application.commands.DeleteBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteTeamCommand;
 import com.taskmanagement.domain.common.event.DomainEventPublisher;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.team.TeamId;
@@ -43,4 +45,10 @@ public class TeamServiceImpl implements TeamService {
     System.out.println(team.getCreatedDate());
     return team;
   }
+
+  @Override
+  public void deleteTeam(DeleteTeamCommand command) {
+    teamRepository.deleteTeam(command.getTeamId());
+  }
+
 }

@@ -1,5 +1,7 @@
 package com.taskmanagement.domain.model.team;
 
+import com.taskmanagement.domain.model.board.Board;
+import com.taskmanagement.domain.model.board.BoardId;
 import com.taskmanagement.domain.model.user.UserId;
 
 import java.util.List;
@@ -24,4 +26,11 @@ public interface TeamRepository {
    * @param team
    */
   void save(Team team);
+
+  /**
+   * 팀 삭제하기
+   * @param teamId
+   * @return
+   */
+  Team deleteTeam(TeamId teamId);
 }

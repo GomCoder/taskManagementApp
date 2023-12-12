@@ -1,5 +1,6 @@
 package com.taskmanagement.infrastructure.repository;
 
+import com.taskmanagement.domain.model.card.Card;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.team.TeamRepository;
@@ -39,5 +40,21 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
     Query<Team> query = getSession().createQuery("from Team where id = :id", Team.class);
     query.setParameter("id", teamId.value());
     return query.uniqueResult();
+  }
+
+  @Override
+  public Team deleteTeam(TeamId teamId) {
+    // 보드 멤버 삭제
+    String deleteMembersSql = "DELETE FROM board_member WHERE board_id IN (SELECT id FROM board WHERE team_id = :teamId)";
+    NativeQuery<?> deleteMembersQuery = getSession().createNativeQuery(deleteMembersSql);
+    deleteMembersQuery.setParameter("teamId", teamId.value());
+    deleteMembersQuery.executeUpdate();
+
+    // 팀 삭제
+    String deleteTeamSql = "delete from team where id = :teamId";
+    NativeQuery<Team> deleteTeamQuery = getSession().createNativeQuery(deleteTeamSql, Team.class);
+    deleteTeamQuery.setParameter("teamId", teamId.value());
+    deleteTeamQuery.executeUpdate();
+    return getSession().find(Team.class, teamId.value());
   }
 }

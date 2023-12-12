@@ -1,6 +1,8 @@
 package com.taskmanagement.domain.application;
 
 import com.taskmanagement.domain.application.commands.CreateTeamCommand;
+import com.taskmanagement.domain.application.commands.DeleteBoardCommand;
+import com.taskmanagement.domain.application.commands.DeleteTeamCommand;
 import com.taskmanagement.domain.model.team.Team;
 import com.taskmanagement.domain.model.team.TeamId;
 import com.taskmanagement.domain.model.user.UserId;
@@ -29,4 +31,9 @@ public interface TeamService {
    */
   Team createTeam(CreateTeamCommand command);
 
+  /**
+   * 팀 삭제하기
+   * @param command
+   */
+  void deleteTeam(DeleteTeamCommand command);
 }
